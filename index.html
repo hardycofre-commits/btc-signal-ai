@@ -1,126 +1,118 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BTC Signal AI · Módulo 1</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BTC Signal AI v1.8.1</title>
+  <style>
+    :root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12253d;--line:#26415f;--text:#f7fbff;--muted:#9fc4ee;--ok:#20d690;--bad:#ff5570;--warn:#ffd166;--blue:#4aa3ff}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#0a1830);font-family:Arial,Helvetica,sans-serif;color:var(--text)}header{position:sticky;top:0;z-index:5;background:#06111f;border-bottom:1px solid var(--line);padding:18px 22px;display:flex;gap:18px;justify-content:space-between;align-items:center}h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:14px;margin-top:4px}.wrap{max-width:1320px;margin:22px auto;padding:0 18px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card{background:rgba(13,27,46,.92);border:1px solid var(--line);border-radius:18px;padding:20px}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center}.label{color:var(--muted);font-size:16px}.price{font-size:44px;font-weight:800;margin:12px 0}.red{color:var(--bad)}.green{color:var(--ok)}.yellow{color:var(--warn)}button{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:800;padding:13px 20px;cursor:pointer}.pill{padding:10px 16px;border-radius:999px;background:#26313b;color:var(--warn);font-weight:800;display:inline-block}.statusTop{background:#132b2c;color:var(--ok)}.statusBad{background:#322332;color:var(--bad)}.small{font-size:13px;color:var(--muted)}.row{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);padding:11px 0;gap:12px}.row:last-child{border-bottom:0}.big{font-size:26px;font-weight:800}.statusGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.source{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}.source.ok{border-color:#0ea77e}.source.bad{border-color:#b84a65}.source.warn{border-color:#80672a}.tv{height:460px;overflow:hidden}.note{margin-top:12px;color:var(--muted);font-size:13px}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}.fade{opacity:.8}@media(max-width:900px){.hero,.grid{grid-template-columns:1fr}.price{font-size:36px}header{align-items:flex-start;flex-direction:column}.tv{height:390px}}
+  </style>
 </head>
 <body>
-  <header class="app-header">
+<header>
+  <div><h1>BTC Signal AI</h1><div class="sub">v1.8.1 · Módulo 1 optimizado: carga rápida + timeout 5s</div></div>
+  <div style="display:flex;gap:12px;align-items:center"><span id="globalStatus" class="pill">• Verificando</span><button id="refreshBtn">Actualizar</button></div>
+</header>
+
+<main class="wrap">
+  <section class="card hero">
     <div>
-      <h1>BTC Signal AI</h1>
-      <p>v1.8 · Módulo 1 terminado: datos de mercado Bybit Spot</p>
+      <div class="label">MÓDULO 1</div>
+      <div class="big" style="font-size:42px;margin:8px 0">Datos de mercado</div>
+      <div class="label">Base limpia para análisis técnico, fundamental y motor de decisión.</div>
     </div>
-    <div class="header-actions">
-      <span id="connectionDot" class="connection-dot waiting">● Verificando</span>
-      <button id="refreshBtn">Actualizar</button>
+    <div>
+      <div class="label">BTC/USDT · Bybit Spot</div>
+      <div id="price" class="price">--</div>
+      <div id="change24" class="big">--</div>
     </div>
-  </header>
+  </section>
 
-  <main class="container">
-    <section class="hero-card">
-      <div class="signal-block">
-        <span class="module-pill">MÓDULO 1</span>
-        <h2>Datos de mercado</h2>
-        <p>Base limpia para alimentar los próximos módulos: técnico, fundamental y motor de decisión.</p>
-      </div>
-      <div class="price-block">
-        <p>BTC/USDT · Bybit Spot</p>
-        <h2 id="btcPrice">--</h2>
-        <span id="priceChange" class="change">--</span>
-      </div>
-    </section>
+  <section class="card" style="margin-top:18px">
+    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 style="margin:0">Estado del Módulo 1</h2><span class="small">Estados reales de conexión</span></div>
+    <div class="statusGrid" style="margin-top:18px">
+      <div id="bybitBox" class="source warn"><b>Bybit Spot</b><div class="small">Precio, volumen y rango 24h</div><div id="bybitStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Verificando...</div></div>
+      <div id="tvBox" class="source warn"><b>TradingView</b><div class="small">Gráfico visual BTCUSDT</div><div id="tvStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Cargando...</div></div>
+    </div>
+    <div id="updated" class="note">Última actualización: --. La app corta la espera si Bybit demora más de 5 segundos.</div>
+  </section>
 
-    <section class="card wide">
-      <div class="section-title">
-        <h3>Estado del Módulo 1</h3>
-        <span>Conexiones principales</span>
-      </div>
-      <div class="source-grid two">
-        <div class="source-card waiting" id="srcBybit">
-          <strong>Bybit Spot</strong>
-          <span>Precio, volumen y rango 24h</span>
-          <em>⏳ Verificando...</em>
-        </div>
-        <div class="source-card waiting" id="srcTrading">
-          <strong>TradingView</strong>
-          <span>Gráfico visual BTCUSDT</span>
-          <em>⏳ Cargando...</em>
-        </div>
-      </div>
-      <p class="note">Última actualización: <strong id="lastCheck">--</strong>. Auto actualización cada 30 segundos. Esta versión no emite señales de compra/venta; solo valida datos de mercado.</p>
-    </section>
+  <section class="grid" style="margin-top:18px">
+    <div class="card"><b>Último precio</b><div id="lastPrice" class="big" style="margin-top:18px">--</div><div class="small">Bybit Spot</div></div>
+    <div class="card"><b>Variación 24h</b><div id="changeCard" class="big" style="margin-top:18px">--</div><div class="small">Movimiento diario</div></div>
+    <div class="card"><b>Máximo 24h</b><div id="high24" class="big" style="margin-top:18px">--</div><div class="small">Resistencia diaria</div></div>
+    <div class="card"><b>Mínimo 24h</b><div id="low24" class="big" style="margin-top:18px">--</div><div class="small">Soporte diario</div></div>
+  </section>
 
-    <section class="grid four">
-      <article class="card metric-card">
-        <span>Último precio</span>
-        <strong id="lastPrice">--</strong>
-        <small>Bybit Spot</small>
-      </article>
-      <article class="card metric-card">
-        <span>Variación 24h</span>
-        <strong id="change24">--</strong>
-        <small id="changeLabel">--</small>
-      </article>
-      <article class="card metric-card">
-        <span>Máximo 24h</span>
-        <strong id="high24">--</strong>
-        <small>Resistencia diaria</small>
-      </article>
-      <article class="card metric-card">
-        <span>Mínimo 24h</span>
-        <strong id="low24">--</strong>
-        <small>Soporte diario</small>
-      </article>
-    </section>
+  <section class="grid" style="margin-top:18px">
+    <div class="card"><h3>Volumen y liquidez</h3><div class="row"><span class="label">Volumen 24h</span><b id="volume24">--</b></div><div class="row"><span class="label">Turnover 24h</span><b id="turnover24">--</b></div><div class="row"><span class="label">Spread bid/ask</span><b id="spread">--</b></div></div>
+    <div class="card"><h3>Libro básico</h3><div class="row"><span class="label">Mejor compra bid</span><b id="bid">--</b></div><div class="row"><span class="label">Mejor venta ask</span><b id="ask">--</b></div><div class="row"><span class="label">Diferencia</span><b id="diff">--</b></div></div>
+    <div class="card" style="grid-column:span 2"><h3>Lectura del mercado</h3><div id="marketRead" class="big">Esperando datos...</div><p class="small">Lectura simple basada solo en variación 24h y rango diario. No es recomendación financiera.</p></div>
+  </section>
 
-    <section class="grid three">
-      <article class="card">
-        <h3>Volumen y liquidez</h3>
-        <div class="metric"><span>Volumen 24h</span><strong id="volume24">--</strong></div>
-        <div class="metric"><span>Turnover 24h</span><strong id="turnover24">--</strong></div>
-        <div class="metric"><span>Spread bid/ask</span><strong id="spread">--</strong></div>
-      </article>
+  <section class="card" style="margin-top:18px">
+    <div style="display:flex;justify-content:space-between;gap:12px"><h2 style="margin:0">Resumen técnico de datos</h2><span class="small">Salida del Módulo 1 para próximos módulos</span></div>
+    <pre id="jsonOut" class="mono small" style="white-space:pre-wrap;background:#071324;border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:14px">Esperando datos...</pre>
+  </section>
 
-      <article class="card">
-        <h3>Libro básico</h3>
-        <div class="metric"><span>Mejor compra bid</span><strong id="bidPrice">--</strong></div>
-        <div class="metric"><span>Mejor venta ask</span><strong id="askPrice">--</strong></div>
-        <div class="metric"><span>Diferencia</span><strong id="bidAskDiff">--</strong></div>
-      </article>
+  <section class="card tv" style="margin-top:18px">
+    <h2 style="margin:0 0 12px">Gráfico TradingView</h2>
+    <div class="tradingview-widget-container" style="height:390px;width:100%">
+      <div id="tradingview_widget" style="height:100%;width:100%"></div>
+    </div>
+  </section>
+</main>
 
-      <article class="card">
-        <h3>Lectura del mercado</h3>
-        <div id="marketReading" class="reading-box">Esperando datos...</div>
-        <p class="note">Lectura simple basada solo en variación 24h y ubicación dentro del rango diario. No es recomendación financiera.</p>
-      </article>
-    </section>
-
-    <section class="card wide">
-      <div class="section-title">
-        <h3>Resumen técnico de datos</h3>
-        <span>Salida del Módulo 1 para los siguientes módulos</span>
-      </div>
-      <div id="dataSummary" class="decision-list"></div>
-    </section>
-
-    <section class="card wide">
-      <div class="section-title">
-        <h3>Gráfico TradingView</h3>
-        <span>BTCUSDT · Bybit</span>
-      </div>
-      <div class="tradingview-widget-container">
-        <div id="tradingview_chart"></div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    Herramienta de apoyo al análisis. No garantiza resultados, no entrega asesoría financiera y no ejecuta órdenes reales.
-  </footer>
-
-  <script src="https://s3.tradingview.com/tv.js"></script>
-  <script src="app.js"></script>
+<script src="https://s3.tradingview.com/tv.js" async onload="loadTV()" onerror="tvError()"></script>
+<script>
+const $ = id => document.getElementById(id);
+let lastData = null;
+let isLoading = false;
+const API = 'https://api.bybit.com/v5/market/tickers?category=spot&symbol=BTCUSDT';
+function money(n){ return Number(n).toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}); }
+function num(n, d=2){ return Number(n).toLocaleString('en-US',{maximumFractionDigits:d}); }
+function pct(n){ return (Number(n)*100).toFixed(2)+'%'; }
+function setSource(id, ok, msg){ const box=$(id+'Box'), st=$(id+'Status'); box.className='source '+(ok?'ok':'bad'); st.className=ok?'green':'red'; st.textContent=(ok?'✅ ':'❌ ')+msg; }
+function setGlobal(ok,msg){ const el=$('globalStatus'); el.className='pill '+(ok?'statusTop':'statusBad'); el.textContent=msg; }
+function timeoutFetch(url, ms=5000){ const c=new AbortController(); const t=setTimeout(()=>c.abort(),ms); return fetch(url,{signal:c.signal,cache:'no-store'}).finally(()=>clearTimeout(t)); }
+function resetLoading(){ $('bybitStatus').textContent='⏳ Verificando...'; $('bybitStatus').className='yellow'; $('bybitBox').className='source warn'; setGlobal(false,'• Verificando'); }
+async function update(){
+  if(isLoading) return; isLoading=true; resetLoading();
+  try{
+    const r = await timeoutFetch(API,5000);
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const data = await r.json();
+    const x = data?.result?.list?.[0];
+    if(!x) throw new Error('Respuesta sin datos');
+    const last=+x.lastPrice, prev= last/(1+Number(x.price24hPcnt));
+    const spread = +x.ask1Price - +x.bid1Price;
+    lastData = {symbol:x.symbol,lastPrice:last,change24:Number(x.price24hPcnt),high24:+x.highPrice24h,low24:+x.lowPrice24h,volume24:+x.volume24h,turnover24:+x.turnover24h,bid:+x.bid1Price,ask:+x.ask1Price,spread,lastUpdate:new Date().toISOString()};
+    $('price').textContent = money(last);
+    $('lastPrice').textContent = money(last);
+    $('change24').textContent = pct(x.price24hPcnt)+' 24h'; $('change24').className = Number(x.price24hPcnt)>=0?'big green':'big red';
+    $('changeCard').textContent = pct(x.price24hPcnt); $('changeCard').className = Number(x.price24hPcnt)>=0?'big green':'big red';
+    $('high24').textContent = money(x.highPrice24h); $('low24').textContent = money(x.lowPrice24h);
+    $('volume24').textContent = num(x.volume24h,2)+' BTC'; $('turnover24').textContent = money(x.turnover24h);
+    $('bid').textContent = money(x.bid1Price); $('ask').textContent = money(x.ask1Price); $('diff').textContent = money(spread); $('spread').textContent = money(spread);
+    const c=Number(x.price24hPcnt); let read='Mercado lateral'; let cls='yellow';
+    if(c>0.015){read='Impulso positivo 24h';cls='green'} else if(c<-0.015){read='Presión bajista 24h';cls='red'} else if(c>0){read='Leve recuperación';cls='green'} else if(c<0){read='Leve debilidad';cls='red'}
+    $('marketRead').textContent=read; $('marketRead').className='big '+cls;
+    $('jsonOut').textContent = JSON.stringify(lastData,null,2);
+    $('updated').textContent = 'Última actualización: '+new Date().toLocaleString('es-CL')+'. Auto actualización cada 30 segundos.';
+    setSource('bybit', true, 'Conectado'); setGlobal(true,'2/2 fuentes activas');
+  }catch(e){
+    setSource('bybit', false, e.name==='AbortError'?'Tiempo agotado 5s':'Error: '+e.message);
+    setGlobal(false,'1/2 fuentes activas');
+    $('updated').textContent = 'Última actualización fallida: '+new Date().toLocaleString('es-CL')+'. Puedes presionar Actualizar.';
+  }finally{ isLoading=false; }
+}
+function loadTV(){
+  try{ new TradingView.widget({container_id:'tradingview_widget',autosize:true,symbol:'BYBIT:BTCUSDT',interval:'60',timezone:'America/Santiago',theme:'dark',style:'1',locale:'es',hide_top_toolbar:false,allow_symbol_change:false,calendar:false,studies:['RSI@tv-basicstudies','MACD@tv-basicstudies']}); setSource('tv',true,'Cargado'); }
+  catch(e){ tvError(); }
+}
+function tvError(){ setSource('tv',false,'No cargó'); }
+$('refreshBtn').addEventListener('click', update);
+update(); setInterval(update,30000);
+</script>
 </body>
 </html>
