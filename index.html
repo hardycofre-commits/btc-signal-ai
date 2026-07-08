@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BTC Signal AI v1.6</title>
+  <title>BTC Signal AI v1.7</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="app-header">
     <div>
       <h1>BTC Signal AI</h1>
-      <p>v1.6 · Validación de fuentes + Bybit + Fear & Greed + TradingView</p>
+      <p>v1.7 · Estados reales de conexión + actualización automática cada 30s</p>
     </div>
-    <button id="refreshBtn">Actualizar</button>
+    <div class="header-actions"><span id="connectionDot" class="connection-dot waiting">● Verificando</span><button id="refreshBtn">Actualizar</button></div>
   </header>
 
   <main class="container">
@@ -32,7 +32,7 @@
     <section class="card wide">
       <div class="section-title">
         <h3>Estado de fuentes de datos</h3>
-        <span>Base para saber qué está funcionando</span>
+        <span>Estados reales de conexión</span>
       </div>
       <div class="source-grid">
         <div class="source-card" id="srcBybit"><strong>Bybit</strong><span>Precio y mercado</span><em>⏳ Verificando...</em></div>
@@ -40,7 +40,7 @@
         <div class="source-card" id="srcTrading"><strong>TradingView</strong><span>Gráfico</span><em>⏳ Verificando...</em></div>
         <div class="source-card" id="srcNews"><strong>Noticias</strong><span>CryptoCompare</span><em>⏳ Verificando...</em></div>
       </div>
-      <p class="note">Si una fuente falla, la app sigue funcionando con las demás. Las noticias pueden bloquearse en GitHub Pages por CORS.</p>
+      <p class="note">Última verificación: <strong id="lastCheck">--</strong>. Actualización automática cada 30 segundos. Si una fuente falla, la app sigue funcionando con las demás.</p>
     </section>
 
     <section class="grid">
@@ -101,7 +101,7 @@
         <button id="refreshNewsBtn">Actualizar noticias</button>
       </div>
       <div id="newsList" class="news-list"></div>
-      <p class="note">Fuente de prueba: CryptoCompare News API pública. Si GitHub Pages bloquea la consulta, se mantiene el error visible y no afecta al resto del análisis.</p>
+      <p class="note">Fuente de prueba: CryptoCompare News API pública. Si GitHub Pages bloquea la consulta por CORS, se mostrará como error y quedará pendiente para backend seguro.</p>
     </section>
 
     <section class="card wide">

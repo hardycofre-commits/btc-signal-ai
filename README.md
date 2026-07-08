@@ -1,17 +1,18 @@
-# BTC Signal AI v1.6
+# BTC Signal AI v1.7
 
-Versión con validación de fuentes de datos.
+Versión enfocada en validar estados reales de conexión.
 
-## Incluye
+## Cambios v1.7
 
-- Precio BTC/USDT desde Bybit Spot.
-- Fear & Greed Index.
-- Gráfico TradingView BTCUSDT Bybit.
-- Panel de estado de fuentes.
-- Noticias de prueba desde CryptoCompare, con detección visible si falla por CORS.
-- Motor de decisión que no se rompe si una fuente falla.
-- Historial local de señales.
+- Mantiene precio BTC/USDT desde Bybit Spot.
+- Mantiene Fear & Greed.
+- Mantiene gráfico TradingView.
+- Agrega indicador superior de fuentes activas.
+- Corrige estado de fuentes: conectado, verificando o error.
+- Agrega hora de última verificación.
+- Auto actualización cada 30 segundos.
+- Noticias siguen como prueba; si falla por CORS, queda marcado como pendiente para backend seguro.
 
 ## Importante
 
-Esta app es una herramienta de apoyo al análisis. No garantiza resultados y no ejecuta órdenes reales.
+Esta aplicación es una herramienta de apoyo al análisis. No garantiza resultados y no ejecuta órdenes reales.

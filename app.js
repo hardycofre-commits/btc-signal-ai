@@ -15,24 +15,42 @@ const state = {
   score: 50,
   signal: 'ESPERAR',
   sources: {
-    bybit: false,
-    fear: false,
-    tradingview: false,
-    news: false
-  }
+    bybit: { ok:false, detail:'Pendiente' },
+    fear: { ok:false, detail:'Pendiente' },
+    tradingview: { ok:false, detail:'Pendiente' },
+    news: { ok:false, detail:'Pendiente' }
+  },
+  lastCheck: null
 };
 
 const $ = (id) => document.getElementById(id);
 const money = (n) => Number(n || 0).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
 const num = (n) => Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: 2 });
 
-function setSource(id, ok, text){
+function setSource(id, ok, text, detail = ''){
   const el = $(id);
   if(!el) return;
   el.classList.remove('ok','fail','waiting');
   el.classList.add(ok === null ? 'waiting' : ok ? 'ok' : 'fail');
   const em = el.querySelector('em');
   if(em) em.textContent = text;
+  const span = el.querySelector('span');
+  if(span && detail) span.textContent = detail;
+}
+
+function refreshConnectionDot(){
+  const dot = $('connectionDot');
+  if(!dot) return;
+  const checks = [state.sources.bybit.ok, state.sources.fear.ok, state.sources.tradingview.ok, state.sources.news.ok];
+  const okCount = checks.filter(Boolean).length;
+  dot.className = 'connection-dot ' + (okCount >= 3 ? 'ok' : okCount >= 2 ? 'waiting' : 'fail');
+  dot.textContent = `${okCount}/4 fuentes activas`;
+}
+
+function setLastCheck(){
+  state.lastCheck = new Date();
+  if($('lastCheck')) $('lastCheck').textContent = state.lastCheck.toLocaleString('es-CL');
+  refreshConnectionDot();
 }
 
 async function fetchBybit(){
@@ -48,11 +66,11 @@ async function fetchBybit(){
     state.high24 = Number(t.highPrice24h);
     state.low24 = Number(t.lowPrice24h);
     state.volume24 = Number(t.volume24h);
-    state.sources.bybit = true;
-    setSource('srcBybit', true, '✅ Conectado');
+    state.sources.bybit = { ok:true, detail:'Precio Bybit Spot' };
+    setSource('srcBybit', true, '✅ Conectado', 'Precio y mercado OK');
   }catch(err){
-    state.sources.bybit = false;
-    setSource('srcBybit', false, '❌ Error');
+    state.sources.bybit = { ok:false, detail:err.message };
+    setSource('srcBybit', false, '❌ Error', 'No se pudo leer precio');
     throw err;
   }
 }
@@ -67,11 +85,11 @@ async function fetchFear(){
     if(!item) throw new Error('Respuesta Fear & Greed inválida');
     state.fear = Number(item.value);
     state.fearLabel = item.value_classification;
-    state.sources.fear = true;
-    setSource('srcFear', true, '✅ Conectado');
+    state.sources.fear = { ok:true, detail:'Sentimiento OK' };
+    setSource('srcFear', true, '✅ Conectado', `${state.fearLabel}`);
   }catch(err){
-    state.sources.fear = false;
-    setSource('srcFear', false, '❌ Error');
+    state.sources.fear = { ok:false, detail:err.message };
+    setSource('srcFear', false, '❌ Error', 'No se pudo leer índice');
   }
 }
 
@@ -107,15 +125,15 @@ async function fetchNews(){
     });
     state.news = items;
     state.newsScore = Math.max(-10, Math.min(10, items.reduce((sum, n) => sum + n.points, 0)));
-    state.sources.news = true;
-    setSource('srcNews', true, '✅ Conectado');
+    state.sources.news = { ok:true, detail:`${items.length} noticias` };
+    setSource('srcNews', true, '✅ Conectado', `${items.length} noticias cargadas`);
     $('newsStatus').textContent = `${items.length} noticias cargadas`;
     renderNews();
   }catch(err){
     state.news = [];
     state.newsScore = 0;
-    state.sources.news = false;
-    setSource('srcNews', false, '❌ Bloqueado/Error');
+    state.sources.news = { ok:false, detail:err.message };
+    setSource('srcNews', false, '❌ Bloqueado/Error', 'Pendiente backend seguro');
     $('newsStatus').textContent = 'Noticias no disponibles';
     $('newsList').innerHTML = `<div class="news-item"><strong>No se pudieron cargar noticias</strong><small>${err.message}. La app queda preparada para backend seguro en la siguiente etapa.</small></div>`;
   }
@@ -126,7 +144,7 @@ function scoreEngine(){
   let score = 50;
 
   let priceScore = 0;
-  if(state.sources.bybit && state.change24 !== null){
+  if(state.sources.bybit.ok && state.change24 !== null){
     if(state.change24 > 2) priceScore = 14;
     else if(state.change24 > 0.5) priceScore = 8;
     else if(state.change24 < -2) priceScore = -14;
@@ -138,7 +156,7 @@ function scoreEngine(){
   }
 
   let fearScore = 0;
-  if(state.sources.fear && state.fear !== null){
+  if(state.sources.fear.ok && state.fear !== null){
     if(state.fear >= 75) fearScore = -8;
     else if(state.fear >= 55) fearScore = 7;
     else if(state.fear <= 25) fearScore = 8;
@@ -150,7 +168,7 @@ function scoreEngine(){
   }
 
   let rangeScore = 0;
-  if(state.sources.bybit && state.high24 && state.low24 && state.price){
+  if(state.sources.bybit.ok && state.high24 && state.low24 && state.price){
     const range = state.high24 - state.low24;
     const position = range > 0 ? (state.price - state.low24) / range : 0.5;
     if(position > 0.7) rangeScore = 8;
@@ -160,13 +178,13 @@ function scoreEngine(){
   }
 
   let volumeScore = 0;
-  if(state.sources.bybit && state.volume24 > 10000 && Math.abs(state.change24) > 1){
+  if(state.sources.bybit.ok && state.volume24 > 10000 && Math.abs(state.change24) > 1){
     volumeScore = state.change24 > 0 ? 6 : -6;
   }
-  rows.push(['Volumen 24h', state.sources.bybit ? `${num(state.volume24)} BTC` : 'Sin conexión', volumeScore]);
+  rows.push(['Volumen 24h', state.sources.bybit.ok ? `${num(state.volume24)} BTC` : 'Sin conexión', volumeScore]);
   score += volumeScore;
 
-  rows.push(['Noticias BTC', state.sources.news ? `${state.news.length} noticias analizadas` : 'No conectadas todavía', state.newsScore]);
+  rows.push(['Noticias BTC', state.sources.news.ok ? `${state.news.length} noticias analizadas` : 'No conectadas todavía', state.newsScore]);
   score += state.newsScore;
 
   score = Math.max(0, Math.min(100, Math.round(score)));
@@ -226,12 +244,14 @@ async function updateAll(){
   await Promise.allSettled([fetchBybit(), fetchFear(), fetchNews()]);
   const rows = scoreEngine();
   render(rows);
+  setLastCheck();
 }
 
 function loadTradingView(){
   setSource('srcTrading', null, '⏳ Cargando...');
   if(!window.TradingView){
-    setSource('srcTrading', false, '❌ No disponible');
+    state.sources.tradingview = { ok:false, detail:'Script no disponible' };
+    setSource('srcTrading', false, '❌ No disponible', 'No cargó el script');
     return;
   }
   new TradingView.widget({
@@ -248,8 +268,8 @@ function loadTradingView(){
     allow_symbol_change: true,
     container_id: 'tradingview_chart'
   });
-  state.sources.tradingview = true;
-  setSource('srcTrading', true, '✅ Cargado');
+  state.sources.tradingview = { ok:true, detail:'Widget cargado' };
+  setSource('srcTrading', true, '✅ Cargado', 'Gráfico disponible');
 }
 
 function saveSignal(){
@@ -264,11 +284,11 @@ function renderHistory(){
 }
 
 $('refreshBtn').addEventListener('click', updateAll);
-$('refreshNewsBtn').addEventListener('click', async () => { await fetchNews(); const rows = scoreEngine(); render(rows); });
+$('refreshNewsBtn').addEventListener('click', async () => { await fetchNews(); const rows = scoreEngine(); render(rows); setLastCheck(); });
 $('saveSignalBtn').addEventListener('click', saveSignal);
 $('clearHistoryBtn').addEventListener('click', () => { localStorage.removeItem('btc_signal_history'); renderHistory(); });
 
 loadTradingView();
 renderHistory();
 updateAll();
-setInterval(updateAll, 60000);
+setInterval(updateAll, 30000);
