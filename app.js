@@ -1,170 +1,200 @@
-const API_PRICE = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true';
-const API_FEAR = 'https://api.alternative.me/fng/?limit=1';
+const API = {
+  price: 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd&include_24hr_change=true',
+  fear: 'https://api.alternative.me/fng/?limit=1',
+  news: 'https://min-api.cryptocompare.com/data/v2/news/?lang=EN&categories=BTC'
+};
 
-const $ = (id) => document.getElementById(id);
+const state = {
+  price: 0,
+  change24h: 0,
+  fearValue: 50,
+  fearLabel: 'Neutral',
+  newsScore: 0,
+  newsItems: [],
+  finalScore: 50,
+  signal: 'ESPERAR'
+};
 
-let currentPrice = 0;
-let currentChange = 0;
-let currentFear = 50;
-let currentFearText = 'Neutral';
+const el = id => document.getElementById(id);
+const money = n => n ? `US$${Number(n).toLocaleString('es-CL', { maximumFractionDigits: 0 })}` : '--';
 
-function formatUsd(value) {
-  return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+function classifyNews(title) {
+  const t = title.toLowerCase();
+  const bullish = ['etf', 'inflow', 'buy', 'buys', 'bull', 'rally', 'surge', 'record', 'approval', 'adoption', 'accumulate', 'breakout', 'reserve'];
+  const bearish = ['hack', 'outflow', 'sell', 'sells', 'bear', 'crash', 'drop', 'lawsuit', 'ban', 'fed', 'rate hike', 'liquidation', 'fear'];
+  let score = 0;
+  bullish.forEach(w => { if (t.includes(w)) score += 1; });
+  bearish.forEach(w => { if (t.includes(w)) score -= 1; });
+  if (score > 0) return { label: 'Alcista', cls: 'good', pts: 3 };
+  if (score < 0) return { label: 'Bajista', cls: 'bad', pts: -3 };
+  return { label: 'Neutral', cls: 'neutral', pts: 0 };
 }
 
-function formatDate() {
-  return new Date().toLocaleString('es-CL', { dateStyle: 'short', timeStyle: 'short' });
-}
-
-async function fetchPrice() {
-  const res = await fetch(API_PRICE);
-  if (!res.ok) throw new Error('No se pudo obtener precio BTC');
+async function loadPrice() {
+  const res = await fetch(API.price);
   const data = await res.json();
-  currentPrice = data.bitcoin.usd;
-  currentChange = data.bitcoin.usd_24h_change || 0;
+  state.price = data.bitcoin.usd;
+  state.change24h = data.bitcoin.usd_24h_change || 0;
 }
 
-async function fetchFearGreed() {
-  const res = await fetch(API_FEAR);
-  if (!res.ok) throw new Error('No se pudo obtener Fear & Greed');
+async function loadFear() {
+  const res = await fetch(API.fear);
   const data = await res.json();
-  currentFear = Number(data.data[0].value);
-  currentFearText = data.data[0].value_classification;
+  const item = data.data[0];
+  state.fearValue = Number(item.value);
+  state.fearLabel = item.value_classification;
 }
 
-function calculateSignal() {
+async function loadNews() {
+  try {
+    const res = await fetch(API.news);
+    const data = await res.json();
+    const list = (data.Data || []).slice(0, 8);
+    state.newsItems = list.map(n => ({ ...n, sentiment: classifyNews(n.title) }));
+    state.newsScore = state.newsItems.reduce((a, n) => a + n.sentiment.pts, 0);
+  } catch (e) {
+    state.newsItems = [];
+    state.newsScore = 0;
+  }
+}
+
+function calculateScore() {
   let score = 50;
-
-  if (currentChange > 3) score += 18;
-  else if (currentChange > 1) score += 10;
-  else if (currentChange < -3) score -= 18;
-  else if (currentChange < -1) score -= 10;
-
-  if (currentFear >= 75) score -= 8;       // codicia extrema: posible sobrecalentamiento
-  else if (currentFear >= 55) score += 8;
-  else if (currentFear <= 25) score += 6;  // miedo extremo: posible oportunidad, pero con riesgo
-  else if (currentFear <= 45) score -= 4;
-
+  let pricePts = state.change24h > 1 ? 12 : state.change24h < -1 ? -12 : 0;
+  let fearPts = 0;
+  if (state.fearValue <= 25) fearPts = 6;       // miedo extremo puede ser zona de oportunidad, con cautela
+  else if (state.fearValue >= 75) fearPts = -8; // codicia extrema aumenta riesgo
+  else if (state.fearValue >= 45 && state.fearValue <= 65) fearPts = 4;
+  let newsPts = Math.max(-15, Math.min(15, state.newsScore));
+  let riskPts = state.fearValue <= 20 || Math.abs(state.change24h) > 5 ? -8 : 0;
+  score += pricePts + fearPts + newsPts + riskPts;
   score = Math.max(0, Math.min(100, Math.round(score)));
 
   let signal = 'ESPERAR';
-  let className = 'signal-wait';
-  let risk = 'Medio';
-  let message = 'No hay ventaja clara. Mejor esperar confirmación.';
+  if (score >= 75 && state.change24h >= 0) signal = 'COMPRAR';
+  if (score <= 35 || (state.change24h < -3 && newsPts < 0)) signal = 'VENDER';
 
-  if (score >= 70) {
-    signal = 'COMPRAR';
-    className = 'signal-buy';
-    risk = 'Medio';
-    message = 'Sesgo alcista según precio y sentimiento.';
-  } else if (score <= 35) {
-    signal = 'VENDER';
-    className = 'signal-sell';
-    risk = 'Alto';
-    message = 'Sesgo bajista. Evitar compras impulsivas.';
+  state.finalScore = score;
+  state.signal = signal;
+  return { pricePts, fearPts, newsPts, riskPts, score, signal };
+}
+
+function renderNews() {
+  const box = el('newsList');
+  if (!state.newsItems.length) {
+    el('newsStatus').textContent = 'No disponible';
+    box.innerHTML = '<p>No se pudieron cargar noticias. Revisa conexión o CORS de la fuente.</p>';
+    return;
   }
-
-  return { score, signal, className, risk, message };
-}
-
-function updateRiskPlan(signal) {
-  const capital = Number($('capitalInput').value || 0);
-  const riskPct = Number($('riskInput').value || 0);
-  const maxLoss = capital * (riskPct / 100);
-
-  $('maxLoss').textContent = formatUsd(maxLoss);
-
-  if (!currentPrice) return;
-
-  const entry = currentPrice;
-  const stop = signal === 'VENDER' ? entry * 1.015 : entry * 0.985;
-  const tp = signal === 'VENDER' ? entry * 0.970 : entry * 1.030;
-
-  $('entryPrice').textContent = formatUsd(entry);
-  $('stopLoss').textContent = formatUsd(stop);
-  $('takeProfit').textContent = formatUsd(tp);
-}
-
-function paintScore(score) {
-  const degrees = Math.round((score / 100) * 360);
-  const circle = document.querySelector('.score-circle');
-  let color = 'var(--yellow)';
-  if (score >= 70) color = 'var(--green)';
-  if (score <= 35) color = 'var(--red)';
-  circle.style.background = `conic-gradient(${color} ${degrees}deg, var(--card-2) 0deg)`;
-}
-
-function saveHistory(signal, score) {
-  if (!currentPrice) return;
-  const history = JSON.parse(localStorage.getItem('btcSignalHistory') || '[]');
-  history.unshift({ date: formatDate(), price: currentPrice, signal, score });
-  localStorage.setItem('btcSignalHistory', JSON.stringify(history.slice(0, 20)));
-}
-
-function renderHistory() {
-  const history = JSON.parse(localStorage.getItem('btcSignalHistory') || '[]');
-  $('historyBody').innerHTML = history.map(item => `
-    <tr>
-      <td>${item.date}</td>
-      <td>${formatUsd(item.price)}</td>
-      <td>${item.signal}</td>
-      <td>${item.score}/100</td>
-    </tr>
+  el('newsStatus').textContent = `${state.newsItems.length} noticias`;
+  box.innerHTML = state.newsItems.map(n => `
+    <article class="news-item">
+      <div class="badge ${n.sentiment.cls}">${n.sentiment.label}</div>
+      <div>
+        <h4><a href="${n.url}" target="_blank" rel="noopener">${n.title}</a></h4>
+        <p>${n.source_info?.name || 'Fuente cripto'} · ${new Date(n.published_on * 1000).toLocaleString('es-CL')}</p>
+      </div>
+    </article>
   `).join('');
 }
 
-function render() {
-  const result = calculateSignal();
-
-  $('btcPrice').textContent = formatUsd(currentPrice);
-  $('priceChange').textContent = `Variación 24h: ${currentChange.toFixed(2)}%`;
-  $('fearValue').textContent = `${currentFear}/100`;
-  $('fearText').textContent = `Sentimiento: ${currentFearText}`;
-  $('signalText').textContent = result.signal;
-  $('confidenceText').textContent = `Confianza: ${result.score}%`;
-  $('scoreValue').textContent = result.score;
-  $('scoreMessage').textContent = result.message;
-  $('riskLevel').textContent = result.risk;
-
-  $('factorTrend').textContent = currentChange >= 0 ? 'Positiva' : 'Negativa';
-  $('factorFear').textContent = currentFearText;
-  $('factorRisk').textContent = result.risk;
-  $('factorSignal').textContent = result.signal;
-
-  const signalBox = $('signalBox');
-  signalBox.className = `signal-box ${result.className}`;
-
-  paintScore(result.score);
-  updateRiskPlan(result.signal);
-  saveHistory(result.signal, result.score);
-  renderHistory();
-  $('lastUpdate').textContent = formatDate();
+function renderRisk() {
+  const capital = Number(el('capitalInput').value || 0);
+  const risk = Number(el('riskInput').value || 0);
+  const lev = Number(el('leverageInput').value || 1);
+  const maxLoss = capital * risk / 100;
+  const position = capital * lev;
+  el('maxLoss').textContent = `US$${maxLoss.toFixed(2)}`;
+  el('positionSize').textContent = `US$${position.toFixed(2)}`;
 }
 
-async function updateDashboard() {
-  $('refreshBtn').disabled = true;
-  $('refreshBtn').textContent = 'Actualizando...';
+function renderAll() {
+  const calc = calculateScore();
+  const p = state.price;
+  const isBuy = state.signal === 'COMPRAR';
+  const isSell = state.signal === 'VENDER';
+  const stop = isSell ? p * 1.015 : p * 0.985;
+  const take = isSell ? p * 0.97 : p * 1.03;
+  const riskLevel = state.finalScore >= 75 || state.finalScore <= 35 ? 'Medio' : 'Alto';
 
+  el('btcPrice').textContent = money(p);
+  el('btcChange').textContent = `${state.change24h.toFixed(2)}%`;
+  el('lastUpdate').textContent = `Última actualización: ${new Date().toLocaleString('es-CL')}`;
+  el('signalText').textContent = state.signal;
+  el('confidenceText').textContent = `${state.finalScore}%`;
+  el('signalCard').className = `card signal-card ${isBuy ? 'buy' : isSell ? 'sell' : 'wait'}`;
+  el('scoreText').textContent = state.finalScore;
+  el('scoreGauge').style.background = `conic-gradient(${isBuy ? 'var(--green)' : isSell ? 'var(--red)' : 'var(--yellow)'} ${state.finalScore * 3.6}deg, var(--panel-2) 0deg)`;
+  el('scoreComment').textContent = isBuy ? 'Sesgo alcista. Revisar entrada con stop.' : isSell ? 'Sesgo bajista. Alta cautela.' : 'No hay ventaja clara. Mejor esperar confirmación.';
+  el('fearValue').textContent = `${state.fearValue}/100`;
+  el('fearLabel').textContent = state.fearLabel;
+  el('entryPrice').textContent = money(p);
+  el('stopLoss').textContent = money(stop);
+  el('takeProfit').textContent = money(take);
+  el('riskLevel').textContent = riskLevel;
+
+  el('factorPrice').textContent = state.change24h > 1 ? 'Positiva' : state.change24h < -1 ? 'Negativa' : 'Neutral';
+  el('factorPricePts').textContent = `${calc.pricePts > 0 ? '+' : ''}${calc.pricePts} pts`;
+  el('factorFear').textContent = state.fearLabel;
+  el('factorFearPts').textContent = `${calc.fearPts > 0 ? '+' : ''}${calc.fearPts} pts`;
+  el('factorNews').textContent = calc.newsPts > 3 ? 'Alcistas' : calc.newsPts < -3 ? 'Bajistas' : 'Mixtas';
+  el('factorNewsPts').textContent = `${calc.newsPts > 0 ? '+' : ''}${calc.newsPts} pts`;
+  el('factorRisk').textContent = calc.riskPts < 0 ? 'Alto' : 'Normal';
+  el('factorRiskPts').textContent = `${calc.riskPts} pts`;
+  el('factorSignal').textContent = state.signal;
+  el('factorTotal').textContent = `Total ${state.finalScore}/100`;
+
+  renderRisk();
+  renderNews();
+  saveSignal();
+  renderHistory();
+}
+
+function saveSignal() {
+  const key = 'btc-signal-ai-history-v12';
+  const history = JSON.parse(localStorage.getItem(key) || '[]');
+  const last = history[0];
+  const now = new Date();
+  if (last && now - new Date(last.iso) < 30 * 60 * 1000) return;
+  history.unshift({
+    iso: now.toISOString(),
+    date: now.toLocaleString('es-CL'),
+    signal: state.signal,
+    price: money(state.price),
+    score: state.finalScore,
+    reason: `24h ${state.change24h.toFixed(2)}%, Fear ${state.fearValue}, Noticias ${state.newsScore}`
+  });
+  localStorage.setItem(key, JSON.stringify(history.slice(0, 30)));
+}
+
+function renderHistory() {
+  const key = 'btc-signal-ai-history-v12';
+  const history = JSON.parse(localStorage.getItem(key) || '[]');
+  el('historyBody').innerHTML = history.map(h => `
+    <tr><td>${h.date}</td><td>${h.signal}</td><td>${h.price}</td><td>${h.score}</td><td>${h.reason}</td></tr>
+  `).join('') || '<tr><td colspan="5">Sin historial aún.</td></tr>';
+}
+
+async function refresh() {
+  el('refreshBtn').textContent = 'Actualizando...';
   try {
-    await Promise.all([fetchPrice(), fetchFearGreed()]);
-    render();
-  } catch (error) {
-    console.error(error);
-    $('scoreMessage').textContent = 'No se pudieron cargar los datos. Intenta nuevamente.';
+    await Promise.all([loadPrice(), loadFear(), loadNews()]);
+    renderAll();
+  } catch (e) {
+    alert('No se pudo actualizar. Revisa conexión o intenta nuevamente.');
   } finally {
-    $('refreshBtn').disabled = false;
-    $('refreshBtn').textContent = 'Actualizar';
+    el('refreshBtn').textContent = 'Actualizar';
   }
 }
 
-$('refreshBtn').addEventListener('click', updateDashboard);
-$('clearHistoryBtn').addEventListener('click', () => {
-  localStorage.removeItem('btcSignalHistory');
+el('refreshBtn').addEventListener('click', refresh);
+el('capitalInput').addEventListener('input', renderRisk);
+el('riskInput').addEventListener('input', renderRisk);
+el('leverageInput').addEventListener('input', renderRisk);
+el('clearHistoryBtn').addEventListener('click', () => {
+  localStorage.removeItem('btc-signal-ai-history-v12');
   renderHistory();
 });
-$('capitalInput').addEventListener('input', () => updateRiskPlan($('signalText').textContent));
-$('riskInput').addEventListener('input', () => updateRiskPlan($('signalText').textContent));
 
-renderHistory();
-updateDashboard();
-setInterval(updateDashboard, 5 * 60 * 1000);
+refresh();
+setInterval(refresh, 120000);
