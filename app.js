@@ -1,11 +1,24 @@
 const BYBIT_URL = 'https://api.bybit.com/v5/market/tickers?category=spot&symbol=BTCUSDT';
 const FEAR_URL = 'https://api.alternative.me/fng/?limit=1&format=json';
+const NEWS_URL = 'https://min-api.cryptocompare.com/data/v2/news/?lang=EN&categories=BTC';
 
-const state = { price: null, change24: null, high24: null, low24: null, volume24: null, fear: null, fearLabel: null, score: 50, signal: 'ESPERAR' };
+const state = {
+  price: null,
+  change24: null,
+  high24: null,
+  low24: null,
+  volume24: null,
+  fear: null,
+  fearLabel: null,
+  news: [],
+  newsScore: 0,
+  score: 50,
+  signal: 'ESPERAR'
+};
 
 const $ = (id) => document.getElementById(id);
-const money = (n) => Number(n).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
-const num = (n) => Number(n).toLocaleString('en-US', { maximumFractionDigits: 2 });
+const money = (n) => Number(n || 0).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
+const num = (n) => Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: 2 });
 
 async function fetchBybit(){
   const res = await fetch(BYBIT_URL);
@@ -28,6 +41,47 @@ async function fetchFear(){
   if(!item) throw new Error('Respuesta Fear & Greed inválida');
   state.fear = Number(item.value);
   state.fearLabel = item.value_classification;
+}
+
+function classifyNews(text){
+  const t = (text || '').toLowerCase();
+  const positive = ['rally','surge','soar','bull','bullish','gain','gains','rise','rises','upside','etf inflow','inflow','buy','accumulat','adoption','approval','record high','breakout'];
+  const negative = ['crash','plunge','drop','drops','fall','falls','bear','bearish','selloff','outflow','hack','lawsuit','ban','risk','liquidation','recession','rate hike','probe'];
+  let pos = positive.some(w => t.includes(w));
+  let neg = negative.some(w => t.includes(w));
+  if(pos && !neg) return { label: 'Alcista', points: 2, cls: 'positive' };
+  if(neg && !pos) return { label: 'Bajista', points: -2, cls: 'negative' };
+  return { label: 'Neutral', points: 0, cls: 'neutral' };
+}
+
+async function fetchNews(){
+  $('newsStatus').textContent = 'Cargando noticias...';
+  try{
+    const res = await fetch(NEWS_URL);
+    if(!res.ok) throw new Error('No se pudo conectar con CryptoCompare');
+    const data = await res.json();
+    const items = (data?.Data || []).slice(0, 8).map(n => {
+      const c = classifyNews(`${n.title} ${n.body}`);
+      return {
+        title: n.title,
+        url: n.url,
+        source: n.source_info?.name || n.source || 'CryptoCompare',
+        published: n.published_on ? new Date(n.published_on * 1000).toLocaleString('es-CL') : '',
+        label: c.label,
+        points: c.points,
+        cls: c.cls
+      };
+    });
+    state.news = items;
+    state.newsScore = Math.max(-10, Math.min(10, items.reduce((sum, n) => sum + n.points, 0)));
+    renderNews();
+    $('newsStatus').textContent = `${items.length} noticias cargadas`;
+  }catch(err){
+    state.news = [];
+    state.newsScore = 0;
+    $('newsStatus').textContent = 'Noticias no disponibles';
+    $('newsList').innerHTML = `<div class="news-item"><strong>No se pudieron cargar noticias</strong><small>${err.message}. Si GitHub Pages bloquea la consulta, lo dejaremos para backend seguro.</small></div>`;
+  }
 }
 
 function scoreEngine(){
@@ -63,8 +117,8 @@ function scoreEngine(){
   rows.push(['Volumen 24h', `${num(state.volume24)} BTC`, volumeScore]);
   score += volumeScore;
 
-  // Noticias queda neutral hasta conectar CryptoPanic con backend o token compatible.
-  rows.push(['Noticias CryptoPanic', 'Pendiente / neutral', 0]);
+  rows.push(['Noticias BTC', `${state.news.length} noticias analizadas`, state.newsScore]);
+  score += state.newsScore;
 
   score = Math.max(0, Math.min(100, Math.round(score)));
   state.score = score;
@@ -106,10 +160,22 @@ function render(rows){
     </div>`).join('');
 }
 
+function renderNews(){
+  if(!state.news.length){
+    $('newsList').innerHTML = `<div class="news-item"><strong>Sin noticias cargadas</strong><small>Presiona actualizar noticias.</small></div>`;
+    return;
+  }
+  $('newsList').innerHTML = state.news.map(n => `
+    <div class="news-item">
+      <div class="news-top"><span class="news-tag ${n.cls}">${n.label}</span><small>${n.source} · ${n.published}</small></div>
+      <a href="${n.url}" target="_blank" rel="noopener">${n.title}</a>
+    </div>`).join('');
+}
+
 async function updateAll(){
   $('signalText').textContent = 'Actualizando datos reales...';
   try{
-    await Promise.all([fetchBybit(), fetchFear()]);
+    await Promise.all([fetchBybit(), fetchFear(), fetchNews()]);
     const rows = scoreEngine();
     render(rows);
   }catch(err){
@@ -136,27 +202,6 @@ function loadTradingView(){
   });
 }
 
-async function loadNews(){
-  const key = localStorage.getItem('cryptopanic_key') || '';
-  $('cryptoPanicKey').value = key;
-  if(!key){
-    $('newsList').innerHTML = `<div class="news-item"><strong>Noticias aún no conectadas</strong><small>Ingresa un token de CryptoPanic para probar conexión. Si GitHub Pages bloquea la consulta, usaremos backend en la siguiente etapa.</small></div>`;
-    return;
-  }
-  try{
-    const url = `https://cryptopanic.com/api/v1/posts/?auth_token=${encodeURIComponent(key)}&currencies=BTC&public=true`;
-    const res = await fetch(url);
-    if(!res.ok) throw new Error('CryptoPanic no respondió correctamente');
-    const data = await res.json();
-    const items = (data.results || []).slice(0, 6);
-    $('newsStatus').textContent = `${items.length} noticias cargadas`;
-    $('newsList').innerHTML = items.map(n => `<div class="news-item"><a href="${n.url}" target="_blank" rel="noopener">${n.title}</a><small>${n.domain || 'CryptoPanic'} · ${n.published_at || ''}</small></div>`).join('');
-  }catch(err){
-    $('newsStatus').textContent = 'No se pudo cargar CryptoPanic';
-    $('newsList').innerHTML = `<div class="news-item"><strong>Conexión pendiente</strong><small>${err.message}. Esto puede ser por CORS en GitHub Pages.</small></div>`;
-  }
-}
-
 function saveSignal(){
   const history = JSON.parse(localStorage.getItem('btc_signal_history') || '[]');
   history.unshift({ date: new Date().toLocaleString('es-CL'), signal: state.signal, price: state.price, score: state.score });
@@ -169,12 +214,11 @@ function renderHistory(){
 }
 
 $('refreshBtn').addEventListener('click', updateAll);
+$('refreshNewsBtn').addEventListener('click', async () => { await fetchNews(); const rows = scoreEngine(); render(rows); });
 $('saveSignalBtn').addEventListener('click', saveSignal);
 $('clearHistoryBtn').addEventListener('click', () => { localStorage.removeItem('btc_signal_history'); renderHistory(); });
-$('saveNewsKey').addEventListener('click', () => { localStorage.setItem('cryptopanic_key', $('cryptoPanicKey').value.trim()); loadNews(); });
 
 loadTradingView();
 renderHistory();
-loadNews();
 updateAll();
 setInterval(updateAll, 60000);

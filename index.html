@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BTC Signal AI v1.4</title>
+  <title>BTC Signal AI v1.5</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="app-header">
     <div>
       <h1>BTC Signal AI</h1>
-      <p>v1.4 · Datos reales desde Bybit + Fear & Greed + TradingView</p>
+      <p>v1.5 · Bybit + Fear & Greed + TradingView + noticias reales</p>
     </div>
     <button id="refreshBtn">Actualizar</button>
   </header>
@@ -81,14 +81,13 @@
     <section class="card wide">
       <div class="section-title">
         <h3>Noticias fundamentales</h3>
-        <span id="newsStatus">Preparado para CryptoPanic</span>
+        <span id="newsStatus">CryptoCompare News</span>
       </div>
-      <div class="news-config">
-        <input id="cryptoPanicKey" type="password" placeholder="Token CryptoPanic opcional" />
-        <button id="saveNewsKey">Guardar token</button>
+      <div class="news-actions">
+        <button id="refreshNewsBtn">Actualizar noticias</button>
       </div>
       <div id="newsList" class="news-list"></div>
-      <p class="note">Nota: algunas APIs de noticias bloquean consultas directas desde GitHub Pages por CORS. Si ocurre, dejaremos esta conexión para una versión con backend seguro.</p>
+      <p class="note">Fuente: CryptoCompare News API pública. Las noticias se clasifican con reglas simples por palabras clave; no es recomendación financiera.</p>
     </section>
 
     <section class="card wide">
