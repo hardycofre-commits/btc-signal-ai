@@ -1,28 +1,28 @@
-# BTC Signal AI v1.2
+# BTC Signal AI v1.3
 
-Dashboard web para apoyo al análisis de BTC/USDT.
+Dashboard web de apoyo para análisis BTC/USDT.
 
-## Incluye
+## Cambios v1.3
 
-- Precio BTC en vivo.
-- Fear & Greed Index.
-- Motor de decisión con puntajes.
-- Noticias BTC / cripto clasificadas como alcistas, bajistas o neutrales.
-- Gestión de riesgo con capital, riesgo y apalancamiento.
-- Historial local de señales.
+- Recupera el diseño visual de v1.1.
+- Agrega gráfico TradingView integrado BTC/USDT.
+- Mejora motor de decisión con desglose de puntos.
+- Agrega apalancamiento y tamaño aproximado de posición.
+- Mejora historial local de señales.
 
 ## Archivos
 
-- index.html
-- styles.css
-- app.js
-- README.md
+- `index.html`
+- `styles.css`
+- `app.js`
+- `README.md`
 
-## Publicación en GitHub Pages
+## Fuentes externas
 
-Subir los archivos a la raíz del repositorio y activar GitHub Pages desde:
-Settings > Pages > Deploy from a branch > main > /(root)
+- Precio BTC: CoinGecko API.
+- Fear & Greed: Alternative.me API.
+- Gráfico: TradingView widget.
 
-## Importante
+## Advertencia
 
-Esta herramienta no garantiza resultados, no ejecuta operaciones y debe usarse solo como apoyo al análisis.
+Esta aplicación no ejecuta operaciones, no garantiza resultados y no corresponde a asesoría financiera.
