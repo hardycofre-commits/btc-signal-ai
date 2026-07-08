@@ -3,117 +3,104 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BTC Signal AI v1.3</title>
+  <title>BTC Signal AI v1.4</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="app-header">
     <div>
       <h1>BTC Signal AI</h1>
-      <p>Dashboard de apoyo para trading BTC/USDT</p>
+      <p>v1.4 · Datos reales desde Bybit + Fear & Greed + TradingView</p>
     </div>
-    <span class="version">v1.3</span>
+    <button id="refreshBtn">Actualizar</button>
   </header>
 
   <main class="container">
     <section class="hero-card">
-      <div class="price-box">
-        <span class="label">Precio BTC</span>
-        <h2 id="btcPrice">Cargando...</h2>
-        <p id="priceChange">Variación 24h: --</p>
-        <small>Fuente precio: CoinGecko</small>
+      <div class="signal-block">
+        <span id="signalBadge" class="badge wait">ESPERAR</span>
+        <h2 id="mainSignal">🟡 Esperar</h2>
+        <p id="signalText">Cargando análisis...</p>
       </div>
-
-      <div class="signal-box" id="signalBox">
-        <span class="label">Señal actual</span>
-        <h2 id="signalText">ESPERAR</h2>
-        <p id="confidenceText">Confianza: --%</p>
-        <small id="signalReason">Analizando mercado...</small>
+      <div class="price-block">
+        <p>BTC/USDT · Bybit Spot</p>
+        <h2 id="btcPrice">--</h2>
+        <span id="priceChange" class="change">--</span>
       </div>
     </section>
 
     <section class="grid">
-      <article class="card score-card">
+      <article class="card">
         <h3>Puntaje General</h3>
-        <div class="score-circle">
+        <div class="score-ring">
           <span id="scoreValue">--</span>
           <small>/100</small>
         </div>
-        <p id="scoreMessage">Analizando mercado...</p>
+        <p id="confidenceText">Confianza: --</p>
+      </article>
+
+      <article class="card">
+        <h3>Datos Bybit</h3>
+        <div class="metric"><span>Máx. 24h</span><strong id="high24">--</strong></div>
+        <div class="metric"><span>Mín. 24h</span><strong id="low24">--</strong></div>
+        <div class="metric"><span>Volumen 24h</span><strong id="volume24">--</strong></div>
       </article>
 
       <article class="card">
         <h3>Fear & Greed</h3>
-        <h2 id="fearValue">--</h2>
-        <p id="fearText">Sentimiento: --</p>
-        <small>Fuente: Alternative.me</small>
+        <div class="fear-box">
+          <strong id="fearValue">--</strong>
+          <span id="fearLabel">--</span>
+        </div>
+        <p id="fearText">Sentimiento del mercado.</p>
       </article>
 
       <article class="card">
-        <h3>Gestión de Riesgo</h3>
-        <label>Capital USDT</label>
-        <input id="capitalInput" type="number" value="1000" min="1" />
-        <label>Riesgo por operación (%)</label>
-        <input id="riskInput" type="number" value="1" min="0.1" step="0.1" />
-        <label>Apalancamiento</label>
-        <input id="leverageInput" type="number" value="3" min="1" max="20" step="1" />
-        <p>Pérdida máxima: <strong id="maxLoss">--</strong></p>
-      </article>
-
-      <article class="card">
-        <h3>Plan sugerido</h3>
-        <p>Entrada referencial: <strong id="entryPrice">--</strong></p>
-        <p>Stop Loss: <strong id="stopLoss">--</strong></p>
-        <p>Take Profit: <strong id="takeProfit">--</strong></p>
-        <p>Posición aprox.: <strong id="positionSize">--</strong></p>
-        <p>Riesgo: <strong id="riskLevel">--</strong></p>
+        <h3>Plan de Riesgo</h3>
+        <div class="metric"><span>Entrada referencia</span><strong id="entryPrice">--</strong></div>
+        <div class="metric"><span>Stop Loss</span><strong id="stopLoss">--</strong></div>
+        <div class="metric"><span>Take Profit</span><strong id="takeProfit">--</strong></div>
       </article>
     </section>
 
-    <section class="card full-card chart-card">
+    <section class="card wide">
+      <h3>Motor de decisión</h3>
+      <div id="decisionDetails" class="decision-list"></div>
+    </section>
+
+    <section class="card wide">
       <div class="section-title">
-        <div>
-          <h3>Gráfico BTC/USDT</h3>
-          <p>TradingView integrado para revisar tendencia y zonas importantes.</p>
-        </div>
-        <button id="refreshBtn">Actualizar datos</button>
+        <h3>Gráfico TradingView</h3>
+        <span>BTCUSDT · Bybit</span>
       </div>
       <div class="tradingview-widget-container">
         <div id="tradingview_chart"></div>
       </div>
     </section>
 
-    <section class="card full-card">
+    <section class="card wide">
       <div class="section-title">
-        <h3>Motor de decisión</h3>
-        <span id="lastUpdate">--</span>
+        <h3>Noticias fundamentales</h3>
+        <span id="newsStatus">Preparado para CryptoPanic</span>
       </div>
-      <div class="factors">
-        <div><span>Tendencia 24h</span><strong id="factorTrend">--</strong><small id="trendScore">--</small></div>
-        <div><span>Sentimiento</span><strong id="factorFear">--</strong><small id="fearScore">--</small></div>
-        <div><span>Riesgo operativo</span><strong id="factorRisk">--</strong><small id="riskScore">--</small></div>
-        <div><span>Recomendación</span><strong id="factorSignal">--</strong><small id="finalScore">--</small></div>
+      <div class="news-config">
+        <input id="cryptoPanicKey" type="password" placeholder="Token CryptoPanic opcional" />
+        <button id="saveNewsKey">Guardar token</button>
       </div>
-      <div class="analysis-box" id="analysisBox">
-        Esperando datos...
-      </div>
-      <p class="note">Esta app entrega apoyo al análisis. No garantiza resultados y no ejecuta operaciones.</p>
+      <div id="newsList" class="news-list"></div>
+      <p class="note">Nota: algunas APIs de noticias bloquean consultas directas desde GitHub Pages por CORS. Si ocurre, dejaremos esta conexión para una versión con backend seguro.</p>
     </section>
 
-    <section class="card full-card">
-      <div class="section-title">
-        <h3>Historial local de señales</h3>
-        <button id="clearHistoryBtn" class="secondary">Limpiar</button>
+    <section class="card wide">
+      <h3>Historial local de señales</h3>
+      <div class="history-actions">
+        <button id="saveSignalBtn">Guardar señal actual</button>
+        <button id="clearHistoryBtn" class="secondary">Limpiar historial</button>
       </div>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>Precio</th>
-              <th>Señal</th>
-              <th>Puntaje</th>
-            </tr>
+            <tr><th>Fecha</th><th>Señal</th><th>Precio</th><th>Puntaje</th></tr>
           </thead>
           <tbody id="historyBody"></tbody>
         </table>
@@ -122,7 +109,7 @@
   </main>
 
   <footer>
-    <p>BTC Signal AI v1.3 · Herramienta educativa de apoyo, no asesoría financiera.</p>
+    Herramienta de apoyo. No garantiza ganancias. No ejecuta órdenes reales.
   </footer>
 
   <script src="https://s3.tradingview.com/tv.js"></script>
