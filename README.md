@@ -1,12 +1,17 @@
-# BTC Signal AI v1.5
+# BTC Signal AI v1.6
 
-Dashboard de apoyo para trading BTC/USDT.
+Versión con validación de fuentes de datos.
 
-## Fuentes conectadas
-- Precio BTC/USDT desde Bybit API pública.
-- Fear & Greed desde Alternative.me.
+## Incluye
+
+- Precio BTC/USDT desde Bybit Spot.
+- Fear & Greed Index.
 - Gráfico TradingView BTCUSDT Bybit.
-- Noticias BTC desde CryptoCompare News API pública.
+- Panel de estado de fuentes.
+- Noticias de prueba desde CryptoCompare, con detección visible si falla por CORS.
+- Motor de decisión que no se rompe si una fuente falla.
+- Historial local de señales.
 
 ## Importante
-Esta aplicación no ejecuta órdenes reales y no garantiza ganancias. Es una herramienta de apoyo al análisis.
+
+Esta app es una herramienta de apoyo al análisis. No garantiza resultados y no ejecuta órdenes reales.

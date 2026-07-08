@@ -13,51 +13,84 @@ const state = {
   news: [],
   newsScore: 0,
   score: 50,
-  signal: 'ESPERAR'
+  signal: 'ESPERAR',
+  sources: {
+    bybit: false,
+    fear: false,
+    tradingview: false,
+    news: false
+  }
 };
 
 const $ = (id) => document.getElementById(id);
 const money = (n) => Number(n || 0).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
 const num = (n) => Number(n || 0).toLocaleString('en-US', { maximumFractionDigits: 2 });
 
+function setSource(id, ok, text){
+  const el = $(id);
+  if(!el) return;
+  el.classList.remove('ok','fail','waiting');
+  el.classList.add(ok === null ? 'waiting' : ok ? 'ok' : 'fail');
+  const em = el.querySelector('em');
+  if(em) em.textContent = text;
+}
+
 async function fetchBybit(){
-  const res = await fetch(BYBIT_URL);
-  if(!res.ok) throw new Error('No se pudo conectar con Bybit');
-  const data = await res.json();
-  const t = data?.result?.list?.[0];
-  if(!t) throw new Error('Respuesta Bybit inválida');
-  state.price = Number(t.lastPrice);
-  state.change24 = Number(t.price24hPcnt) * 100;
-  state.high24 = Number(t.highPrice24h);
-  state.low24 = Number(t.lowPrice24h);
-  state.volume24 = Number(t.volume24h);
+  setSource('srcBybit', null, '⏳ Conectando...');
+  try{
+    const res = await fetch(BYBIT_URL, { cache: 'no-store' });
+    if(!res.ok) throw new Error('No se pudo conectar con Bybit');
+    const data = await res.json();
+    const t = data?.result?.list?.[0];
+    if(!t) throw new Error('Respuesta Bybit inválida');
+    state.price = Number(t.lastPrice);
+    state.change24 = Number(t.price24hPcnt) * 100;
+    state.high24 = Number(t.highPrice24h);
+    state.low24 = Number(t.lowPrice24h);
+    state.volume24 = Number(t.volume24h);
+    state.sources.bybit = true;
+    setSource('srcBybit', true, '✅ Conectado');
+  }catch(err){
+    state.sources.bybit = false;
+    setSource('srcBybit', false, '❌ Error');
+    throw err;
+  }
 }
 
 async function fetchFear(){
-  const res = await fetch(FEAR_URL);
-  if(!res.ok) throw new Error('No se pudo conectar con Fear & Greed');
-  const data = await res.json();
-  const item = data?.data?.[0];
-  if(!item) throw new Error('Respuesta Fear & Greed inválida');
-  state.fear = Number(item.value);
-  state.fearLabel = item.value_classification;
+  setSource('srcFear', null, '⏳ Conectando...');
+  try{
+    const res = await fetch(FEAR_URL, { cache: 'no-store' });
+    if(!res.ok) throw new Error('No se pudo conectar con Fear & Greed');
+    const data = await res.json();
+    const item = data?.data?.[0];
+    if(!item) throw new Error('Respuesta Fear & Greed inválida');
+    state.fear = Number(item.value);
+    state.fearLabel = item.value_classification;
+    state.sources.fear = true;
+    setSource('srcFear', true, '✅ Conectado');
+  }catch(err){
+    state.sources.fear = false;
+    setSource('srcFear', false, '❌ Error');
+  }
 }
 
 function classifyNews(text){
   const t = (text || '').toLowerCase();
   const positive = ['rally','surge','soar','bull','bullish','gain','gains','rise','rises','upside','etf inflow','inflow','buy','accumulat','adoption','approval','record high','breakout'];
   const negative = ['crash','plunge','drop','drops','fall','falls','bear','bearish','selloff','outflow','hack','lawsuit','ban','risk','liquidation','recession','rate hike','probe'];
-  let pos = positive.some(w => t.includes(w));
-  let neg = negative.some(w => t.includes(w));
+  const pos = positive.some(w => t.includes(w));
+  const neg = negative.some(w => t.includes(w));
   if(pos && !neg) return { label: 'Alcista', points: 2, cls: 'positive' };
   if(neg && !pos) return { label: 'Bajista', points: -2, cls: 'negative' };
   return { label: 'Neutral', points: 0, cls: 'neutral' };
 }
 
 async function fetchNews(){
+  setSource('srcNews', null, '⏳ Conectando...');
   $('newsStatus').textContent = 'Cargando noticias...';
   try{
-    const res = await fetch(NEWS_URL);
+    const res = await fetch(NEWS_URL, { cache: 'no-store' });
     if(!res.ok) throw new Error('No se pudo conectar con CryptoCompare');
     const data = await res.json();
     const items = (data?.Data || []).slice(0, 8).map(n => {
@@ -74,13 +107,17 @@ async function fetchNews(){
     });
     state.news = items;
     state.newsScore = Math.max(-10, Math.min(10, items.reduce((sum, n) => sum + n.points, 0)));
-    renderNews();
+    state.sources.news = true;
+    setSource('srcNews', true, '✅ Conectado');
     $('newsStatus').textContent = `${items.length} noticias cargadas`;
+    renderNews();
   }catch(err){
     state.news = [];
     state.newsScore = 0;
+    state.sources.news = false;
+    setSource('srcNews', false, '❌ Bloqueado/Error');
     $('newsStatus').textContent = 'Noticias no disponibles';
-    $('newsList').innerHTML = `<div class="news-item"><strong>No se pudieron cargar noticias</strong><small>${err.message}. Si GitHub Pages bloquea la consulta, lo dejaremos para backend seguro.</small></div>`;
+    $('newsList').innerHTML = `<div class="news-item"><strong>No se pudieron cargar noticias</strong><small>${err.message}. La app queda preparada para backend seguro en la siguiente etapa.</small></div>`;
   }
 }
 
@@ -89,35 +126,47 @@ function scoreEngine(){
   let score = 50;
 
   let priceScore = 0;
-  if(state.change24 > 2) priceScore = 14;
-  else if(state.change24 > 0.5) priceScore = 8;
-  else if(state.change24 < -2) priceScore = -14;
-  else if(state.change24 < -0.5) priceScore = -8;
-  rows.push(['Bybit variación 24h', `${state.change24?.toFixed(2)}%`, priceScore]);
-  score += priceScore;
+  if(state.sources.bybit && state.change24 !== null){
+    if(state.change24 > 2) priceScore = 14;
+    else if(state.change24 > 0.5) priceScore = 8;
+    else if(state.change24 < -2) priceScore = -14;
+    else if(state.change24 < -0.5) priceScore = -8;
+    rows.push(['Bybit variación 24h', `${state.change24.toFixed(2)}%`, priceScore]);
+    score += priceScore;
+  }else{
+    rows.push(['Bybit variación 24h', 'Sin conexión', 0]);
+  }
 
   let fearScore = 0;
-  if(state.fear >= 75) fearScore = -8;
-  else if(state.fear >= 55) fearScore = 7;
-  else if(state.fear <= 25) fearScore = 8;
-  else if(state.fear <= 45) fearScore = -4;
-  rows.push(['Fear & Greed', `${state.fear} · ${state.fearLabel}`, fearScore]);
-  score += fearScore;
+  if(state.sources.fear && state.fear !== null){
+    if(state.fear >= 75) fearScore = -8;
+    else if(state.fear >= 55) fearScore = 7;
+    else if(state.fear <= 25) fearScore = 8;
+    else if(state.fear <= 45) fearScore = -4;
+    rows.push(['Fear & Greed', `${state.fear} · ${state.fearLabel}`, fearScore]);
+    score += fearScore;
+  }else{
+    rows.push(['Fear & Greed', 'Sin conexión', 0]);
+  }
 
-  const range = state.high24 - state.low24;
-  const position = range > 0 ? (state.price - state.low24) / range : 0.5;
   let rangeScore = 0;
-  if(position > 0.7) rangeScore = 8;
-  else if(position < 0.3) rangeScore = -8;
-  rows.push(['Posición en rango 24h', `${Math.round(position * 100)}% del rango`, rangeScore]);
-  score += rangeScore;
+  if(state.sources.bybit && state.high24 && state.low24 && state.price){
+    const range = state.high24 - state.low24;
+    const position = range > 0 ? (state.price - state.low24) / range : 0.5;
+    if(position > 0.7) rangeScore = 8;
+    else if(position < 0.3) rangeScore = -8;
+    rows.push(['Posición en rango 24h', `${Math.round(position * 100)}% del rango`, rangeScore]);
+    score += rangeScore;
+  }
 
   let volumeScore = 0;
-  if(state.volume24 > 10000 && Math.abs(state.change24) > 1) volumeScore = state.change24 > 0 ? 6 : -6;
-  rows.push(['Volumen 24h', `${num(state.volume24)} BTC`, volumeScore]);
+  if(state.sources.bybit && state.volume24 > 10000 && Math.abs(state.change24) > 1){
+    volumeScore = state.change24 > 0 ? 6 : -6;
+  }
+  rows.push(['Volumen 24h', state.sources.bybit ? `${num(state.volume24)} BTC` : 'Sin conexión', volumeScore]);
   score += volumeScore;
 
-  rows.push(['Noticias BTC', `${state.news.length} noticias analizadas`, state.newsScore]);
+  rows.push(['Noticias BTC', state.sources.news ? `${state.news.length} noticias analizadas` : 'No conectadas todavía', state.newsScore]);
   score += state.newsScore;
 
   score = Math.max(0, Math.min(100, Math.round(score)));
@@ -134,12 +183,12 @@ function render(rows){
   $('btcPrice').textContent = state.price ? money(state.price) : '--';
   $('priceChange').textContent = state.change24 !== null ? `${state.change24.toFixed(2)}% 24h` : '--';
   $('priceChange').className = `change ${state.change24 >= 0 ? 'positive' : 'negative'}`;
-  $('high24').textContent = money(state.high24);
-  $('low24').textContent = money(state.low24);
-  $('volume24').textContent = `${num(state.volume24)} BTC`;
+  $('high24').textContent = state.high24 ? money(state.high24) : '--';
+  $('low24').textContent = state.low24 ? money(state.low24) : '--';
+  $('volume24').textContent = state.volume24 ? `${num(state.volume24)} BTC` : '--';
   $('fearValue').textContent = state.fear ?? '--';
   $('fearLabel').textContent = state.fearLabel ?? '--';
-  $('fearText').textContent = state.fear ? `Lectura actual del sentimiento: ${state.fearLabel}.` : 'Sin datos.';
+  $('fearText').textContent = state.fear ? `Lectura actual: ${state.fearLabel}.` : 'Sin datos.';
   $('scoreValue').textContent = state.score;
   $('confidenceText').textContent = `Confianza: ${state.score >= 80 ? 'Alta' : state.score >= 60 ? 'Media' : 'Baja'}`;
 
@@ -147,11 +196,11 @@ function render(rows){
   badge.textContent = state.signal;
   badge.className = 'badge ' + (state.signal === 'COMPRAR' ? 'buy' : state.signal === 'VENDER' ? 'sell' : 'wait');
   $('mainSignal').textContent = state.signal === 'COMPRAR' ? '🟢 Comprar' : state.signal === 'VENDER' ? '🔴 Vender' : '🟡 Esperar';
-  $('signalText').textContent = state.signal === 'ESPERAR' ? 'No hay ventaja clara. Mejor esperar confirmación.' : `Señal calculada por el motor de puntuación.`;
+  $('signalText').textContent = state.signal === 'ESPERAR' ? 'No hay ventaja clara. Mejor esperar confirmación.' : 'Señal calculada por el motor de puntuación.';
 
-  $('entryPrice').textContent = money(state.price);
-  $('stopLoss').textContent = money(state.price * 0.985);
-  $('takeProfit').textContent = money(state.price * 1.03);
+  $('entryPrice').textContent = state.price ? money(state.price) : '--';
+  $('stopLoss').textContent = state.price ? money(state.price * 0.985) : '--';
+  $('takeProfit').textContent = state.price ? money(state.price * 1.03) : '--';
 
   $('decisionDetails').innerHTML = rows.map(([name, detail, pts]) => `
     <div class="decision-row">
@@ -173,19 +222,18 @@ function renderNews(){
 }
 
 async function updateAll(){
-  $('signalText').textContent = 'Actualizando datos reales...';
-  try{
-    await Promise.all([fetchBybit(), fetchFear(), fetchNews()]);
-    const rows = scoreEngine();
-    render(rows);
-  }catch(err){
-    $('signalText').textContent = 'Error al cargar datos: ' + err.message;
-    console.error(err);
-  }
+  $('signalText').textContent = 'Actualizando fuentes de datos...';
+  await Promise.allSettled([fetchBybit(), fetchFear(), fetchNews()]);
+  const rows = scoreEngine();
+  render(rows);
 }
 
 function loadTradingView(){
-  if(!window.TradingView) return;
+  setSource('srcTrading', null, '⏳ Cargando...');
+  if(!window.TradingView){
+    setSource('srcTrading', false, '❌ No disponible');
+    return;
+  }
   new TradingView.widget({
     autosize: true,
     symbol: 'BYBIT:BTCUSDT',
@@ -200,6 +248,8 @@ function loadTradingView(){
     allow_symbol_change: true,
     container_id: 'tradingview_chart'
   });
+  state.sources.tradingview = true;
+  setSource('srcTrading', true, '✅ Cargado');
 }
 
 function saveSignal(){

@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BTC Signal AI v1.5</title>
+  <title>BTC Signal AI v1.6</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="app-header">
     <div>
       <h1>BTC Signal AI</h1>
-      <p>v1.5 · Bybit + Fear & Greed + TradingView + noticias reales</p>
+      <p>v1.6 · Validación de fuentes + Bybit + Fear & Greed + TradingView</p>
     </div>
     <button id="refreshBtn">Actualizar</button>
   </header>
@@ -27,6 +27,20 @@
         <h2 id="btcPrice">--</h2>
         <span id="priceChange" class="change">--</span>
       </div>
+    </section>
+
+    <section class="card wide">
+      <div class="section-title">
+        <h3>Estado de fuentes de datos</h3>
+        <span>Base para saber qué está funcionando</span>
+      </div>
+      <div class="source-grid">
+        <div class="source-card" id="srcBybit"><strong>Bybit</strong><span>Precio y mercado</span><em>⏳ Verificando...</em></div>
+        <div class="source-card" id="srcFear"><strong>Fear & Greed</strong><span>Sentimiento</span><em>⏳ Verificando...</em></div>
+        <div class="source-card" id="srcTrading"><strong>TradingView</strong><span>Gráfico</span><em>⏳ Verificando...</em></div>
+        <div class="source-card" id="srcNews"><strong>Noticias</strong><span>CryptoCompare</span><em>⏳ Verificando...</em></div>
+      </div>
+      <p class="note">Si una fuente falla, la app sigue funcionando con las demás. Las noticias pueden bloquearse en GitHub Pages por CORS.</p>
     </section>
 
     <section class="grid">
@@ -81,13 +95,13 @@
     <section class="card wide">
       <div class="section-title">
         <h3>Noticias fundamentales</h3>
-        <span id="newsStatus">CryptoCompare News</span>
+        <span id="newsStatus">Validando conexión...</span>
       </div>
       <div class="news-actions">
         <button id="refreshNewsBtn">Actualizar noticias</button>
       </div>
       <div id="newsList" class="news-list"></div>
-      <p class="note">Fuente: CryptoCompare News API pública. Las noticias se clasifican con reglas simples por palabras clave; no es recomendación financiera.</p>
+      <p class="note">Fuente de prueba: CryptoCompare News API pública. Si GitHub Pages bloquea la consulta, se mantiene el error visible y no afecta al resto del análisis.</p>
     </section>
 
     <section class="card wide">
@@ -108,7 +122,7 @@
   </main>
 
   <footer>
-    Herramienta de apoyo. No garantiza ganancias. No ejecuta órdenes reales.
+    Herramienta de apoyo al análisis. No garantiza ganancias y no ejecuta órdenes reales.
   </footer>
 
   <script src="https://s3.tradingview.com/tv.js"></script>
