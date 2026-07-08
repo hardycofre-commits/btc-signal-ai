@@ -3,24 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BTC Signal AI v1.7</title>
+  <title>BTC Signal AI · Módulo 1</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="app-header">
     <div>
       <h1>BTC Signal AI</h1>
-      <p>v1.7 · Estados reales de conexión + actualización automática cada 30s</p>
+      <p>v1.8 · Módulo 1 terminado: datos de mercado Bybit Spot</p>
     </div>
-    <div class="header-actions"><span id="connectionDot" class="connection-dot waiting">● Verificando</span><button id="refreshBtn">Actualizar</button></div>
+    <div class="header-actions">
+      <span id="connectionDot" class="connection-dot waiting">● Verificando</span>
+      <button id="refreshBtn">Actualizar</button>
+    </div>
   </header>
 
   <main class="container">
     <section class="hero-card">
       <div class="signal-block">
-        <span id="signalBadge" class="badge wait">ESPERAR</span>
-        <h2 id="mainSignal">🟡 Esperar</h2>
-        <p id="signalText">Cargando análisis...</p>
+        <span class="module-pill">MÓDULO 1</span>
+        <h2>Datos de mercado</h2>
+        <p>Base limpia para alimentar los próximos módulos: técnico, fundamental y motor de decisión.</p>
       </div>
       <div class="price-block">
         <p>BTC/USDT · Bybit Spot</p>
@@ -31,55 +34,75 @@
 
     <section class="card wide">
       <div class="section-title">
-        <h3>Estado de fuentes de datos</h3>
-        <span>Estados reales de conexión</span>
+        <h3>Estado del Módulo 1</h3>
+        <span>Conexiones principales</span>
       </div>
-      <div class="source-grid">
-        <div class="source-card" id="srcBybit"><strong>Bybit</strong><span>Precio y mercado</span><em>⏳ Verificando...</em></div>
-        <div class="source-card" id="srcFear"><strong>Fear & Greed</strong><span>Sentimiento</span><em>⏳ Verificando...</em></div>
-        <div class="source-card" id="srcTrading"><strong>TradingView</strong><span>Gráfico</span><em>⏳ Verificando...</em></div>
-        <div class="source-card" id="srcNews"><strong>Noticias</strong><span>CryptoCompare</span><em>⏳ Verificando...</em></div>
+      <div class="source-grid two">
+        <div class="source-card waiting" id="srcBybit">
+          <strong>Bybit Spot</strong>
+          <span>Precio, volumen y rango 24h</span>
+          <em>⏳ Verificando...</em>
+        </div>
+        <div class="source-card waiting" id="srcTrading">
+          <strong>TradingView</strong>
+          <span>Gráfico visual BTCUSDT</span>
+          <em>⏳ Cargando...</em>
+        </div>
       </div>
-      <p class="note">Última verificación: <strong id="lastCheck">--</strong>. Actualización automática cada 30 segundos. Si una fuente falla, la app sigue funcionando con las demás.</p>
+      <p class="note">Última actualización: <strong id="lastCheck">--</strong>. Auto actualización cada 30 segundos. Esta versión no emite señales de compra/venta; solo valida datos de mercado.</p>
     </section>
 
-    <section class="grid">
-      <article class="card">
-        <h3>Puntaje General</h3>
-        <div class="score-ring">
-          <span id="scoreValue">--</span>
-          <small>/100</small>
-        </div>
-        <p id="confidenceText">Confianza: --</p>
+    <section class="grid four">
+      <article class="card metric-card">
+        <span>Último precio</span>
+        <strong id="lastPrice">--</strong>
+        <small>Bybit Spot</small>
       </article>
+      <article class="card metric-card">
+        <span>Variación 24h</span>
+        <strong id="change24">--</strong>
+        <small id="changeLabel">--</small>
+      </article>
+      <article class="card metric-card">
+        <span>Máximo 24h</span>
+        <strong id="high24">--</strong>
+        <small>Resistencia diaria</small>
+      </article>
+      <article class="card metric-card">
+        <span>Mínimo 24h</span>
+        <strong id="low24">--</strong>
+        <small>Soporte diario</small>
+      </article>
+    </section>
 
+    <section class="grid three">
       <article class="card">
-        <h3>Datos Bybit</h3>
-        <div class="metric"><span>Máx. 24h</span><strong id="high24">--</strong></div>
-        <div class="metric"><span>Mín. 24h</span><strong id="low24">--</strong></div>
+        <h3>Volumen y liquidez</h3>
         <div class="metric"><span>Volumen 24h</span><strong id="volume24">--</strong></div>
+        <div class="metric"><span>Turnover 24h</span><strong id="turnover24">--</strong></div>
+        <div class="metric"><span>Spread bid/ask</span><strong id="spread">--</strong></div>
       </article>
 
       <article class="card">
-        <h3>Fear & Greed</h3>
-        <div class="fear-box">
-          <strong id="fearValue">--</strong>
-          <span id="fearLabel">--</span>
-        </div>
-        <p id="fearText">Sentimiento del mercado.</p>
+        <h3>Libro básico</h3>
+        <div class="metric"><span>Mejor compra bid</span><strong id="bidPrice">--</strong></div>
+        <div class="metric"><span>Mejor venta ask</span><strong id="askPrice">--</strong></div>
+        <div class="metric"><span>Diferencia</span><strong id="bidAskDiff">--</strong></div>
       </article>
 
       <article class="card">
-        <h3>Plan de Riesgo</h3>
-        <div class="metric"><span>Entrada referencia</span><strong id="entryPrice">--</strong></div>
-        <div class="metric"><span>Stop Loss</span><strong id="stopLoss">--</strong></div>
-        <div class="metric"><span>Take Profit</span><strong id="takeProfit">--</strong></div>
+        <h3>Lectura del mercado</h3>
+        <div id="marketReading" class="reading-box">Esperando datos...</div>
+        <p class="note">Lectura simple basada solo en variación 24h y ubicación dentro del rango diario. No es recomendación financiera.</p>
       </article>
     </section>
 
     <section class="card wide">
-      <h3>Motor de decisión</h3>
-      <div id="decisionDetails" class="decision-list"></div>
+      <div class="section-title">
+        <h3>Resumen técnico de datos</h3>
+        <span>Salida del Módulo 1 para los siguientes módulos</span>
+      </div>
+      <div id="dataSummary" class="decision-list"></div>
     </section>
 
     <section class="card wide">
@@ -91,38 +114,10 @@
         <div id="tradingview_chart"></div>
       </div>
     </section>
-
-    <section class="card wide">
-      <div class="section-title">
-        <h3>Noticias fundamentales</h3>
-        <span id="newsStatus">Validando conexión...</span>
-      </div>
-      <div class="news-actions">
-        <button id="refreshNewsBtn">Actualizar noticias</button>
-      </div>
-      <div id="newsList" class="news-list"></div>
-      <p class="note">Fuente de prueba: CryptoCompare News API pública. Si GitHub Pages bloquea la consulta por CORS, se mostrará como error y quedará pendiente para backend seguro.</p>
-    </section>
-
-    <section class="card wide">
-      <h3>Historial local de señales</h3>
-      <div class="history-actions">
-        <button id="saveSignalBtn">Guardar señal actual</button>
-        <button id="clearHistoryBtn" class="secondary">Limpiar historial</button>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Fecha</th><th>Señal</th><th>Precio</th><th>Puntaje</th></tr>
-          </thead>
-          <tbody id="historyBody"></tbody>
-        </table>
-      </div>
-    </section>
   </main>
 
   <footer>
-    Herramienta de apoyo al análisis. No garantiza ganancias y no ejecuta órdenes reales.
+    Herramienta de apoyo al análisis. No garantiza resultados, no entrega asesoría financiera y no ejecuta órdenes reales.
   </footer>
 
   <script src="https://s3.tradingview.com/tv.js"></script>
