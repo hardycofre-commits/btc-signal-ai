@@ -3,23 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BTC Signal AI v2.2</title>
+  <title>BTC Signal AI v3.0</title>
   <style>
     :root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12253d;--line:#26415f;--text:#f7fbff;--muted:#9fc4ee;--ok:#20d690;--bad:#ff5570;--warn:#ffd166;--blue:#4aa3ff;--purple:#b88cff}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#0a1830);font-family:Arial,Helvetica,sans-serif;color:var(--text)}header{position:sticky;top:0;z-index:5;background:#06111f;border-bottom:1px solid var(--line);padding:18px 22px;display:flex;gap:18px;justify-content:space-between;align-items:center}h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:14px;margin-top:4px}.wrap{max-width:1320px;margin:22px auto;padding:0 18px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:rgba(13,27,46,.92);border:1px solid var(--line);border-radius:18px;padding:20px}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:center}.label{color:var(--muted);font-size:16px}.price{font-size:44px;font-weight:800;margin:12px 0}.red{color:var(--bad)}.green{color:var(--ok)}.yellow{color:var(--warn)}.blue{color:var(--blue)}.purple{color:var(--purple)}button{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:800;padding:13px 20px;cursor:pointer}.pill{padding:10px 16px;border-radius:999px;background:#26313b;color:var(--warn);font-weight:800;display:inline-block}.statusTop{background:#132b2c;color:var(--ok)}.statusBad{background:#322332;color:var(--bad)}.small{font-size:13px;color:var(--muted)}.row{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);padding:11px 0;gap:12px}.row:last-child{border-bottom:0}.big{font-size:26px;font-weight:800}.statusGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.source{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}.source.ok{border-color:#0ea77e}.source.bad{border-color:#b84a65}.source.warn{border-color:#80672a}.tv{height:500px;overflow:hidden}.note{margin-top:12px;color:var(--muted);font-size:13px}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}.meter{height:12px;border-radius:999px;background:#071324;border:1px solid var(--line);overflow:hidden;margin-top:10px}.bar{height:100%;width:0%;background:var(--blue)}.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#071324;border:1px solid var(--line);font-weight:800}.tag.ok{color:var(--ok);border-color:#0ea77e}.tag.bad{color:var(--bad);border-color:#b84a65}.tag.warn{color:var(--warn);border-color:#80672a}.mtf{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:950px){.hero,.grid,.grid3,.statusGrid,.mtf{grid-template-columns:1fr}.price{font-size:36px}header{align-items:flex-start;flex-direction:column}.tv{height:390px}}
-  </style>
+  
+.newsList{display:grid;gap:10px}.newsItem{background:#0b192a;border:1px solid var(--line);border-radius:14px;padding:14px}.newsItem a{color:var(--text);text-decoration:none;font-weight:800}.newsMeta{margin-top:7px;color:var(--muted);font-size:12px}.scoreParts{display:grid;gap:8px}.scorePart{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}.scorePart:last-child{border-bottom:0}.inputDark{width:100%;background:#071324;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:16px}.badgePos{color:var(--ok)}.badgeNeg{color:var(--bad)}.badgeNeu{color:var(--warn)}
+</style>
 </head>
 <body>
 <header>
-  <div><h1>BTC Signal AI</h1><div class="sub">v2.2 · Módulo 2 terminado: análisis técnico validado</div></div>
+  <div><h1>BTC Signal AI</h1><div class="sub">v3.0 · Módulo 3: análisis fundamental</div></div>
   <div style="display:flex;gap:12px;align-items:center"><span id="globalStatus" class="pill">• Verificando</span><button id="refreshBtn">Actualizar</button></div>
 </header>
 
 <main class="wrap">
   <section class="card hero">
     <div>
-      <div class="label">MÓDULO 2</div>
-      <div class="big" style="font-size:42px;margin:8px 0">Análisis técnico</div>
-      <div class="label">Calcula RSI, MACD, EMA 20/50/200, tendencia, soporte y resistencia usando datos reales de Bybit.</div>
+      <div class="label">MÓDULOS 1, 2 Y 3</div>
+      <div class="big" style="font-size:42px;margin:8px 0">Análisis técnico + fundamental</div>
+      <div class="label">Integra mercado y análisis técnico con sentimiento, noticias y variables fundamentales transparentes.</div>
     </div>
     <div>
       <div class="label">BTC/USDT · Bybit Spot</div>
@@ -84,6 +86,24 @@
   </section>
 </main>
 
+
+  <section class="card" style="margin-top:18px">
+    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+      <div><h2 style="margin:0">Módulo 3 · Análisis fundamental</h2><div class="small">Datos automáticos y entradas manuales claramente identificadas.</div></div>
+      <span id="fundStatus" class="tag warn">Esperando</span>
+    </div>
+  </section>
+
+  <section class="grid3" style="margin-top:18px">
+    <div class="card"><h3>Fear & Greed</h3><div id="fgValue" class="big">--</div><div id="fgLabel" class="tag warn">Esperando</div><div class="meter"><div id="fgBar" class="bar"></div></div><p id="fgText" class="small">Fuente: Alternative.me.</p></div>
+    <div class="card"><h3>Flujo ETF Spot</h3><label class="small">Dato manual del día (millones USD)</label><input id="etfInput" class="inputDark" type="number" step="1" placeholder="Ej.: 250 o -180"><p class="small">Positivo = entradas. Negativo = salidas. Se guarda en este navegador.</p></div>
+    <div class="card"><h3>Riesgo macro</h3><label class="small">Nivel actual</label><select id="macroInput" class="inputDark"><option value="0">Sin evento relevante</option><option value="-5">Riesgo moderado</option><option value="-12">Riesgo alto: IPC, Fed o empleo</option></select><p class="small">Entrada manual hasta conectar un calendario económico mediante backend.</p></div>
+  </section>
+
+  <section class="grid3" style="margin-top:18px">
+    <div class="card" style="grid-column:span 2"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Noticias BTC</h3><span id="newsStatus" class="tag warn">Cargando</span></div><div id="newsList" class="newsList" style="margin-top:14px"><div class="small">Consultando fuentes...</div></div><p class="small">La clasificación usa palabras clave y sirve como apoyo; no reemplaza revisión humana.</p></div>
+    <div class="card"><h3>Puntaje fundamental</h3><div id="fundScore" class="big">--/100</div><div id="fundLabel" class="tag warn">Esperando</div><div class="meter"><div id="fundBar" class="bar"></div></div><div class="scoreParts" style="margin-top:14px"><div class="scorePart"><span>Fear & Greed</span><b id="fgPoints">--</b></div><div class="scorePart"><span>Noticias</span><b id="newsPoints">--</b></div><div class="scorePart"><span>ETF manual</span><b id="etfPoints">--</b></div><div class="scorePart"><span>Macro manual</span><b id="macroPoints">--</b></div></div><p id="fundSummary" class="small">Esperando datos...</p></div>
+  </section>
 <script src="https://s3.tradingview.com/tv.js" async onload="loadTV()" onerror="tvError()"></script>
 <script>
 const $ = id => document.getElementById(id);
@@ -134,14 +154,31 @@ async function update(){
   $('consensusScore').textContent=consensus+'/100';$('consensusTag').textContent=label.text;$('consensusTag').className='tag '+label.cls;$('consensusText').textContent=`15m ${analyses['15']?.score??'--'} · 1H ${analyses['60']?.score??'--'} · 4H ${analyses['240']?.score??'--'} · 1D ${analyses['D']?.score??'--'}.`;
   const freshCount=valid.filter(a=>a.fresh.ok).length,quality=Math.round((valid.length/4*.6+freshCount/4*.4)*100);$('qualityValue').textContent=quality+'%';$('qualityTag').textContent=quality>=90?'Datos completos':quality>=65?'Datos parciales':'Datos insuficientes';$('qualityTag').className='tag '+(quality>=90?'ok':quality>=65?'warn':'bad');$('qualityText').textContent=`${valid.length}/4 temporalidades cargadas y ${freshCount}/4 con vela reciente.${errors.length?' Errores: '+errors.join(' | '):''}`;
   const prev=JSON.parse(localStorage.getItem('btcTechnicalAnalysis')||'null');if(prev){const d=consensus-prev.consensus;$('previousDelta').textContent=(d>=0?'+':'')+d+' puntos';$('previousDelta').className='big '+(d>0?'green':d<0?'red':'yellow');$('previousTime').textContent='Anterior: '+new Date(prev.time).toLocaleString('es-CL')+' · '+prev.consensus+'/100';}
-  const out={module:'technical',version:'2.2',symbol:'BTCUSDT',source:'Bybit Spot',lastPrice:last,consensusScore:consensus,dominantTimeframe:dominant.key,qualityPct:quality,timeframes:Object.fromEntries(valid.map(a=>[a.key,{score:a.score,trend:a.trend,rsi:a.rsi,macd:a.macd,ema20:a.ema20,ema50:a.ema50,ema200:a.ema200,lastCandle:new Date(a.lastCandle).toISOString(),fresh:a.fresh.ok}])),errors,lastUpdate:new Date().toISOString()};$('jsonOut').textContent=JSON.stringify(out,null,2);localStorage.setItem('btcTechnicalAnalysis',JSON.stringify({consensus,time:out.lastUpdate}));
+  const out={module:'technical',version:'3.0',symbol:'BTCUSDT',source:'Bybit Spot',lastPrice:last,consensusScore:consensus,dominantTimeframe:dominant.key,qualityPct:quality,timeframes:Object.fromEntries(valid.map(a=>[a.key,{score:a.score,trend:a.trend,rsi:a.rsi,macd:a.macd,ema20:a.ema20,ema50:a.ema50,ema200:a.ema200,lastCandle:new Date(a.lastCandle).toISOString(),fresh:a.fresh.ok}])),errors,lastUpdate:new Date().toISOString()};$('jsonOut').textContent=JSON.stringify(out,null,2);localStorage.setItem('btcTechnicalAnalysis',JSON.stringify({consensus,time:out.lastUpdate}));
   $('updated').textContent='Última actualización: '+new Date().toLocaleString('es-CL')+'. Auto actualización cada 30 segundos.';setSource('tech',true,errors.length?'Calculado con datos parciales':'Calculado');setGlobal(true,(errors.length?'2/3':'3/3')+' fuentes activas');
  }catch(e){setSource('market',false,e.name==='AbortError'?'Tiempo agotado':'Error');setSource('tech',false,e.message);setGlobal(false,'Error de datos');$('updated').textContent='Actualización fallida: '+new Date().toLocaleString('es-CL')+'. '+e.message;}
  finally{isLoading=false;}
 }
 function loadTV(){try{new TradingView.widget({container_id:'tradingview_widget',autosize:true,symbol:'BYBIT:BTCUSDT',interval:'60',timezone:'America/Santiago',theme:'dark',style:'1',locale:'es',hide_top_toolbar:false,allow_symbol_change:false,calendar:false,studies:['RSI@tv-basicstudies','MACD@tv-basicstudies','MASimple@tv-basicstudies']});setSource('tv',true,'Cargado');}catch(e){tvError();}}
 function tvError(){setSource('tv',false,'No cargó');}
-$('refreshBtn').addEventListener('click', update); update(); setInterval(update,30000);
+
+const FUND_FG='https://api.alternative.me/fng/?limit=1&format=json';
+const FUND_NEWS='https://min-api.cryptocompare.com/data/v2/news/?lang=EN&categories=BTC';
+let fundamentalState={fear:null,newsScore:0,newsCount:0};
+const positiveWords=['surge','rally','approval','approved','inflow','adoption','buy','bull','record high','accumulation','gain','breakout'];
+const negativeWords=['hack','ban','lawsuit','outflow','sell-off','crash','decline','bear','liquidation','fraud','rejection','drop'];
+function sentimentFor(title){const t=title.toLowerCase();let s=0;positiveWords.forEach(w=>{if(t.includes(w))s++});negativeWords.forEach(w=>{if(t.includes(w))s--});return s>0?1:s<0?-1:0;}
+async function fetchJsonFallback(url){try{const r=await timeoutFetch(url);if(!r.ok)throw new Error('HTTP '+r.status);return await r.json();}catch(e){const proxy='https://api.allorigins.win/raw?url='+encodeURIComponent(url);const r=await timeoutFetch(proxy);if(!r.ok)throw e;return await r.json();}}
+function scoreFundamental(){const fg=fundamentalState.fear;let fgP=0;if(Number.isFinite(fg)){if(fg<=20)fgP=10;else if(fg<=35)fgP=6;else if(fg>=80)fgP=-10;else if(fg>=65)fgP=-4;}
+ const newsP=Math.max(-15,Math.min(15,fundamentalState.newsScore*3));const etf=Number($('etfInput').value||0);let etfP=0;if(etf>=500)etfP=15;else if(etf>=200)etfP=10;else if(etf>0)etfP=5;else if(etf<=-500)etfP=-15;else if(etf<=-200)etfP=-10;else if(etf<0)etfP=-5;const macroP=Number($('macroInput').value||0);const score=Math.max(0,Math.min(100,50+fgP+newsP+etfP+macroP));
+ $('fgPoints').textContent=(fgP>=0?'+':'')+fgP;$('newsPoints').textContent=(newsP>=0?'+':'')+newsP;$('etfPoints').textContent=(etfP>=0?'+':'')+etfP;$('macroPoints').textContent=(macroP>=0?'+':'')+macroP;$('fundScore').textContent=score+'/100';$('fundBar').style.width=score+'%';let lbl='Neutral',cls='warn';if(score>=65){lbl='Fundamental alcista';cls='ok'}else if(score<=35){lbl='Fundamental bajista';cls='bad'}$('fundLabel').textContent=lbl;$('fundLabel').className='tag '+cls;$('fundStatus').textContent='Calculado';$('fundStatus').className='tag '+cls;$('fundSummary').textContent=`Puntaje ${score}/100 con ${fundamentalState.newsCount} noticias. ETF y macro son entradas manuales.`;localStorage.setItem('btcFundInputs',JSON.stringify({etf:$('etfInput').value,macro:$('macroInput').value}));}
+async function updateFundamental(){try{const fgData=await fetchJsonFallback(FUND_FG);const d=fgData?.data?.[0];const v=Number(d?.value);fundamentalState.fear=v;$('fgValue').textContent=Number.isFinite(v)?v+'/100':'--';$('fgBar').style.width=(Number.isFinite(v)?v:0)+'%';$('fgLabel').textContent=d?.value_classification||'Sin dato';$('fgLabel').className='tag '+(v<=35?'ok':v>=65?'bad':'warn');$('fgText').textContent='Actualizado: '+new Date((Number(d?.timestamp)||Date.now()/1000)*1000).toLocaleString('es-CL');}catch(e){$('fgLabel').textContent='Error';$('fgLabel').className='tag bad';}
+ try{const n=await fetchJsonFallback(FUND_NEWS);const list=(n?.Data||[]).slice(0,8);fundamentalState.newsCount=list.length;fundamentalState.newsScore=list.reduce((a,x)=>a+sentimentFor(x.title||''),0);$('newsList').innerHTML=list.length?list.map(x=>{const s=sentimentFor(x.title||'');const cls=s>0?'badgePos':s<0?'badgeNeg':'badgeNeu';const lab=s>0?'Alcista':s<0?'Bajista':'Neutral';return `<div class="newsItem"><a href="${x.url}" target="_blank" rel="noopener">${x.title}</a><div class="newsMeta">${x.source_info?.name||x.source||'Fuente'} · ${new Date((x.published_on||0)*1000).toLocaleString('es-CL')} · <span class="${cls}">${lab}</span></div></div>`}).join(''):'<div class="small">Sin noticias disponibles.</div>';$('newsStatus').textContent='Conectado';$('newsStatus').className='tag ok';}catch(e){$('newsList').innerHTML='<div class="small red">No fue posible cargar noticias. El resto del módulo sigue funcionando.</div>';$('newsStatus').textContent='Sin conexión';$('newsStatus').className='tag bad';fundamentalState.newsCount=0;fundamentalState.newsScore=0;}
+ scoreFundamental();}
+const savedFund=JSON.parse(localStorage.getItem('btcFundInputs')||'null');if(savedFund){$('etfInput').value=savedFund.etf||'';$('macroInput').value=savedFund.macro||'0';}
+$('etfInput').addEventListener('input',scoreFundamental);$('macroInput').addEventListener('change',scoreFundamental);
+
+$('refreshBtn').addEventListener('click', ()=>{update();updateFundamental();}); update(); updateFundamental(); setInterval(()=>{update();updateFundamental();},30000);
 </script>
 </body>
 </html>

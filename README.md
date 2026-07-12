@@ -1,17 +1,15 @@
-# BTC Signal AI v2.2
+# BTC Signal AI v3.0
 
-Cierre del Módulo 2: análisis técnico.
+Módulo 3 iniciado: análisis fundamental.
 
-## Incluye
-- Velas reales Bybit Spot en 15m, 1H, 4H y 1D.
-- RSI 14, MACD y EMA 20/50/200 por temporalidad.
-- Puntaje técnico individual y consenso ponderado.
-- Temporalidad dominante.
-- Validación de frescura de la última vela.
-- Tolerancia a fallas parciales.
-- Calidad de datos.
-- Comparación con el análisis anterior mediante almacenamiento local.
-- Salida JSON para el futuro motor de decisión.
+Incluye:
+- Fear & Greed automático desde Alternative.me.
+- Noticias BTC con conexión directa y fallback por proxy público.
+- Clasificación básica de noticias por palabras clave.
+- Entrada manual de flujo ETF spot en millones USD.
+- Selector manual de riesgo macro.
+- Puntaje fundamental transparente de 0 a 100.
+- Persistencia local de ETF y riesgo macro.
+- Mantiene los módulos 1 y 2.
 
-## Instalación
-Reemplaza los archivos del repositorio por este `index.html` y conserva GitHub Pages desde `main / root`.
+Nota: ETF y calendario macro requieren backend o proveedor con API para automatización completa. Esta versión los identifica claramente como datos manuales y no oculta sus limitaciones.
