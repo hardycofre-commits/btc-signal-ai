@@ -1,15 +1,15 @@
-# BTC Signal AI v3.0
+# BTC Signal AI v3.2
 
-Módulo 3 iniciado: análisis fundamental.
+## Cambio principal
+Automatización y mejora del módulo **Noticias BTC**.
 
-Incluye:
-- Fear & Greed automático desde Alternative.me.
-- Noticias BTC con conexión directa y fallback por proxy público.
-- Clasificación básica de noticias por palabras clave.
-- Entrada manual de flujo ETF spot en millones USD.
-- Selector manual de riesgo macro.
-- Puntaje fundamental transparente de 0 a 100.
-- Persistencia local de ETF y riesgo macro.
-- Mantiene los módulos 1 y 2.
+- Consulta automática de noticias desde CryptoCompare.
+- Clasificación alcista, neutral o bajista.
+- Nivel de impacto bajo, medio o alto.
+- Resumen del sesgo informativo.
+- Contadores por tipo de noticia.
+- Puntaje fundamental ponderado por impacto y antigüedad.
+- Caché local para mantener el último dato válido si falla la conexión.
+- Noticias actualizadas cada 5 minutos; datos técnicos cada 30 segundos.
 
-Nota: ETF y calendario macro requieren backend o proveedor con API para automatización completa. Esta versión los identifica claramente como datos manuales y no oculta sus limitaciones.
+El flujo ETF Spot y el riesgo macro se mantienen manuales en esta versión.
