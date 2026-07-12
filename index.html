@@ -1,144 +1,111 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BTC Signal AI v2.0</title>
-  <style>
-    :root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12253d;--line:#26415f;--text:#f7fbff;--muted:#9fc4ee;--ok:#20d690;--bad:#ff5570;--warn:#ffd166;--blue:#4aa3ff;--purple:#b88cff}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#0a1830);font-family:Arial,Helvetica,sans-serif;color:var(--text)}header{position:sticky;top:0;z-index:5;background:#06111f;border-bottom:1px solid var(--line);padding:18px 22px;display:flex;gap:18px;justify-content:space-between;align-items:center}h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:14px;margin-top:4px}.wrap{max-width:1320px;margin:22px auto;padding:0 18px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:rgba(13,27,46,.92);border:1px solid var(--line);border-radius:18px;padding:20px}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:center}.label{color:var(--muted);font-size:16px}.price{font-size:44px;font-weight:800;margin:12px 0}.red{color:var(--bad)}.green{color:var(--ok)}.yellow{color:var(--warn)}.blue{color:var(--blue)}.purple{color:var(--purple)}button{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:800;padding:13px 20px;cursor:pointer}.pill{padding:10px 16px;border-radius:999px;background:#26313b;color:var(--warn);font-weight:800;display:inline-block}.statusTop{background:#132b2c;color:var(--ok)}.statusBad{background:#322332;color:var(--bad)}.small{font-size:13px;color:var(--muted)}.row{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);padding:11px 0;gap:12px}.row:last-child{border-bottom:0}.big{font-size:26px;font-weight:800}.statusGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.source{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}.source.ok{border-color:#0ea77e}.source.bad{border-color:#b84a65}.source.warn{border-color:#80672a}.tv{height:500px;overflow:hidden}.note{margin-top:12px;color:var(--muted);font-size:13px}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}.meter{height:12px;border-radius:999px;background:#071324;border:1px solid var(--line);overflow:hidden;margin-top:10px}.bar{height:100%;width:0%;background:var(--blue)}.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#071324;border:1px solid var(--line);font-weight:800}.tag.ok{color:var(--ok);border-color:#0ea77e}.tag.bad{color:var(--bad);border-color:#b84a65}.tag.warn{color:var(--warn);border-color:#80672a}.mtf{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:950px){.hero,.grid,.grid3,.statusGrid,.mtf{grid-template-columns:1fr}.price{font-size:36px}header{align-items:flex-start;flex-direction:column}.tv{height:390px}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BTC Signal AI v2.1</title>
+<style>
+:root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12253d;--line:#26415f;--text:#f7fbff;--muted:#9fc4ee;--ok:#20d690;--bad:#ff5570;--warn:#ffd166;--blue:#4aa3ff}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#0a1830);font-family:Arial,Helvetica,sans-serif;color:var(--text)}
+header{position:sticky;top:0;z-index:5;background:#06111f;border-bottom:1px solid var(--line);padding:18px 22px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+h1,h2,h3{margin-top:0}.sub,.small,.label{color:var(--muted)}.sub,.small{font-size:13px}.wrap{max-width:1320px;margin:22px auto;padding:0 18px}.card{background:rgba(13,27,46,.94);border:1px solid var(--line);border-radius:18px;padding:20px}.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:center}.price{font-size:44px;font-weight:800;margin:10px 0}.big{font-size:26px;font-weight:800}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.source{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}.source.ok{border-color:#0ea77e}.source.bad{border-color:#b84a65}.source.warn{border-color:#80672a}.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}.row:last-child{border:0}.green{color:var(--ok)}.red{color:var(--bad)}.yellow{color:var(--warn)}.pill,.tag{display:inline-block;border-radius:999px;padding:8px 13px;font-weight:800}.pill{background:#26313b;color:var(--warn)}.tag{background:#071324;border:1px solid var(--line)}.tag.ok{color:var(--ok);border-color:#0ea77e}.tag.bad{color:var(--bad);border-color:#b84a65}.tag.warn{color:var(--warn);border-color:#80672a}button{border:0;border-radius:13px;background:var(--blue);color:#fff;font-weight:800;padding:12px 18px;cursor:pointer}.meter{height:12px;background:#071324;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-top:10px}.bar{height:100%;width:0;background:var(--blue)}.factor{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}.factor:last-child{border:0}.tv{height:500px;overflow:hidden}.mono{font-family:ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;background:#071324;border:1px solid var(--line);border-radius:12px;padding:14px}.mt{margin-top:18px}@media(max-width:950px){header{align-items:flex-start;flex-direction:column}.hero,.grid4,.grid3,.grid2{grid-template-columns:1fr}.price{font-size:36px}.tv{height:390px}}
+</style>
 </head>
 <body>
 <header>
-  <div><h1>BTC Signal AI</h1><div class="sub">v2.0 · Módulo 2: análisis técnico desde velas Bybit</div></div>
+  <div><h1 style="margin:0">BTC Signal AI</h1><div class="sub">v2.1 · Módulo 2: análisis técnico multitemporal</div></div>
   <div style="display:flex;gap:12px;align-items:center"><span id="globalStatus" class="pill">• Verificando</span><button id="refreshBtn">Actualizar</button></div>
 </header>
-
 <main class="wrap">
   <section class="card hero">
-    <div>
-      <div class="label">MÓDULO 2</div>
-      <div class="big" style="font-size:42px;margin:8px 0">Análisis técnico</div>
-      <div class="label">Calcula RSI, MACD, EMA 20/50/200, tendencia, soporte y resistencia usando datos reales de Bybit.</div>
+    <div><div class="label">MÓDULO 2</div><div class="big" style="font-size:42px;margin:8px 0">Análisis técnico</div><div class="label">Indicadores calculados desde velas públicas de Bybit Spot. Cada temporalidad se procesa por separado para evitar que una falla bloquee todo el módulo.</div></div>
+    <div><div class="label">BTC/USDT · Bybit Spot</div><div id="price" class="price">--</div><div id="change24" class="big">--</div></div>
+  </section>
+
+  <section class="card mt">
+    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 style="margin:0">Estado de conexiones</h2><span class="small">Actualización automática cada 30 segundos</span></div>
+    <div class="grid4" style="margin-top:16px">
+      <div id="tickerBox" class="source warn"><b>Bybit Ticker</b><div class="small">Precio y mercado 24h</div><div id="tickerStatus" class="yellow" style="margin-top:10px;font-weight:800">⏳ Verificando...</div></div>
+      <div id="klineBox" class="source warn"><b>Velas Bybit</b><div class="small">15m · 1h · 4h · 1D</div><div id="klineStatus" class="yellow" style="margin-top:10px;font-weight:800">⏳ Cargando...</div></div>
+      <div id="techBox" class="source warn"><b>Indicadores</b><div class="small">RSI · MACD · EMA</div><div id="techStatus" class="yellow" style="margin-top:10px;font-weight:800">⏳ Calculando...</div></div>
+      <div id="tvBox" class="source warn"><b>TradingView</b><div class="small">Gráfico visual</div><div id="tvStatus" class="yellow" style="margin-top:10px;font-weight:800">⏳ Cargando...</div></div>
     </div>
-    <div>
-      <div class="label">BTC/USDT · Bybit Spot</div>
-      <div id="price" class="price">--</div>
-      <div id="change24" class="big">--</div>
+    <div id="updated" class="small" style="margin-top:14px">Última actualización: --</div>
+  </section>
+
+  <section class="grid4 mt">
+    <div class="card"><b>Último precio</b><div id="lastPrice" class="big" style="margin-top:16px">--</div><div class="small">Bybit Spot</div></div>
+    <div class="card"><b>Variación 24h</b><div id="changeCard" class="big" style="margin-top:16px">--</div><div class="small">Movimiento diario</div></div>
+    <div class="card"><b>Máximo 24h</b><div id="high24" class="big" style="margin-top:16px">--</div><div class="small">Rango diario</div></div>
+    <div class="card"><b>Mínimo 24h</b><div id="low24" class="big" style="margin-top:16px">--</div><div class="small">Rango diario</div></div>
+  </section>
+
+  <section class="grid3 mt">
+    <div class="card"><h3>RSI 14 · 1H</h3><div id="rsiVal" class="big">--</div><div id="rsiTag" class="tag warn">Esperando</div><div class="meter"><div id="rsiBar" class="bar"></div></div><p class="small">Sobre 70: sobrecompra. Bajo 30: sobreventa.</p></div>
+    <div class="card"><h3>MACD · 1H</h3><div id="macdHeadline" class="big">--</div><div id="macdTag" class="tag warn">Esperando</div><div class="row"><span class="label">MACD</span><b id="macdLine">--</b></div><div class="row"><span class="label">Señal</span><b id="signalLine">--</b></div><div class="row"><span class="label">Histograma</span><b id="histLine">--</b></div></div>
+    <div class="card"><h3>EMA · 1H</h3><div id="trendVal" class="big">--</div><div id="trendTag" class="tag warn">Esperando</div><div class="row"><span class="label">EMA 20</span><b id="ema20">--</b></div><div class="row"><span class="label">EMA 50</span><b id="ema50">--</b></div><div class="row"><span class="label">EMA 200</span><b id="ema200">--</b></div></div>
+  </section>
+
+  <section class="card mt">
+    <div style="display:flex;justify-content:space-between;gap:12px"><h2 style="margin:0">Consenso por temporalidad</h2><span class="small">Cada marco aporta al puntaje técnico</span></div>
+    <div class="grid4" style="margin-top:14px">
+      <div class="source"><b>15 minutos</b><div id="tf15" class="yellow" style="font-weight:800;margin-top:8px">--</div><div id="tf15Detail" class="small">--</div><div id="tf15Score" class="small" style="margin-top:8px">--</div></div>
+      <div class="source"><b>1 hora</b><div id="tf60" class="yellow" style="font-weight:800;margin-top:8px">--</div><div id="tf60Detail" class="small">--</div><div id="tf60Score" class="small" style="margin-top:8px">--</div></div>
+      <div class="source"><b>4 horas</b><div id="tf240" class="yellow" style="font-weight:800;margin-top:8px">--</div><div id="tf240Detail" class="small">--</div><div id="tf240Score" class="small" style="margin-top:8px">--</div></div>
+      <div class="source"><b>1 día</b><div id="tfD" class="yellow" style="font-weight:800;margin-top:8px">--</div><div id="tfDDetail" class="small">--</div><div id="tfDScore" class="small" style="margin-top:8px">--</div></div>
     </div>
   </section>
 
-  <section class="card" style="margin-top:18px">
-    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 style="margin:0">Estado de módulos</h2><span class="small">Mercado + técnico</span></div>
-    <div class="statusGrid" style="margin-top:18px">
-      <div id="marketBox" class="source warn"><b>Módulo 1 · Mercado</b><div class="small">Ticker Bybit Spot</div><div id="marketStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Verificando...</div></div>
-      <div id="techBox" class="source warn"><b>Módulo 2 · Técnico</b><div class="small">Velas e indicadores</div><div id="techStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Calculando...</div></div>
-      <div id="tvBox" class="source warn"><b>TradingView</b><div class="small">Gráfico visual BTCUSDT</div><div id="tvStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Cargando...</div></div>
-    </div>
-    <div id="updated" class="note">Última actualización: --.</div>
-  </section>
-
-  <section class="grid" style="margin-top:18px">
-    <div class="card"><b>Precio</b><div id="lastPrice" class="big" style="margin-top:18px">--</div><div class="small">Bybit Spot</div></div>
-    <div class="card"><b>Variación 24h</b><div id="changeCard" class="big" style="margin-top:18px">--</div><div class="small">Movimiento diario</div></div>
-    <div class="card"><b>Máximo 24h</b><div id="high24" class="big" style="margin-top:18px">--</div><div class="small">Resistencia diaria</div></div>
-    <div class="card"><b>Mínimo 24h</b><div id="low24" class="big" style="margin-top:18px">--</div><div class="small">Soporte diario</div></div>
-  </section>
-
-  <section class="grid3" style="margin-top:18px">
-    <div class="card"><h3>RSI 14</h3><div id="rsiVal" class="big">--</div><div id="rsiTag" class="tag warn">Esperando</div><div class="meter"><div id="rsiBar" class="bar"></div></div><p class="small">Sobre 70 = sobrecompra. Bajo 30 = sobreventa.</p></div>
-    <div class="card"><h3>MACD</h3><div id="macdVal" class="big">--</div><div id="macdTag" class="tag warn">Esperando</div><div class="row"><span class="label">MACD</span><b id="macdLine">--</b></div><div class="row"><span class="label">Señal</span><b id="signalLine">--</b></div><div class="row"><span class="label">Histograma</span><b id="histLine">--</b></div></div>
-    <div class="card"><h3>Tendencia EMA</h3><div id="trendVal" class="big">--</div><div id="trendTag" class="tag warn">Esperando</div><div class="row"><span class="label">EMA 20</span><b id="ema20">--</b></div><div class="row"><span class="label">EMA 50</span><b id="ema50">--</b></div><div class="row"><span class="label">EMA 200</span><b id="ema200">--</b></div></div>
-  </section>
-
-  <section class="grid3" style="margin-top:18px">
-    <div class="card"><h3>Soporte / Resistencia</h3><div class="row"><span class="label">Soporte 100 velas</span><b id="support">--</b></div><div class="row"><span class="label">Resistencia 100 velas</span><b id="resistance">--</b></div><div class="row"><span class="label">Posición actual</span><b id="positionRange">--</b></div><p class="small">Calculado con mínimos y máximos recientes de velas 1H.</p></div>
+  <section class="grid3 mt">
+    <div class="card"><h3>Soporte y resistencia · 1H</h3><div class="row"><span class="label">Soporte</span><b id="support">--</b></div><div class="row"><span class="label">Resistencia</span><b id="resistance">--</b></div><div class="row"><span class="label">Ubicación en el rango</span><b id="positionRange">--</b></div><p class="small">Máximo y mínimo de las últimas 100 velas de 1 hora.</p></div>
     <div class="card"><h3>Puntaje técnico</h3><div id="techScore" class="big">--/100</div><div id="techLabel" class="tag warn">Esperando</div><div class="meter"><div id="scoreBar" class="bar"></div></div><p id="techSummary" class="small">Esperando datos...</p></div>
-    <div class="card"><h3>Lectura operativa</h3><div id="tradeBias" class="big">--</div><p id="tradeText" class="small">Esta versión no ejecuta operaciones ni recomienda inversión directa. Solo entrega lectura técnica.</p></div>
+    <div class="card"><h3>Sesgo técnico</h3><div id="tradeBias" class="big">--</div><p id="tradeText" class="small">No es una orden de compra o venta. El análisis fundamental y la gestión del riesgo todavía no están incorporados.</p></div>
   </section>
 
-  <section class="card" style="margin-top:18px">
-    <div style="display:flex;justify-content:space-between;gap:12px"><h2 style="margin:0">Temporalidades</h2><span class="small">Lectura rápida por marco temporal</span></div>
-    <div class="mtf" style="margin-top:14px">
-      <div class="source"><b>15 min</b><div id="tf15" class="yellow" style="margin-top:8px;font-weight:800">--</div><div id="tf15Detail" class="small">--</div></div>
-      <div class="source"><b>1 hora</b><div id="tf60" class="yellow" style="margin-top:8px;font-weight:800">--</div><div id="tf60Detail" class="small">--</div></div>
-      <div class="source"><b>4 horas</b><div id="tf240" class="yellow" style="margin-top:8px;font-weight:800">--</div><div id="tf240Detail" class="small">--</div></div>
-      <div class="source"><b>1 día</b><div id="tfD" class="yellow" style="margin-top:8px;font-weight:800">--</div><div id="tfDDetail" class="small">--</div></div>
-    </div>
+  <section class="grid2 mt">
+    <div class="card"><h2>Composición del puntaje</h2><div id="factors">Esperando datos...</div></div>
+    <div class="card"><h2>Salida del módulo</h2><pre id="jsonOut" class="mono small">Esperando datos...</pre></div>
   </section>
 
-  <section class="card" style="margin-top:18px">
-    <div style="display:flex;justify-content:space-between;gap:12px"><h2 style="margin:0">Salida del Módulo 2</h2><span class="small">Para alimentar el futuro motor de decisión</span></div>
-    <pre id="jsonOut" class="mono small" style="white-space:pre-wrap;background:#071324;border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:14px">Esperando datos...</pre>
-  </section>
-
-  <section class="card tv" style="margin-top:18px">
-    <h2 style="margin:0 0 12px">Gráfico TradingView</h2>
-    <div class="tradingview-widget-container" style="height:420px;width:100%"><div id="tradingview_widget" style="height:100%;width:100%"></div></div>
-  </section>
+  <section class="card tv mt"><h2>Gráfico TradingView</h2><div class="tradingview-widget-container" style="height:420px;width:100%"><div id="tradingview_widget" style="height:100%;width:100%"></div></div></section>
 </main>
-
 <script src="https://s3.tradingview.com/tv.js" async onload="loadTV()" onerror="tvError()"></script>
 <script>
-const $ = id => document.getElementById(id);
-let isLoading=false;
-const TICKER='https://api.bybit.com/v5/market/tickers?category=spot&symbol=BTCUSDT';
-const KLINE=(interval,limit=220)=>`https://api.bybit.com/v5/market/kline?category=spot&symbol=BTCUSDT&interval=${interval}&limit=${limit}`;
-function money(n){return Number(n).toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2});}
-function num(n,d=2){return Number(n).toLocaleString('en-US',{maximumFractionDigits:d});}
-function pct(n){return (Number(n)*100).toFixed(2)+'%';}
-function timeoutFetch(url,ms=6000){const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);return fetch(url,{signal:c.signal,cache:'no-store'}).finally(()=>clearTimeout(t));}
-function setSource(id, ok, msg){const box=$(id+'Box'), st=$(id+'Status');box.className='source '+(ok?'ok':'bad');st.className=ok?'green':'red';st.textContent=(ok?'✅ ':'❌ ')+msg;}
-function setGlobal(ok,msg){const el=$('globalStatus');el.className='pill '+(ok?'statusTop':'statusBad');el.textContent=msg;}
-function reset(){['market','tech'].forEach(id=>{ $(id+'Box').className='source warn'; $(id+'Status').className='yellow'; $(id+'Status').textContent='⏳ Verificando...';}); setGlobal(false,'• Verificando');}
-function ema(values,period){const k=2/(period+1);let out=[];let prev=values[0];for(let i=0;i<values.length;i++){prev=i===0?values[i]:(values[i]*k+prev*(1-k));out.push(prev);}return out;}
-function rsi(values,period=14){let gains=[],losses=[];for(let i=1;i<values.length;i++){let d=values[i]-values[i-1];gains.push(Math.max(d,0));losses.push(Math.max(-d,0));}let avgG=gains.slice(0,period).reduce((a,b)=>a+b,0)/period;let avgL=losses.slice(0,period).reduce((a,b)=>a+b,0)/period;let rsis=[];for(let i=period;i<gains.length;i++){avgG=(avgG*(period-1)+gains[i])/period;avgL=(avgL*(period-1)+losses[i])/period;let rs=avgL===0?100:avgG/avgL;rsis.push(100-(100/(1+rs)));}return rsis.at(-1);}
-function macd(values){const e12=ema(values,12), e26=ema(values,26);const line=e12.map((v,i)=>v-e26[i]);const sig=ema(line.slice(25),9);const m=line.at(-1), s=sig.at(-1), h=m-s;return {macd:m,signal:s,hist:h};}
-function parseKlines(data){return (data?.result?.list||[]).map(x=>({time:+x[0],open:+x[1],high:+x[2],low:+x[3],close:+x[4],volume:+x[5]})).sort((a,b)=>a.time-b.time);}
-function classifyTF(c, e20, e50){ if(c>e20 && e20>e50) return {txt:'🟢 Alcista', cls:'green', detail:'Precio sobre EMA20 y EMA20 sobre EMA50'}; if(c<e20 && e20<e50) return {txt:'🔴 Bajista', cls:'red', detail:'Precio bajo EMA20 y EMA20 bajo EMA50'}; return {txt:'🟡 Lateral', cls:'yellow', detail:'Sin alineación clara de EMAs'}; }
-async function getKlines(interval,limit=220){const r=await timeoutFetch(KLINE(interval,limit),6000);if(!r.ok) throw new Error('Kline HTTP '+r.status);return parseKlines(await r.json());}
-async function update(){
- if(isLoading) return; isLoading=true; reset();
- try{
-  const [tickerRes, k60, k15, k240, kD] = await Promise.all([timeoutFetch(TICKER,6000), getKlines('60',220), getKlines('15',120), getKlines('240',160), getKlines('D',220)]);
-  if(!tickerRes.ok) throw new Error('Ticker HTTP '+tickerRes.status);
-  const x=(await tickerRes.json())?.result?.list?.[0]; if(!x) throw new Error('Ticker sin datos');
-  const last=+x.lastPrice;
-  $('price').textContent=money(last); $('lastPrice').textContent=money(last);
-  $('change24').textContent=pct(x.price24hPcnt)+' 24h'; $('change24').className=Number(x.price24hPcnt)>=0?'big green':'big red';
-  $('changeCard').textContent=pct(x.price24hPcnt); $('changeCard').className=Number(x.price24hPcnt)>=0?'big green':'big red';
-  $('high24').textContent=money(x.highPrice24h); $('low24').textContent=money(x.lowPrice24h);
-  setSource('market',true,'Conectado');
-  const closes=k60.map(c=>c.close), highs=k60.slice(-100).map(c=>c.high), lows=k60.slice(-100).map(c=>c.low);
-  const ema20=ema(closes,20).at(-1), ema50=ema(closes,50).at(-1), ema200=ema(closes,200).at(-1), rsi14=rsi(closes,14), m=macd(closes);
-  const sup=Math.min(...lows), res=Math.max(...highs), rangePos=((last-sup)/(res-sup))*100;
-  $('rsiVal').textContent=num(rsi14,1)+'/100'; $('rsiBar').style.width=Math.max(0,Math.min(100,rsi14))+'%';
-  let rsiTxt='Neutral', rsiCls='warn'; if(rsi14>70){rsiTxt='Sobrecompra';rsiCls='bad'} else if(rsi14<30){rsiTxt='Sobreventa';rsiCls='ok'} else if(rsi14>55){rsiTxt='Fuerza alcista';rsiCls='ok'} else if(rsi14<45){rsiTxt='Debilidad';rsiCls='bad'}
-  $('rsiTag').textContent=rsiTxt; $('rsiTag').className='tag '+rsiCls;
-  $('macdLine').textContent=num(m.macd,2); $('signalLine').textContent=num(m.signal,2); $('histLine').textContent=num(m.hist,2); $('macdVal').textContent=m.hist>=0?'Histograma positivo':'Histograma negativo'; $('macdTag').textContent=m.macd>m.signal?'Cruce alcista':'Cruce bajista'; $('macdTag').className='tag '+(m.macd>m.signal?'ok':'bad');
-  $('ema20').textContent=money(ema20); $('ema50').textContent=money(ema50); $('ema200').textContent=money(ema200);
-  let trend='Lateral', trendClass='warn'; if(last>ema20 && ema20>ema50 && ema50>ema200){trend='Alcista fuerte';trendClass='ok'} else if(last<ema20 && ema20<ema50 && ema50<ema200){trend='Bajista fuerte';trendClass='bad'} else if(last>ema50){trend='Alcista moderada';trendClass='ok'} else if(last<ema50){trend='Bajista moderada';trendClass='bad'}
-  $('trendVal').textContent=trend; $('trendTag').textContent=trend; $('trendTag').className='tag '+trendClass;
-  $('support').textContent=money(sup); $('resistance').textContent=money(res); $('positionRange').textContent=num(rangePos,1)+'% del rango';
-  let score=50; score += last>ema20?8:-8; score += ema20>ema50?10:-10; score += ema50>ema200?12:-12; score += m.macd>m.signal?10:-10; score += rsi14>55&&rsi14<70?8:0; score += rsi14<45&&rsi14>30?-8:0; score += rsi14<30?5:0; score += rsi14>75?-7:0; score=Math.max(0,Math.min(100,Math.round(score)));
-  $('techScore').textContent=score+'/100'; $('scoreBar').style.width=score+'%';
-  let scoreLabel='Neutral', scoreClass='warn', bias='Esperar'; if(score>=70){scoreLabel='Técnico alcista';scoreClass='ok';bias='Sesgo comprador'} else if(score<=35){scoreLabel='Técnico bajista';scoreClass='bad';bias='Sesgo vendedor'}
-  $('techLabel').textContent=scoreLabel; $('techLabel').className='tag '+scoreClass; $('tradeBias').textContent=bias; $('tradeBias').className='big '+(scoreClass==='ok'?'green':scoreClass==='bad'?'red':'yellow');
-  $('techSummary').textContent=`RSI ${num(rsi14,1)}, MACD ${m.macd>m.signal?'alcista':'bajista'}, tendencia ${trend.toLowerCase()}.`;
-  $('tradeText').textContent= score>=70 ? 'El módulo técnico muestra fuerza. Falta validar con fundamental y gestión de riesgo.' : score<=35 ? 'El módulo técnico muestra debilidad. Falta validar con fundamental y gestión de riesgo.' : 'No hay ventaja técnica clara. Mejor esperar confirmación.';
-  const tfs=[['15',k15,'tf15'],['60',k60,'tf60'],['240',k240,'tf240'],['D',kD,'tfD']];
-  const tfOut={}; for(const [name,arr,id] of tfs){const cs=arr.map(x=>x.close), e20=ema(cs,20).at(-1), e50=ema(cs,50).at(-1), c=cs.at(-1), cl=classifyTF(c,e20,e50); $(id).textContent=cl.txt; $(id).className=cl.cls; $(id+'Detail').textContent=cl.detail; tfOut[name]={close:c,ema20:e20,ema50:e50,trend:cl.txt.replace(/[🟢🔴🟡]/g,'').trim()};}
-  const out={module:'technical',symbol:'BTCUSDT',source:'Bybit Spot',lastPrice:last,intervalBase:'1H',rsi14,macd:m,ema:{ema20,ema50,ema200},support:sup,resistance:res,rangePositionPct:rangePos,technicalScore:score,technicalBias:bias,timeframes:tfOut,lastUpdate:new Date().toISOString()};
-  $('jsonOut').textContent=JSON.stringify(out,null,2);
-  $('updated').textContent='Última actualización: '+new Date().toLocaleString('es-CL')+'. Auto actualización cada 30 segundos.';
-  setSource('tech',true,'Calculado'); setGlobal(true,'3/3 fuentes activas');
- }catch(e){
-  setSource('market',false,e.name==='AbortError'?'Tiempo agotado':'Error'); setSource('tech',false,e.message); setGlobal(false,'Error de datos'); $('updated').textContent='Última actualización fallida: '+new Date().toLocaleString('es-CL')+'. '+e.message;
- }finally{isLoading=false;}
-}
-function loadTV(){try{new TradingView.widget({container_id:'tradingview_widget',autosize:true,symbol:'BYBIT:BTCUSDT',interval:'60',timezone:'America/Santiago',theme:'dark',style:'1',locale:'es',hide_top_toolbar:false,allow_symbol_change:false,calendar:false,studies:['RSI@tv-basicstudies','MACD@tv-basicstudies','MASimple@tv-basicstudies']});setSource('tv',true,'Cargado');}catch(e){tvError();}}
-function tvError(){setSource('tv',false,'No cargó');}
-$('refreshBtn').addEventListener('click', update); update(); setInterval(update,30000);
+const $=id=>document.getElementById(id);
+const API='https://api.bybit.com';
+const TICKER=`${API}/v5/market/tickers?category=spot&symbol=BTCUSDT`;
+const KLINE=(interval,limit=220)=>`${API}/v5/market/kline?category=spot&symbol=BTCUSDT&interval=${interval}&limit=${limit}`;
+let loading=false;
+function money(v){return Number(v).toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2})}
+function num(v,d=2){return Number(v).toLocaleString('en-US',{maximumFractionDigits:d})}
+function pct(v){return (Number(v)*100).toFixed(2)+'%'}
+function fetchTimeout(url,ms=5000){const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);return fetch(url,{signal:c.signal,cache:'no-store'}).finally(()=>clearTimeout(t))}
+function setBox(id,state,msg){const box=$(id+'Box'),st=$(id+'Status');box.className='source '+state;st.className=state==='ok'?'green':state==='bad'?'red':'yellow';st.textContent=(state==='ok'?'✅ ':state==='bad'?'❌ ':'⏳ ')+msg}
+function ema(values,p){if(!values.length)return[];const k=2/(p+1);let prev=values[0];return values.map((v,i)=>prev=i? v*k+prev*(1-k):v)}
+function rsi(values,p=14){if(values.length<p+2)return NaN;let gains=[],losses=[];for(let i=1;i<values.length;i++){const d=values[i]-values[i-1];gains.push(Math.max(d,0));losses.push(Math.max(-d,0))}let ag=gains.slice(0,p).reduce((a,b)=>a+b,0)/p,al=losses.slice(0,p).reduce((a,b)=>a+b,0)/p;let out=50;for(let i=p;i<gains.length;i++){ag=(ag*(p-1)+gains[i])/p;al=(al*(p-1)+losses[i])/p;out=al===0?100:100-(100/(1+ag/al))}return out}
+function macd(values){const e12=ema(values,12),e26=ema(values,26),line=e12.map((v,i)=>v-e26[i]),signal=ema(line.slice(25),9);const m=line.at(-1),s=signal.at(-1);return{macd:m,signal:s,hist:m-s}}
+function parseKlines(j){return (j?.result?.list||[]).map(x=>({time:+x[0],open:+x[1],high:+x[2],low:+x[3],close:+x[4],volume:+x[5]})).sort((a,b)=>a.time-b.time)}
+async function getKlines(interval,limit){const r=await fetchTimeout(KLINE(interval,limit));if(!r.ok)throw new Error('HTTP '+r.status);const arr=parseKlines(await r.json());if(arr.length<60)throw new Error('Velas insuficientes');return arr}
+function analyzeTF(arr){const c=arr.map(x=>x.close),last=c.at(-1),e20=ema(c,20).at(-1),e50=ema(c,50).at(-1),e200=ema(c,200).at(-1),rv=rsi(c),m=macd(c);let score=50;const factors=[];const add=(name,val,reason)=>{score+=val;factors.push({name,value:val,reason})};add('Precio vs EMA20',last>e20?6:-6,last>e20?'Sobre EMA20':'Bajo EMA20');add('EMA20 vs EMA50',e20>e50?8:-8,e20>e50?'Alineación alcista':'Alineación bajista');if(Number.isFinite(e200))add('EMA50 vs EMA200',e50>e200?10:-10,e50>e200?'Tendencia mayor alcista':'Tendencia mayor bajista');add('MACD',m.macd>m.signal?8:-8,m.macd>m.signal?'Cruce alcista':'Cruce bajista');if(rv>=55&&rv<=70)add('RSI',6,'Fuerza alcista sin sobrecompra');else if(rv<=45&&rv>=30)add('RSI',-6,'Debilidad sin sobreventa');else if(rv<30)add('RSI',3,'Sobreventa');else if(rv>75)add('RSI',-5,'Sobrecompra alta');score=Math.max(0,Math.min(100,Math.round(score)));let trend='Lateral',cls='yellow';if(score>=65){trend='Alcista';cls='green'}else if(score<=35){trend='Bajista';cls='red'}return{last,e20,e50,e200,rsi:rv,macd:m,score,trend,cls,factors}}
+function renderTF(id,a){$(id).textContent=(a.trend==='Alcista'?'🟢 ':a.trend==='Bajista'?'🔴 ':'🟡 ')+a.trend;$(id).className=a.cls;$(id+'Detail').textContent=`RSI ${num(a.rsi,1)} · MACD ${a.macd.macd>a.macd.signal?'alcista':'bajista'}`;$(id+'Score').textContent=`Puntaje ${a.score}/100`}
+async function update(){if(loading)return;loading=true;['ticker','kline','tech'].forEach(id=>setBox(id,'warn','Procesando...'));$('globalStatus').textContent='• Verificando';$('globalStatus').className='pill';try{
+ const tickerPromise=fetchTimeout(TICKER).then(async r=>{if(!r.ok)throw new Error('Ticker HTTP '+r.status);const x=(await r.json())?.result?.list?.[0];if(!x)throw new Error('Ticker sin datos');return x});
+ const defs=[['15',220],['60',220],['240',220],['D',220]];const results=await Promise.allSettled(defs.map(([i,l])=>getKlines(i,l)));const map={};results.forEach((r,idx)=>{if(r.status==='fulfilled')map[defs[idx][0]]=r.value});
+ const ticker=await tickerPromise;setBox('ticker','ok','Conectado');$('price').textContent=money(ticker.lastPrice);$('lastPrice').textContent=money(ticker.lastPrice);$('change24').textContent=pct(ticker.price24hPcnt)+' 24h';$('change24').className=Number(ticker.price24hPcnt)>=0?'big green':'big red';$('changeCard').textContent=pct(ticker.price24hPcnt);$('changeCard').className=Number(ticker.price24hPcnt)>=0?'big green':'big red';$('high24').textContent=money(ticker.highPrice24h);$('low24').textContent=money(ticker.lowPrice24h);
+ const okCount=Object.keys(map).length;if(!okCount)throw new Error('No se pudieron cargar velas');setBox('kline',okCount===4?'ok':'warn',`${okCount}/4 temporalidades`);
+ const analyses={};for(const k of Object.keys(map))analyses[k]=analyzeTF(map[k]);if(!analyses['60'])throw new Error('Falta temporalidad 1H');setBox('tech','ok','Calculado');
+ [['15','tf15'],['60','tf60'],['240','tf240'],['D','tfD']].forEach(([k,id])=>{if(analyses[k])renderTF(id,analyses[k]);else{$(id).textContent='❌ Sin datos';$(id).className='red';$(id+'Detail').textContent='La consulta falló';$(id+'Score').textContent='--'}});
+ const a=analyses['60'];$('rsiVal').textContent=num(a.rsi,1)+'/100';$('rsiBar').style.width=Math.max(0,Math.min(100,a.rsi))+'%';let rt='Neutral',rc='warn';if(a.rsi>70){rt='Sobrecompra';rc='bad'}else if(a.rsi<30){rt='Sobreventa';rc='ok'}else if(a.rsi>55){rt='Fuerza alcista';rc='ok'}else if(a.rsi<45){rt='Debilidad';rc='bad'}$('rsiTag').textContent=rt;$('rsiTag').className='tag '+rc;
+ $('macdLine').textContent=num(a.macd.macd,2);$('signalLine').textContent=num(a.macd.signal,2);$('histLine').textContent=num(a.macd.hist,2);$('macdHeadline').textContent=a.macd.hist>=0?'Histograma positivo':'Histograma negativo';$('macdTag').textContent=a.macd.macd>a.macd.signal?'Cruce alcista':'Cruce bajista';$('macdTag').className='tag '+(a.macd.macd>a.macd.signal?'ok':'bad');
+ $('ema20').textContent=money(a.e20);$('ema50').textContent=money(a.e50);$('ema200').textContent=Number.isFinite(a.e200)?money(a.e200):'Sin datos';$('trendVal').textContent=a.trend;$('trendTag').textContent=a.trend;$('trendTag').className='tag '+(a.trend==='Alcista'?'ok':a.trend==='Bajista'?'bad':'warn');
+ const recent=map['60'].slice(-100),sup=Math.min(...recent.map(x=>x.low)),res=Math.max(...recent.map(x=>x.high)),pos=((+ticker.lastPrice-sup)/(res-sup))*100;$('support').textContent=money(sup);$('resistance').textContent=money(res);$('positionRange').textContent=num(pos,1)+'%';
+ const weights={'15':.15,'60':.35,'240':.30,'D':.20};let weighted=0,used=0;for(const[k,v]of Object.entries(analyses)){weighted+=v.score*(weights[k]||0);used+=weights[k]||0}const final=Math.round(weighted/used);$('techScore').textContent=final+'/100';$('scoreBar').style.width=final+'%';let label='Neutral',cls='warn',bias='Esperar';if(final>=65){label='Técnico alcista';cls='ok';bias='Sesgo comprador'}else if(final<=35){label='Técnico bajista';cls='bad';bias='Sesgo vendedor'}$('techLabel').textContent=label;$('techLabel').className='tag '+cls;$('tradeBias').textContent=bias;$('tradeBias').className='big '+(cls==='ok'?'green':cls==='bad'?'red':'yellow');$('techSummary').textContent=`Consenso multitemporal ${final}/100. La temporalidad 1H pesa 35% y 4H pesa 30%.`;$('tradeText').textContent=final>=65?'Existe fortaleza técnica, pero aún falta validación fundamental y gestión de riesgo.':final<=35?'Existe debilidad técnica, pero aún falta validación fundamental y gestión de riesgo.':'No existe una ventaja técnica clara por ahora.';
+ $('factors').innerHTML=a.factors.map(f=>`<div class="factor"><div><b>${f.name}</b><div class="small">${f.reason}</div></div><div class="${f.value>=0?'green':'red'}"><b>${f.value>=0?'+':''}${f.value}</b></div></div>`).join('');
+ const out={module:'technical',version:'2.1',symbol:'BTCUSDT',source:'Bybit Spot',technicalScore:final,technicalBias:bias,timeframes:Object.fromEntries(Object.entries(analyses).map(([k,v])=>[k,{score:v.score,trend:v.trend,rsi:v.rsi,macd:v.macd,ema20:v.e20,ema50:v.e50,ema200:v.e200}])),support:sup,resistance:res,lastUpdate:new Date().toISOString()};$('jsonOut').textContent=JSON.stringify(out,null,2);$('updated').textContent='Última actualización: '+new Date().toLocaleString('es-CL')+'.';$('globalStatus').textContent=`${okCount+2}/6 procesos OK`;$('globalStatus').className='pill';
+ }catch(e){setBox('tech','bad',e.name==='AbortError'?'Tiempo agotado':e.message);$('globalStatus').textContent='Error de datos';$('updated').textContent='Actualización fallida: '+new Date().toLocaleString('es-CL')+'. '+e.message}finally{loading=false}}
+function loadTV(){try{new TradingView.widget({container_id:'tradingview_widget',autosize:true,symbol:'BYBIT:BTCUSDT',interval:'60',timezone:'America/Santiago',theme:'dark',style:'1',locale:'es',allow_symbol_change:false,studies:['RSI@tv-basicstudies','MACD@tv-basicstudies','MASimple@tv-basicstudies']});setBox('tv','ok','Cargado')}catch(e){tvError()}}
+function tvError(){setBox('tv','bad','No cargó')}
+$('refreshBtn').addEventListener('click',update);update();setInterval(update,30000);
 </script>
 </body>
 </html>

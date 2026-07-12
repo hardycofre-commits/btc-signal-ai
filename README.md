@@ -1,12 +1,17 @@
-# BTC Signal AI v2.0
+# BTC Signal AI v2.1
 
-Módulo 2: análisis técnico con datos reales desde Bybit Spot.
+Módulo 2 de análisis técnico con datos públicos de Bybit Spot.
 
-Incluye:
-- Módulo 1 de mercado: precio, variación 24h, máximo y mínimo.
-- Módulo 2 técnico: RSI 14, MACD, EMA 20/50/200.
-- Soporte y resistencia con 100 velas de 1H.
-- Lectura por temporalidades 15m, 1H, 4H y 1D.
-- Salida JSON para alimentar el futuro motor de decisión.
+## Incluye
+- Velas BTCUSDT de 15 minutos, 1 hora, 4 horas y 1 día.
+- RSI 14, MACD y EMA 20/50/200.
+- Puntaje individual por temporalidad.
+- Consenso técnico ponderado.
+- Soporte y resistencia de 100 velas de 1 hora.
+- Estado independiente de cada conexión.
+- Gráfico TradingView.
 
-Nota: Esta app no ejecuta operaciones ni garantiza resultados. Es una herramienta de apoyo al análisis.
+## Uso
+Subir `index.html` y `README.md` al repositorio de GitHub Pages reemplazando los archivos anteriores.
+
+Esta aplicación es una herramienta de apoyo y no ejecuta operaciones ni garantiza resultados.
