@@ -1,19 +1,12 @@
-# BTC Signal AI v3.6
+# BTC Signal AI v4.0
 
-Versión basada en v3.5, conectada al Hardy Trading Backend.
+Versión basada en v3.6.
 
 ## Cambios
+- Motor de decisión que combina 60% análisis técnico y 40% análisis fundamental.
+- Recomendación: compra fuerte, compra moderada, compra cautelosa, esperar o no comprar.
+- Confianza, riesgo, consenso y explicación automática.
+- Considera técnico, Fear & Greed, noticias, ETF Spot y riesgo macro.
+- Mantiene intactos los módulos técnicos y fundamentales existentes.
 
-- Flujo ETF Spot automático desde `/api/etf`.
-- Estado de conexión, flujo diario, acumulados de 5 y 20 días y racha institucional.
-- Contexto ETF mejorado para distinguir señales mixtas entre corto y mediano plazo.
-- Riesgo macro automático.
-- Noticias BTC automáticas.
-- Fear & Greed automático.
-- Puntaje fundamental actualizado con los cuatro componentes.
-- Mantiene intacto el análisis técnico existente.
-
-## Archivos
-
-- `index.html`
-- `README.md`
+> La recomendación es una ayuda informativa y no garantiza resultados.

@@ -3,18 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BTC Signal AI v3.4</title>
+  <title>BTC Signal AI v4.0</title>
   <style>
     :root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12253d;--line:#26415f;--text:#f7fbff;--muted:#9fc4ee;--ok:#20d690;--bad:#ff5570;--warn:#ffd166;--blue:#4aa3ff;--purple:#b88cff}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#0a1830);font-family:Arial,Helvetica,sans-serif;color:var(--text)}header{position:sticky;top:0;z-index:5;background:#06111f;border-bottom:1px solid var(--line);padding:18px 22px;display:flex;gap:18px;justify-content:space-between;align-items:center}h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:14px;margin-top:4px}.wrap{max-width:1320px;margin:22px auto;padding:0 18px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:rgba(13,27,46,.92);border:1px solid var(--line);border-radius:18px;padding:20px}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:center}.label{color:var(--muted);font-size:16px}.price{font-size:44px;font-weight:800;margin:12px 0}.red{color:var(--bad)}.green{color:var(--ok)}.yellow{color:var(--warn)}.blue{color:var(--blue)}.purple{color:var(--purple)}button{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:800;padding:13px 20px;cursor:pointer}.pill{padding:10px 16px;border-radius:999px;background:#26313b;color:var(--warn);font-weight:800;display:inline-block}.statusTop{background:#132b2c;color:var(--ok)}.statusBad{background:#322332;color:var(--bad)}.small{font-size:13px;color:var(--muted)}.row{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);padding:11px 0;gap:12px}.row:last-child{border-bottom:0}.big{font-size:26px;font-weight:800}.statusGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.source{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}.source.ok{border-color:#0ea77e}.source.bad{border-color:#b84a65}.source.warn{border-color:#80672a}.tv{height:500px;overflow:hidden}.note{margin-top:12px;color:var(--muted);font-size:13px}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}.meter{height:12px;border-radius:999px;background:#071324;border:1px solid var(--line);overflow:hidden;margin-top:10px}.bar{height:100%;width:0%;background:var(--blue)}.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#071324;border:1px solid var(--line);font-weight:800}.tag.ok{color:var(--ok);border-color:#0ea77e}.tag.bad{color:var(--bad);border-color:#b84a65}.tag.warn{color:var(--warn);border-color:#80672a}.mtf{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:950px){.hero,.grid,.grid3,.statusGrid,.mtf{grid-template-columns:1fr}.price{font-size:36px}header{align-items:flex-start;flex-direction:column}.tv{height:390px}}
   
 .newsList{display:grid;gap:10px}.newsItem{background:#0b192a;border:1px solid var(--line);border-radius:14px;padding:14px}.newsItem a{color:var(--text);text-decoration:none;font-weight:800;line-height:1.35}.newsItem a:hover{color:var(--blue)}.newsMeta{margin-top:7px;color:var(--muted);font-size:12px}.newsTop{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.newsStats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.newsStat{background:#091729;border:1px solid var(--line);border-radius:10px;padding:9px;text-align:center}.newsStat span{display:block;color:var(--muted);font-size:11px}.newsStat b{display:block;margin-top:4px;font-size:15px}.impact{font-size:11px;font-weight:800;padding:3px 7px;border-radius:999px;border:1px solid var(--line)}.impact.high{color:var(--bad);border-color:#b84a65}.impact.medium{color:var(--warn);border-color:#80672a}.impact.low{color:var(--muted)}.newsSummary{background:#091729;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px}.newsUpdated{margin-top:10px}.newsExcerpt{margin-top:8px;color:var(--muted);font-size:12px;line-height:1.45}@media(max-width:600px){.newsStats{grid-template-columns:repeat(2,1fr)}}.scoreParts{display:grid;gap:8px}.scorePart{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}.scorePart:last-child{border-bottom:0}.inputDark{width:100%;background:#071324;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:16px}.badgePos{color:var(--ok)}.badgeNeg{color:var(--bad)}.badgeNeu{color:var(--warn)}
 .fgCard{position:relative;overflow:hidden}.fgHeader,.fgTop{display:flex;justify-content:space-between;gap:12px;align-items:center}.fgHeader h3{margin:0 0 14px}.fgTop{align-items:flex-start}.fgDelta{font-weight:800;font-size:14px;padding-top:8px}.fgScale{position:relative;height:14px;border-radius:999px;margin-top:18px;background:linear-gradient(90deg,#ff4d6d 0 20%,#ff8c42 20% 40%,#ffd166 40% 60%,#7bd88f 60% 80%,#20d690 80% 100%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18)}.fgMarker{position:absolute;top:-10px;left:0;transform:translateX(-50%);width:4px;height:34px;background:#fff;border-radius:4px;transition:left .45s ease}.fgMarker span{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:800;background:#06111f;border:1px solid var(--line);border-radius:7px;padding:2px 5px;white-space:nowrap}.fgScaleLabels{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-top:7px}.fgChart{display:block;width:100%;height:122px;margin-top:12px;background:#091729;border:1px solid var(--line);border-radius:12px}.fgStats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}.fgStats div{background:#091729;border:1px solid var(--line);border-radius:10px;padding:8px;text-align:center}.fgStats span{display:block;color:var(--muted);font-size:11px}.fgStats b{display:block;margin-top:4px;font-size:14px}.fgInsight{min-height:34px;margin-bottom:6px}@media(max-width:600px){.fgStats{grid-template-columns:repeat(2,1fr)}}
 
+.decisionCard{margin-top:18px;background:linear-gradient(135deg,rgba(18,37,61,.98),rgba(13,27,46,.98));border:1px solid #365d86}.decisionGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:stretch}.decisionScore{font-size:56px;font-weight:900;line-height:1}.decisionLabel{font-size:30px;font-weight:900;margin:10px 0}.decisionMeta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.decisionMeta>div,.decisionBreakdown>div{background:#091729;border:1px solid var(--line);border-radius:12px;padding:12px}.decisionMeta span,.decisionBreakdown span{display:block;color:var(--muted);font-size:12px}.decisionMeta b,.decisionBreakdown b{display:block;margin-top:5px;font-size:17px}.decisionBreakdown{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.decisionReasons{display:grid;gap:8px;margin-top:14px}.decisionReason{padding:10px 12px;border-radius:10px;background:#091729;border-left:4px solid var(--line);font-size:13px}.decisionReason.ok{border-left-color:var(--ok)}.decisionReason.bad{border-left-color:var(--bad)}.decisionReason.warn{border-left-color:var(--warn)}.decisionAdvice{margin-top:14px;padding:14px;border-radius:12px;background:#071324;border:1px solid var(--line);line-height:1.5}.decisionMeter{height:16px;border-radius:999px;background:#071324;border:1px solid var(--line);overflow:hidden;margin-top:12px}.decisionMeter>div{height:100%;width:0%;background:linear-gradient(90deg,var(--bad),var(--warn),var(--ok));transition:width .4s ease}@media(max-width:950px){.decisionGrid{grid-template-columns:1fr}.decisionMeta{grid-template-columns:1fr}.decisionBreakdown{grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 <body>
 <header>
-  <div><h1>BTC Signal AI</h1><div class="sub">v3.6 · Análisis fundamental automático</div></div>
+  <div><h1>BTC Signal AI</h1><div class="sub">v4.0 · Motor de decisión técnico + fundamental</div></div>
   <div style="display:flex;gap:12px;align-items:center"><span id="globalStatus" class="pill">• Verificando</span><button id="refreshBtn">Actualizar</button></div>
 </header>
 
@@ -29,6 +31,34 @@
       <div class="label">BTC/USDT · Bybit Spot</div>
       <div id="price" class="price">--</div>
       <div id="change24" class="big">--</div>
+    </div>
+  </section>
+
+  <section class="card decisionCard">
+    <div class="decisionGrid">
+      <div>
+        <div class="label">MOTOR DE DECISIÓN</div>
+        <div id="decisionLabel" class="decisionLabel yellow">ESPERANDO DATOS</div>
+        <div id="decisionScore" class="decisionScore">--/100</div>
+        <div class="decisionMeter"><div id="decisionBar"></div></div>
+        <div class="decisionMeta">
+          <div><span>Confianza</span><b id="decisionConfidence">--</b></div>
+          <div><span>Riesgo</span><b id="decisionRisk">--</b></div>
+          <div><span>Horizonte</span><b id="decisionHorizon">Swing / 4H–1D</b></div>
+        </div>
+        <div id="decisionAdvice" class="decisionAdvice small">El sistema combinará el análisis técnico y fundamental cuando ambos estén disponibles.</div>
+      </div>
+      <div>
+        <div class="decisionBreakdown">
+          <div><span>Puntaje técnico</span><b id="decisionTech">--/100</b></div>
+          <div><span>Puntaje fundamental</span><b id="decisionFund">--/100</b></div>
+          <div><span>Consenso</span><b id="decisionConsensus">--</b></div>
+          <div><span>Última evaluación</span><b id="decisionUpdated">--</b></div>
+        </div>
+        <div id="decisionReasons" class="decisionReasons">
+          <div class="decisionReason warn">Esperando análisis técnico y fundamental.</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -156,7 +186,8 @@ async function update(){
   $('consensusScore').textContent=consensus+'/100';$('consensusTag').textContent=label.text;$('consensusTag').className='tag '+label.cls;$('consensusText').textContent=`15m ${analyses['15']?.score??'--'} · 1H ${analyses['60']?.score??'--'} · 4H ${analyses['240']?.score??'--'} · 1D ${analyses['D']?.score??'--'}.`;
   const freshCount=valid.filter(a=>a.fresh.ok).length,quality=Math.round((valid.length/4*.6+freshCount/4*.4)*100);$('qualityValue').textContent=quality+'%';$('qualityTag').textContent=quality>=90?'Datos completos':quality>=65?'Datos parciales':'Datos insuficientes';$('qualityTag').className='tag '+(quality>=90?'ok':quality>=65?'warn':'bad');$('qualityText').textContent=`${valid.length}/4 temporalidades cargadas y ${freshCount}/4 con vela reciente.${errors.length?' Errores: '+errors.join(' | '):''}`;
   const prev=JSON.parse(localStorage.getItem('btcTechnicalAnalysis')||'null');if(prev){const d=consensus-prev.consensus;$('previousDelta').textContent=(d>=0?'+':'')+d+' puntos';$('previousDelta').className='big '+(d>0?'green':d<0?'red':'yellow');$('previousTime').textContent='Anterior: '+new Date(prev.time).toLocaleString('es-CL')+' · '+prev.consensus+'/100';}
-  const out={module:'technical',version:'3.1',symbol:'BTCUSDT',source:'Bybit Spot',lastPrice:last,consensusScore:consensus,dominantTimeframe:dominant.key,qualityPct:quality,timeframes:Object.fromEntries(valid.map(a=>[a.key,{score:a.score,trend:a.trend,rsi:a.rsi,macd:a.macd,ema20:a.ema20,ema50:a.ema50,ema200:a.ema200,lastCandle:new Date(a.lastCandle).toISOString(),fresh:a.fresh.ok}])),errors,lastUpdate:new Date().toISOString()};$('jsonOut').textContent=JSON.stringify(out,null,2);localStorage.setItem('btcTechnicalAnalysis',JSON.stringify({consensus,time:out.lastUpdate}));
+  decisionState.technical=consensus;decisionState.quality=quality;decisionState.rsi=rsi14;decisionState.trend=trend;updateDecision();
+  const out={module:'technical',version:'4.0',symbol:'BTCUSDT',source:'Bybit Spot',lastPrice:last,consensusScore:consensus,dominantTimeframe:dominant.key,qualityPct:quality,timeframes:Object.fromEntries(valid.map(a=>[a.key,{score:a.score,trend:a.trend,rsi:a.rsi,macd:a.macd,ema20:a.ema20,ema50:a.ema50,ema200:a.ema200,lastCandle:new Date(a.lastCandle).toISOString(),fresh:a.fresh.ok}])),errors,lastUpdate:new Date().toISOString()};$('jsonOut').textContent=JSON.stringify(out,null,2);localStorage.setItem('btcTechnicalAnalysis',JSON.stringify({consensus,time:out.lastUpdate}));
   $('updated').textContent='Última actualización: '+new Date().toLocaleString('es-CL')+'. Auto actualización cada 30 segundos.';setSource('tech',true,errors.length?'Calculado con datos parciales':'Calculado');setGlobal(true,(errors.length?'2/3':'3/3')+' fuentes activas');
  }catch(e){setSource('market',false,e.name==='AbortError'?'Tiempo agotado':'Error');setSource('tech',false,e.message);setGlobal(false,'Error de datos');$('updated').textContent='Actualización fallida: '+new Date().toLocaleString('es-CL')+'. '+e.message;}
  finally{isLoading=false;}
@@ -169,6 +200,41 @@ const FUND_NEWS='https://hardy-trading-backend.onrender.com/api/news/btc';
 const FUND_MACRO='https://hardy-trading-backend.onrender.com/api/macro';
 const FUND_ETF='https://hardy-trading-backend.onrender.com/api/etf';
 let fundamentalState={fear:null,newsScore:0,newsCount:0};
+let decisionState={technical:null,fundamental:null,quality:null,rsi:null,trend:null,macroScore:0,etfFlow:0,newsScore:0,fear:null};
+function updateDecision(){
+ const t=Number(decisionState.technical),f=Number(decisionState.fundamental);
+ if(!Number.isFinite(t)||!Number.isFinite(f))return;
+ const macro=Number($('macroInput')?.value||0),etf=Number($('etfInput')?.value||0);
+ const combined=Math.round(t*.60+f*.40);
+ const alignment=100-Math.min(100,Math.abs(t-f)*2);
+ const quality=Number.isFinite(decisionState.quality)?decisionState.quality:80;
+ let confidence=Math.round(alignment*.45+quality*.35+Math.abs(combined-50)*.4);confidence=Math.max(35,Math.min(95,confidence));
+ let label='ESPERAR',cls='yellow',risk='Medio';
+ if(combined>=80&&t>=65&&f>=60){label='COMPRA FUERTE';cls='green';risk=macro<=-12?'Alto':'Medio';}
+ else if(combined>=65&&t>=58){label='COMPRA MODERADA';cls='green';risk=macro<=-12?'Alto':macro<0?'Medio':'Bajo';}
+ else if(combined<=25&&t<=35&&f<=40){label='EVITAR / SESGO BAJISTA';cls='red';risk='Alto';}
+ else if(combined<=40){label='NO COMPRAR';cls='red';risk='Alto';}
+ if(macro<=-12&&label==='COMPRA FUERTE'){label='ESPERAR EVENTO MACRO';cls='yellow';risk='Alto';}
+ else if(macro<=-12&&label==='COMPRA MODERADA'){label='COMPRA CAUTELOSA';cls='yellow';risk='Alto';}
+ $('decisionScore').textContent=combined+'/100';$('decisionBar').style.width=combined+'%';$('decisionLabel').textContent=label;$('decisionLabel').className='decisionLabel '+cls;
+ $('decisionConfidence').textContent=confidence+'%';$('decisionRisk').textContent=risk;$('decisionRisk').className=risk==='Alto'?'red':risk==='Bajo'?'green':'yellow';
+ $('decisionTech').textContent=t+'/100';$('decisionFund').textContent=f+'/100';$('decisionConsensus').textContent=Math.abs(t-f)<=10?'Alto':Math.abs(t-f)<=25?'Medio':'Bajo';$('decisionUpdated').textContent=new Date().toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+ const reasons=[];
+ reasons.push({c:t>=65?'ok':t<=35?'bad':'warn',x:`Técnico ${t}/100: ${t>=65?'tendencia favorable':t<=35?'debilidad predominante':'sin ventaja clara'}.`});
+ reasons.push({c:f>=65?'ok':f<=35?'bad':'warn',x:`Fundamental ${f}/100: ${f>=65?'contexto favorable':f<=35?'contexto adverso':'contexto mixto'}.`});
+ if(macro<=-12)reasons.push({c:'bad',x:'Existe riesgo macro alto; evita entrar antes del evento o reduce el tamaño de posición.'});else if(macro<0)reasons.push({c:'warn',x:'Hay riesgo macro moderado; conviene esperar confirmación y usar menor exposición.'});else reasons.push({c:'ok',x:'No se detecta un bloqueo macro relevante en este momento.'});
+ if(etf>0)reasons.push({c:'ok',x:`ETF Spot con entradas netas de ${formatEtfFlow(etf)}.`});else if(etf<0)reasons.push({c:'bad',x:`ETF Spot con salidas netas de ${formatEtfFlow(etf)}.`});
+ if(Number.isFinite(decisionState.fear))reasons.push({c:decisionState.fear<=40?'ok':decisionState.fear>=70?'bad':'warn',x:`Fear & Greed en ${decisionState.fear}/100.`});
+ $('decisionReasons').innerHTML=reasons.slice(0,5).map(r=>`<div class="decisionReason ${r.c}">${r.x}</div>`).join('');
+ let advice='Esperar una mejor alineación entre el análisis técnico y fundamental.';
+ if(label.includes('COMPRA FUERTE'))advice='Las condiciones están ampliamente alineadas. Considera una entrada escalonada, nunca todo el capital de una vez, y define stop loss antes de operar.';
+ else if(label.includes('COMPRA'))advice='Existe una ventaja moderada. Prioriza una entrada parcial, confirma soporte y mantén una relación riesgo/beneficio mínima de 1:2.';
+ else if(label.includes('ESPERAR EVENTO'))advice='La señal es favorable, pero el riesgo macro domina. Espera la publicación y la reacción inicial del mercado.';
+ else if(label==='NO COMPRAR'||label.includes('EVITAR'))advice='No hay una ventaja suficiente para abrir una posición larga. Protege el capital y espera una mejora clara.';
+ $('decisionAdvice').textContent=advice;
+ localStorage.setItem('btcDecisionAI',JSON.stringify({score:combined,label,confidence,risk,technical:t,fundamental:f,time:new Date().toISOString()}));
+}
+
 const positiveWords=['surge','rally','approval','approved','inflow','adoption','buy','bull','record high','all-time high','ath','accumulation','gain','breakout','institutional','reserve','treasury','launch','upgrade','recovery','rebound','optimism','demand'];
 const negativeWords=['hack','ban','lawsuit','outflow','sell-off','selloff','crash','decline','bear','liquidation','fraud','rejection','drop','exploit','breach','warning','probe','investigation','collapse','fear','pressure','tariff','seizure'];
 const highImpactWords=['etf','sec','federal reserve','fed ','interest rate','inflation','cpi','pce','trump','regulation','ban','hack','exploit','liquidation','institutional','treasury','reserve','blackrock','microstrategy','strategy'];
@@ -177,7 +243,7 @@ function newsAnalysis(item){const text=((item.title||'')+' '+(item.body||'')).to
 async function fetchJsonFallback(url){try{const r=await timeoutFetch(url);if(!r.ok)throw new Error('HTTP '+r.status);return await r.json();}catch(e){const proxy='https://api.allorigins.win/raw?url='+encodeURIComponent(url);const r=await timeoutFetch(proxy);if(!r.ok)throw e;return await r.json();}}
 function scoreFundamental(){const fg=fundamentalState.fear;let fgP=0;if(Number.isFinite(fg)){if(fg<=10)fgP=15;else if(fg<=20)fgP=12;else if(fg<=30)fgP=8;else if(fg<=40)fgP=5;else if(fg<60)fgP=0;else if(fg<70)fgP=-5;else if(fg<80)fgP=-8;else if(fg<90)fgP=-12;else fgP=-15;}
  const newsP=Math.max(-15,Math.min(15,Math.round(fundamentalState.newsScore*2)));const etf=Number($('etfInput').value||0);let etfP=0;if(etf>=500)etfP=15;else if(etf>=200)etfP=10;else if(etf>0)etfP=5;else if(etf<=-500)etfP=-15;else if(etf<=-200)etfP=-10;else if(etf<0)etfP=-5;const macroP=Number($('macroInput').value||0);const score=Math.max(0,Math.min(100,50+fgP+newsP+etfP+macroP));
- $('fgPoints').textContent=(fgP>=0?'+':'')+fgP;$('newsPoints').textContent=(newsP>=0?'+':'')+newsP;$('etfPoints').textContent=(etfP>=0?'+':'')+etfP;$('macroPoints').textContent=(macroP>=0?'+':'')+macroP;$('fundScore').textContent=score+'/100';$('fundBar').style.width=score+'%';let lbl='Neutral',cls='warn';if(score>=65){lbl='Fundamental alcista';cls='ok'}else if(score<=35){lbl='Fundamental bajista';cls='bad'}$('fundLabel').textContent=lbl;$('fundLabel').className='tag '+cls;$('fundStatus').textContent='Calculado';$('fundStatus').className='tag '+cls;$('fundSummary').textContent=`Puntaje ${score}/100 con ${fundamentalState.newsCount} noticias analizadas. ETF y macro se actualizan automáticamente.`;}
+ $('fgPoints').textContent=(fgP>=0?'+':'')+fgP;$('newsPoints').textContent=(newsP>=0?'+':'')+newsP;$('etfPoints').textContent=(etfP>=0?'+':'')+etfP;$('macroPoints').textContent=(macroP>=0?'+':'')+macroP;$('fundScore').textContent=score+'/100';$('fundBar').style.width=score+'%';let lbl='Neutral',cls='warn';if(score>=65){lbl='Fundamental alcista';cls='ok'}else if(score<=35){lbl='Fundamental bajista';cls='bad'}$('fundLabel').textContent=lbl;$('fundLabel').className='tag '+cls;$('fundStatus').textContent='Calculado';$('fundStatus').className='tag '+cls;$('fundSummary').textContent=`Puntaje ${score}/100 con ${fundamentalState.newsCount} noticias analizadas. ETF y macro se actualizan automáticamente.`;decisionState.fundamental=score;decisionState.macroScore=macroP;decisionState.etfFlow=etf;decisionState.newsScore=newsP;decisionState.fear=fg;updateDecision();}
 function fgClassEs(v){if(v<=24)return 'Miedo extremo';if(v<=44)return 'Miedo';if(v<=55)return 'Neutral';if(v<=74)return 'Codicia';return 'Codicia extrema';}
 function fgInsight(v,delta){if(v<=20)return 'Miedo extremo: el sentimiento es muy defensivo. Puede anticipar oportunidades, pero no constituye una señal de compra por sí sola.';if(v<=35)return 'Miedo elevado: el mercado mantiene cautela. Conviene exigir confirmación técnica antes de operar.';if(v<60)return 'Sentimiento neutral: no existe una ventaja emocional clara; pesan más la tendencia y el contexto macro.';if(v<80)return 'Codicia elevada: aumenta el optimismo y también el riesgo de compras tardías o correcciones.';return 'Codicia extrema: el mercado puede estar sobreextendido. Prioriza gestión de riesgo y evita perseguir el precio.';}
 function drawFgChart(values){const c=$('fgChart'),ctx=c.getContext('2d');const dpr=Math.max(1,window.devicePixelRatio||1);const w=Math.max(280,c.clientWidth||560),h=122;c.width=Math.round(w*dpr);c.height=Math.round(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);ctx.strokeStyle='rgba(159,196,238,.18)';ctx.lineWidth=1;[25,50,75].forEach(y=>{const py=h-(y/100)*(h-18)-9;ctx.beginPath();ctx.moveTo(8,py);ctx.lineTo(w-8,py);ctx.stroke();});if(!values.length)return;const pts=values.map((v,i)=>({x:8+i*(w-16)/Math.max(1,values.length-1),y:h-9-(v/100)*(h-18)}));ctx.strokeStyle='#4aa3ff';ctx.lineWidth=2.5;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();const last=pts[pts.length-1];ctx.fillStyle='#f7fbff';ctx.beginPath();ctx.arc(last.x,last.y,4,0,Math.PI*2);ctx.fill();}
