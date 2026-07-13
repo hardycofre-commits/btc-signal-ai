@@ -1,15 +1,9 @@
-# BTC Signal AI v3.2
+# BTC Signal AI v3.3.1
 
-## Cambio principal
-Automatización y mejora del módulo **Noticias BTC**.
+Corrección de integración del módulo Noticias BTC con Hardy Trading Backend.
 
-- Consulta automática de noticias desde CryptoCompare.
-- Clasificación alcista, neutral o bajista.
-- Nivel de impacto bajo, medio o alto.
-- Resumen del sesgo informativo.
-- Contadores por tipo de noticia.
-- Puntaje fundamental ponderado por impacto y antigüedad.
-- Caché local para mantener el último dato válido si falla la conexión.
-- Noticias actualizadas cada 5 minutos; datos técnicos cada 30 segundos.
-
-El flujo ETF Spot y el riesgo macro se mantienen manuales en esta versión.
+## Cambios
+- Fuente de noticias: `https://hardy-trading-backend.onrender.com/api/news/btc`
+- Adaptación al formato JSON del backend (`data`)
+- Conserva respaldo local en el navegador
+- No modifica el análisis técnico ni los demás módulos
