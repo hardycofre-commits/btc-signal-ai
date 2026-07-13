@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BTC Signal AI v4.0</title>
+  <title>BTC Signal AI v4.1</title>
   <style>
     :root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12253d;--line:#26415f;--text:#f7fbff;--muted:#9fc4ee;--ok:#20d690;--bad:#ff5570;--warn:#ffd166;--blue:#4aa3ff;--purple:#b88cff}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#0a1830);font-family:Arial,Helvetica,sans-serif;color:var(--text)}header{position:sticky;top:0;z-index:5;background:#06111f;border-bottom:1px solid var(--line);padding:18px 22px;display:flex;gap:18px;justify-content:space-between;align-items:center}h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:14px;margin-top:4px}.wrap{max-width:1320px;margin:22px auto;padding:0 18px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:rgba(13,27,46,.92);border:1px solid var(--line);border-radius:18px;padding:20px}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:center}.label{color:var(--muted);font-size:16px}.price{font-size:44px;font-weight:800;margin:12px 0}.red{color:var(--bad)}.green{color:var(--ok)}.yellow{color:var(--warn)}.blue{color:var(--blue)}.purple{color:var(--purple)}button{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:800;padding:13px 20px;cursor:pointer}.pill{padding:10px 16px;border-radius:999px;background:#26313b;color:var(--warn);font-weight:800;display:inline-block}.statusTop{background:#132b2c;color:var(--ok)}.statusBad{background:#322332;color:var(--bad)}.small{font-size:13px;color:var(--muted)}.row{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);padding:11px 0;gap:12px}.row:last-child{border-bottom:0}.big{font-size:26px;font-weight:800}.statusGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.source{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}.source.ok{border-color:#0ea77e}.source.bad{border-color:#b84a65}.source.warn{border-color:#80672a}.tv{height:500px;overflow:hidden}.note{margin-top:12px;color:var(--muted);font-size:13px}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}.meter{height:12px;border-radius:999px;background:#071324;border:1px solid var(--line);overflow:hidden;margin-top:10px}.bar{height:100%;width:0%;background:var(--blue)}.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#071324;border:1px solid var(--line);font-weight:800}.tag.ok{color:var(--ok);border-color:#0ea77e}.tag.bad{color:var(--bad);border-color:#b84a65}.tag.warn{color:var(--warn);border-color:#80672a}.mtf{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:950px){.hero,.grid,.grid3,.statusGrid,.mtf{grid-template-columns:1fr}.price{font-size:36px}header{align-items:flex-start;flex-direction:column}.tv{height:390px}}
   
@@ -12,11 +12,13 @@
 
 .decisionCard{margin-top:18px;background:linear-gradient(135deg,rgba(18,37,61,.98),rgba(13,27,46,.98));border:1px solid #365d86}.decisionGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:stretch}.decisionScore{font-size:56px;font-weight:900;line-height:1}.decisionLabel{font-size:30px;font-weight:900;margin:10px 0}.decisionMeta{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.decisionMeta>div,.decisionBreakdown>div{background:#091729;border:1px solid var(--line);border-radius:12px;padding:12px}.decisionMeta span,.decisionBreakdown span{display:block;color:var(--muted);font-size:12px}.decisionMeta b,.decisionBreakdown b{display:block;margin-top:5px;font-size:17px}.decisionBreakdown{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.decisionReasons{display:grid;gap:8px;margin-top:14px}.decisionReason{padding:10px 12px;border-radius:10px;background:#091729;border-left:4px solid var(--line);font-size:13px}.decisionReason.ok{border-left-color:var(--ok)}.decisionReason.bad{border-left-color:var(--bad)}.decisionReason.warn{border-left-color:var(--warn)}.decisionAdvice{margin-top:14px;padding:14px;border-radius:12px;background:#071324;border:1px solid var(--line);line-height:1.5}.decisionMeter{height:16px;border-radius:999px;background:#071324;border:1px solid var(--line);overflow:hidden;margin-top:12px}.decisionMeter>div{height:100%;width:0%;background:linear-gradient(90deg,var(--bad),var(--warn),var(--ok));transition:width .4s ease}@media(max-width:950px){.decisionGrid{grid-template-columns:1fr}.decisionMeta{grid-template-columns:1fr}.decisionBreakdown{grid-template-columns:1fr 1fr}}
 
+.operationCard{margin-top:18px;border:1px solid #496d98;background:linear-gradient(135deg,rgba(10,29,50,.98),rgba(13,27,46,.98))}.operationHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}.operationConfig{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:10px;margin-top:16px}.operationConfig label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.operationConfig input,.fixedInput{width:100%;background:#071324;color:var(--text);border:1px solid var(--line);border-radius:11px;padding:11px;font-weight:800}.fixedInput{color:var(--blue)}.operationGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.operationMain,.operationNumbers{background:#091729;border:1px solid var(--line);border-radius:14px;padding:16px}.operationDirection{font-size:30px;font-weight:900}.operationPrices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.operationPrices>div,.operationMetrics>div{background:#071324;border:1px solid var(--line);border-radius:11px;padding:11px}.operationPrices span,.operationMetrics span{display:block;color:var(--muted);font-size:11px}.operationPrices b,.operationMetrics b{display:block;margin-top:5px;font-size:16px}.operationMetrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.operationWarning{margin-top:13px;padding:12px;border-radius:11px;background:#071324;border-left:4px solid var(--warn);font-size:13px;line-height:1.45}.operationWarning.ok{border-left-color:var(--ok)}.operationWarning.bad{border-left-color:var(--bad)}@media(max-width:950px){.operationGrid,.operationConfig{grid-template-columns:1fr}.operationPrices{grid-template-columns:1fr}.operationMetrics{grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 <body>
 <header>
-  <div><h1>BTC Signal AI</h1><div class="sub">v4.0 · Motor de decisión técnico + fundamental</div></div>
+  <div><h1>BTC Signal AI</h1><div class="sub">v4.1 · Asistente de operación 10x</div></div>
   <div style="display:flex;gap:12px;align-items:center"><span id="globalStatus" class="pill">• Verificando</span><button id="refreshBtn">Actualizar</button></div>
 </header>
 
@@ -58,6 +60,42 @@
         <div id="decisionReasons" class="decisionReasons">
           <div class="decisionReason warn">Esperando análisis técnico y fundamental.</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="card operationCard">
+    <div class="operationHeader">
+      <div><div class="label">ASISTENTE DE OPERACIÓN</div><h2 style="margin:6px 0 0">Plan estimado con apalancamiento fijo 10x</h2><div class="small" style="margin-top:6px">Calcula entrada, salida, stop loss y capital requerido. No ejecuta órdenes.</div></div>
+      <span id="operationStatus" class="tag warn">Esperando señal</span>
+    </div>
+    <div class="operationConfig">
+      <div><label for="operationCapital">Capital disponible (USD)</label><input id="operationCapital" type="number" min="10" step="10" value="400"></div>
+      <div><label>Apalancamiento fijo</label><div class="fixedInput">10x</div></div>
+      <div><label for="operationTarget">Ganancia objetivo bruta (USD)</label><input id="operationTarget" type="number" min="1" step="1" value="10"></div>
+    </div>
+    <div class="operationGrid">
+      <div class="operationMain">
+        <div id="operationDirection" class="operationDirection yellow">ESPERAR</div>
+        <div id="operationSummary" class="small" style="margin-top:7px">El sistema necesita una señal suficientemente clara antes de proponer precios.</div>
+        <div class="operationPrices">
+          <div><span>Zona de entrada</span><b id="operationEntry">--</b></div>
+          <div><span>Take Profit</span><b id="operationTp">--</b></div>
+          <div><span>Stop Loss</span><b id="operationSl">--</b></div>
+        </div>
+        <div id="operationWarning" class="operationWarning">Plan educativo y estimado. Verifica precios y comisiones en Bybit antes de operar.</div>
+      </div>
+      <div class="operationNumbers">
+        <div class="operationMetrics">
+          <div><span>Margen requerido</span><b id="operationMargin">--</b></div>
+          <div><span>Exposición 10x</span><b id="operationNotional">--</b></div>
+          <div><span>Ganancia objetivo</span><b id="operationProfit">--</b></div>
+          <div><span>Pérdida al stop</span><b id="operationLoss">--</b></div>
+          <div><span>Riesgo / beneficio</span><b id="operationRR">--</b></div>
+          <div><span>Movimiento al objetivo</span><b id="operationMove">--</b></div>
+        </div>
+        <p class="small" style="margin:13px 0 0">Cálculos brutos, sin considerar comisiones, funding, deslizamiento ni liquidación.</p>
       </div>
     </div>
   </section>
@@ -158,6 +196,7 @@ function reset(){['market','tech'].forEach(id=>{ $(id+'Box').className='source w
 function ema(values,period){if(!values.length)return[];const k=2/(period+1);let out=[],prev=values[0];for(let i=0;i<values.length;i++){prev=i===0?values[i]:(values[i]*k+prev*(1-k));out.push(prev);}return out;}
 function rsi(values,period=14){if(values.length<period+2)return NaN;let gains=[],losses=[];for(let i=1;i<values.length;i++){const d=values[i]-values[i-1];gains.push(Math.max(d,0));losses.push(Math.max(-d,0));}let avgG=gains.slice(0,period).reduce((a,b)=>a+b,0)/period,avgL=losses.slice(0,period).reduce((a,b)=>a+b,0)/period,last=50;for(let i=period;i<gains.length;i++){avgG=(avgG*(period-1)+gains[i])/period;avgL=(avgL*(period-1)+losses[i])/period;const rs=avgL===0?100:avgG/avgL;last=100-(100/(1+rs));}return last;}
 function macd(values){const e12=ema(values,12),e26=ema(values,26),line=e12.map((v,i)=>v-e26[i]),sig=ema(line.slice(25),9),m=line.at(-1),s=sig.at(-1);return {macd:m,signal:s,hist:m-s};}
+function atr(candles,period=14){if(!Array.isArray(candles)||candles.length<period+1)return NaN;const trs=[];for(let i=1;i<candles.length;i++){const c=candles[i],prev=candles[i-1].close;trs.push(Math.max(c.high-c.low,Math.abs(c.high-prev),Math.abs(c.low-prev)));}return trs.slice(-period).reduce((a,b)=>a+b,0)/period;}
 function parseKlines(data){return (data?.result?.list||[]).map(x=>({time:+x[0],open:+x[1],high:+x[2],low:+x[3],close:+x[4],volume:+x[5]})).sort((a,b)=>a.time-b.time);}
 function freshness(lastTime,maxAgeMin){const age=(Date.now()-lastTime)/60000;return {age,ok:age<=maxAgeMin,text:age<120?`${Math.round(age)} min`:`${(age/60).toFixed(1)} h`};}
 function analyzeTf(arr,key){if(!arr||arr.length<205)throw new Error(`Datos insuficientes ${key}`);const closes=arr.map(x=>x.close),last=closes.at(-1),e20=ema(closes,20).at(-1),e50=ema(closes,50).at(-1),e200=ema(closes,200).at(-1),r=rsi(closes),m=macd(closes);let score=50;score+=last>e20?7:-7;score+=e20>e50?10:-10;score+=e50>e200?13:-13;score+=m.macd>m.signal?10:-10;if(r>=55&&r<70)score+=8;else if(r<=45&&r>30)score-=8;else if(r<30)score+=4;else if(r>75)score-=6;score=Math.max(0,Math.min(100,Math.round(score)));let trend='Neutral',cls='yellow';if(score>=65){trend='Alcista';cls='green'}else if(score<=35){trend='Bajista';cls='red'}const fresh=freshness(arr.at(-1).time,TF_CONFIG[key].maxAgeMin);return {key,last,ema20:e20,ema50:e50,ema200:e200,rsi:r,macd:m,score,trend,cls,fresh,lastCandle:arr.at(-1).time};}
@@ -181,13 +220,13 @@ async function update(){
   $('rsiVal').textContent=num(rsi14,1)+'/100';$('rsiBar').style.width=Math.max(0,Math.min(100,rsi14))+'%';let rTxt='Neutral',rCls='warn';if(rsi14>70){rTxt='Sobrecompra';rCls='bad'}else if(rsi14<30){rTxt='Sobreventa';rCls='ok'}else if(rsi14>55){rTxt='Fuerza alcista';rCls='ok'}else if(rsi14<45){rTxt='Debilidad';rCls='bad'}$('rsiTag').textContent=rTxt;$('rsiTag').className='tag '+rCls;
   $('macdLine').textContent=num(m.macd,2);$('signalLine').textContent=num(m.signal,2);$('histLine').textContent=num(m.hist,2);$('macdVal').textContent=m.hist>=0?'Histograma positivo':'Histograma negativo';$('macdTag').textContent=m.macd>m.signal?'Cruce alcista':'Cruce bajista';$('macdTag').className='tag '+(m.macd>m.signal?'ok':'bad');
   $('ema20').textContent=money(ema20v);$('ema50').textContent=money(ema50v);$('ema200').textContent=money(ema200v);let trend='Lateral',trendClass='warn';if(last>ema20v&&ema20v>ema50v&&ema50v>ema200v){trend='Alcista fuerte';trendClass='ok'}else if(last<ema20v&&ema20v<ema50v&&ema50v<ema200v){trend='Bajista fuerte';trendClass='bad'}else if(last>ema50v){trend='Alcista moderada';trendClass='ok'}else if(last<ema50v){trend='Bajista moderada';trendClass='bad'}$('trendVal').textContent=trend;$('trendTag').textContent=trend;$('trendTag').className='tag '+trendClass;
-  const sixtyData=settled.find(([k])=>k==='60')?.[1];if(Array.isArray(sixtyData)){const recent=sixtyData.slice(-100),sup=Math.min(...recent.map(c=>c.low)),res=Math.max(...recent.map(c=>c.high)),pos=((last-sup)/(res-sup))*100;$('support').textContent=money(sup);$('resistance').textContent=money(res);$('positionRange').textContent=num(pos,1)+'% del rango';}
+  const sixtyData=settled.find(([k])=>k==='60')?.[1];if(Array.isArray(sixtyData)){const recent=sixtyData.slice(-100),sup=Math.min(...recent.map(c=>c.low)),res=Math.max(...recent.map(c=>c.high)),pos=((last-sup)/(res-sup))*100,a=atr(sixtyData,14);$('support').textContent=money(sup);$('resistance').textContent=money(res);$('positionRange').textContent=num(pos,1)+'% del rango';decisionState.lastPrice=last;decisionState.support=sup;decisionState.resistance=res;decisionState.atr=a;}
   const label=scoreLabel(consensus);$('techScore').textContent=consensus+'/100';$('scoreBar').style.width=consensus+'%';$('techLabel').textContent=label.text;$('techLabel').className='tag '+label.cls;$('tradeBias').textContent=label.bias;$('tradeBias').className='big '+(label.cls==='ok'?'green':label.cls==='bad'?'red':'yellow');$('techSummary').textContent=`Consenso ${consensus}/100. RSI 1H ${num(rsi14,1)}, MACD ${m.macd>m.signal?'alcista':'bajista'}, tendencia ${trend.toLowerCase()}.`;$('tradeText').textContent=consensus>=58?'Hay impulso técnico favorable, pero falta validación fundamental y de riesgo.':consensus<=42?'Predomina debilidad técnica; no se debe operar sin confirmar contexto y riesgo.':'No existe una ventaja técnica clara. Esperar confirmación.';
   $('consensusScore').textContent=consensus+'/100';$('consensusTag').textContent=label.text;$('consensusTag').className='tag '+label.cls;$('consensusText').textContent=`15m ${analyses['15']?.score??'--'} · 1H ${analyses['60']?.score??'--'} · 4H ${analyses['240']?.score??'--'} · 1D ${analyses['D']?.score??'--'}.`;
   const freshCount=valid.filter(a=>a.fresh.ok).length,quality=Math.round((valid.length/4*.6+freshCount/4*.4)*100);$('qualityValue').textContent=quality+'%';$('qualityTag').textContent=quality>=90?'Datos completos':quality>=65?'Datos parciales':'Datos insuficientes';$('qualityTag').className='tag '+(quality>=90?'ok':quality>=65?'warn':'bad');$('qualityText').textContent=`${valid.length}/4 temporalidades cargadas y ${freshCount}/4 con vela reciente.${errors.length?' Errores: '+errors.join(' | '):''}`;
   const prev=JSON.parse(localStorage.getItem('btcTechnicalAnalysis')||'null');if(prev){const d=consensus-prev.consensus;$('previousDelta').textContent=(d>=0?'+':'')+d+' puntos';$('previousDelta').className='big '+(d>0?'green':d<0?'red':'yellow');$('previousTime').textContent='Anterior: '+new Date(prev.time).toLocaleString('es-CL')+' · '+prev.consensus+'/100';}
-  decisionState.technical=consensus;decisionState.quality=quality;decisionState.rsi=rsi14;decisionState.trend=trend;updateDecision();
-  const out={module:'technical',version:'4.0',symbol:'BTCUSDT',source:'Bybit Spot',lastPrice:last,consensusScore:consensus,dominantTimeframe:dominant.key,qualityPct:quality,timeframes:Object.fromEntries(valid.map(a=>[a.key,{score:a.score,trend:a.trend,rsi:a.rsi,macd:a.macd,ema20:a.ema20,ema50:a.ema50,ema200:a.ema200,lastCandle:new Date(a.lastCandle).toISOString(),fresh:a.fresh.ok}])),errors,lastUpdate:new Date().toISOString()};$('jsonOut').textContent=JSON.stringify(out,null,2);localStorage.setItem('btcTechnicalAnalysis',JSON.stringify({consensus,time:out.lastUpdate}));
+  decisionState.technical=consensus;decisionState.quality=quality;decisionState.rsi=rsi14;decisionState.trend=trend;decisionState.lastPrice=last;updateDecision();
+  const out={module:'technical',version:'4.1',symbol:'BTCUSDT',source:'Bybit Spot',lastPrice:last,consensusScore:consensus,dominantTimeframe:dominant.key,qualityPct:quality,timeframes:Object.fromEntries(valid.map(a=>[a.key,{score:a.score,trend:a.trend,rsi:a.rsi,macd:a.macd,ema20:a.ema20,ema50:a.ema50,ema200:a.ema200,lastCandle:new Date(a.lastCandle).toISOString(),fresh:a.fresh.ok}])),errors,lastUpdate:new Date().toISOString()};$('jsonOut').textContent=JSON.stringify(out,null,2);localStorage.setItem('btcTechnicalAnalysis',JSON.stringify({consensus,time:out.lastUpdate}));
   $('updated').textContent='Última actualización: '+new Date().toLocaleString('es-CL')+'. Auto actualización cada 30 segundos.';setSource('tech',true,errors.length?'Calculado con datos parciales':'Calculado');setGlobal(true,(errors.length?'2/3':'3/3')+' fuentes activas');
  }catch(e){setSource('market',false,e.name==='AbortError'?'Tiempo agotado':'Error');setSource('tech',false,e.message);setGlobal(false,'Error de datos');$('updated').textContent='Actualización fallida: '+new Date().toLocaleString('es-CL')+'. '+e.message;}
  finally{isLoading=false;}
@@ -200,7 +239,36 @@ const FUND_NEWS='https://hardy-trading-backend.onrender.com/api/news/btc';
 const FUND_MACRO='https://hardy-trading-backend.onrender.com/api/macro';
 const FUND_ETF='https://hardy-trading-backend.onrender.com/api/etf';
 let fundamentalState={fear:null,newsScore:0,newsCount:0};
-let decisionState={technical:null,fundamental:null,quality:null,rsi:null,trend:null,macroScore:0,etfFlow:0,newsScore:0,fear:null};
+let decisionState={technical:null,fundamental:null,quality:null,rsi:null,trend:null,macroScore:0,etfFlow:0,newsScore:0,fear:null,lastPrice:null,support:null,resistance:null,atr:null,decisionLabel:'ESPERAR',combined:null};
+
+function operationMoney(n){return Number.isFinite(Number(n))?money(Number(n)):'--';}
+function clearOperation(message='No existe una señal operable en este momento.'){
+ $('operationDirection').textContent='ESPERAR';$('operationDirection').className='operationDirection yellow';$('operationStatus').textContent='Sin operación';$('operationStatus').className='tag warn';$('operationSummary').textContent=message;
+ ['operationEntry','operationTp','operationSl','operationMargin','operationNotional','operationProfit','operationLoss','operationRR','operationMove'].forEach(id=>$(id).textContent='--');
+ $('operationWarning').className='operationWarning';$('operationWarning').textContent='Protege el capital: una señal “Esperar” significa que no se deben inventar precios de entrada.';
+}
+function updateOperationPlan(){
+ const capital=Math.max(0,Number($('operationCapital')?.value||400));const target=Math.max(0,Number($('operationTarget')?.value||10));const leverage=10;
+ localStorage.setItem('btcOperationPrefs',JSON.stringify({capital,target,leverage}));
+ const price=Number(decisionState.lastPrice),sup=Number(decisionState.support),res=Number(decisionState.resistance),a=Number(decisionState.atr),label=String(decisionState.decisionLabel||'');
+ if(![price,sup,res,a].every(Number.isFinite)||a<=0){clearOperation('Esperando precio, soporte, resistencia y volatilidad ATR.');return;}
+ let side=null;if(label.includes('COMPRA')&&!label.includes('ESPERAR'))side='LONG';else if((label.includes('EVITAR')||label==='NO COMPRAR')&&Number(decisionState.technical)<=30)side='SHORT';
+ if(!side){clearOperation(label.includes('ESPERAR EVENTO')?'Hay un evento macro relevante. Espera su publicación y la reacción inicial del mercado.':'El motor no detecta una ventaja suficiente para proponer una operación.');return;}
+ const entry=price;let stop,tpTech;
+ if(side==='LONG'){stop=Math.min(sup-a*.20,entry-a*.85);const risk=entry-stop;tpTech=Math.max(res-a*.10,entry+risk*1.5);}
+ else{stop=Math.max(res+a*.20,entry+a*.85);const risk=stop-entry;tpTech=Math.min(sup+a*.10,entry-risk*1.5);}
+ const riskDistance=Math.abs(entry-stop);const rewardDistance=Math.abs(tpTech-entry);if(riskDistance<=0||rewardDistance<=0){clearOperation('La estructura actual no permite calcular una relación riesgo/beneficio válida.');return;}
+ const movePct=rewardDistance/entry;const stopPct=riskDistance/entry;const requiredNotional=target/movePct;const requiredMargin=requiredNotional/leverage;const maxNotional=capital*leverage;const usedNotional=Math.min(requiredNotional,maxNotional);const usedMargin=usedNotional/leverage;const expectedProfit=usedNotional*movePct;const expectedLoss=usedNotional*stopPct;const rr=rewardDistance/riskDistance;
+ const entryLow=side==='LONG'?entry-a*.12:entry-a*.05;const entryHigh=side==='LONG'?entry+a*.05:entry+a*.12;
+ $('operationDirection').textContent=side+' BTC';$('operationDirection').className='operationDirection '+(side==='LONG'?'green':'red');$('operationStatus').textContent=requiredMargin<=capital?'Plan calculado':'Capital insuficiente';$('operationStatus').className='tag '+(requiredMargin<=capital?'ok':'bad');
+ $('operationSummary').textContent=side==='LONG'?'Plan de compra basado en precio actual, soporte 1H, resistencia y ATR.':'Plan de venta basado en precio actual, resistencia 1H, soporte y ATR.';
+ $('operationEntry').textContent=`${money(Math.min(entryLow,entryHigh))} – ${money(Math.max(entryLow,entryHigh))}`;$('operationTp').textContent=money(tpTech);$('operationSl').textContent=money(stop);
+ $('operationMargin').textContent=money(usedMargin);$('operationNotional').textContent=money(usedNotional);$('operationProfit').textContent=money(expectedProfit);$('operationLoss').textContent='-'+money(expectedLoss);$('operationRR').textContent='1 : '+rr.toFixed(2);$('operationMove').textContent=(movePct*100).toFixed(2)+'%';
+ const warning=$('operationWarning');if(requiredMargin>capital){warning.className='operationWarning bad';warning.textContent=`Para buscar ${money(target)} con este objetivo técnico se necesitarían ${money(requiredMargin)} de margen a 10x. Con ${money(capital)}, la ganancia bruta estimada sería ${money(expectedProfit)}.`;}
+ else if(rr<1.5){warning.className='operationWarning bad';warning.textContent='La relación riesgo/beneficio es inferior a 1:1,5. No se recomienda tomar esta operación aunque alcance el objetivo monetario.';}
+ else{warning.className='operationWarning ok';warning.textContent=`El plan busca aproximadamente ${money(target)} brutos usando ${money(usedMargin)} de margen a 10x. Revisa comisiones y confirma el precio antes de operar.`;}
+}
+
 function updateDecision(){
  const t=Number(decisionState.technical),f=Number(decisionState.fundamental);
  if(!Number.isFinite(t)||!Number.isFinite(f))return;
@@ -231,7 +299,7 @@ function updateDecision(){
  else if(label.includes('COMPRA'))advice='Existe una ventaja moderada. Prioriza una entrada parcial, confirma soporte y mantén una relación riesgo/beneficio mínima de 1:2.';
  else if(label.includes('ESPERAR EVENTO'))advice='La señal es favorable, pero el riesgo macro domina. Espera la publicación y la reacción inicial del mercado.';
  else if(label==='NO COMPRAR'||label.includes('EVITAR'))advice='No hay una ventaja suficiente para abrir una posición larga. Protege el capital y espera una mejora clara.';
- $('decisionAdvice').textContent=advice;
+ $('decisionAdvice').textContent=advice;decisionState.decisionLabel=label;decisionState.combined=combined;updateOperationPlan();
  localStorage.setItem('btcDecisionAI',JSON.stringify({score:combined,label,confidence,risk,technical:t,fundamental:f,time:new Date().toISOString()}));
 }
 
@@ -289,6 +357,7 @@ async function updateFundamental(){try{const fgData=await fetchJsonFallback(FUND
  try{const m=await fetchJsonFallback(FUND_MACRO);renderMacro(m);}catch(e){try{const cached=JSON.parse(localStorage.getItem('btcMacroCache')||'null');if(!cached)throw new Error('Sin caché');renderMacro(cached,true);}catch(_){$('macroStatus').textContent='Sin conexión';$('macroStatus').className='tag bad';$('macroLevel').textContent='No disponible';$('macroLevel').className='big red';$('macroReason').textContent='No fue posible consultar el calendario económico.';$('macroInput').value='0';}}
  scoreFundamental();}
 
+const operationPrefs=JSON.parse(localStorage.getItem('btcOperationPrefs')||'null');if(operationPrefs){$('operationCapital').value=operationPrefs.capital||400;$('operationTarget').value=operationPrefs.target||10;}['operationCapital','operationTarget'].forEach(id=>$(id).addEventListener('input',updateOperationPlan));
 $('refreshBtn').addEventListener('click', ()=>{update();updateFundamental();}); update(); updateFundamental(); setInterval(update,30000); setInterval(updateFundamental,300000);
 </script>
 </body>

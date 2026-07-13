@@ -1,12 +1,14 @@
-# BTC Signal AI v4.0
+# BTC Signal AI v4.1
 
-Versión basada en v3.6.
+Asistente de operación basado en la v4.0.
 
 ## Cambios
-- Motor de decisión que combina 60% análisis técnico y 40% análisis fundamental.
-- Recomendación: compra fuerte, compra moderada, compra cautelosa, esperar o no comprar.
-- Confianza, riesgo, consenso y explicación automática.
-- Considera técnico, Fear & Greed, noticias, ETF Spot y riesgo macro.
-- Mantiene intactos los módulos técnicos y fundamentales existentes.
-
-> La recomendación es una ayuda informativa y no garantiza resultados.
+- Capital disponible configurable (por defecto USD 400).
+- Apalancamiento fijo 10x.
+- Ganancia objetivo configurable (por defecto USD 10 brutos).
+- Plan LONG, SHORT o ESPERAR según el motor técnico + fundamental.
+- Zona estimada de entrada, take profit y stop loss.
+- Margen y exposición calculados.
+- Ganancia y pérdida brutas estimadas.
+- Relación riesgo/beneficio.
+- El sistema no ejecuta órdenes y no incluye comisiones, funding ni deslizamiento.
