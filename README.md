@@ -1,7 +1,19 @@
-# BTC Signal AI v3.4
+# BTC Signal AI v3.6
 
-## Cambio principal
+Versión basada en v3.5, conectada al Hardy Trading Backend.
 
-Riesgo macro automático desde `https://hardy-trading-backend.onrender.com/api/macro`.
+## Cambios
 
-Antes de subir esta versión del frontend, actualiza el repositorio `hardy-trading-backend` con la versión 3.1 incluida por separado.
+- Flujo ETF Spot automático desde `/api/etf`.
+- Estado de conexión, flujo diario, acumulados de 5 y 20 días y racha institucional.
+- Contexto ETF mejorado para distinguir señales mixtas entre corto y mediano plazo.
+- Riesgo macro automático.
+- Noticias BTC automáticas.
+- Fear & Greed automático.
+- Puntaje fundamental actualizado con los cuatro componentes.
+- Mantiene intacto el análisis técnico existente.
+
+## Archivos
+
+- `index.html`
+- `README.md`
