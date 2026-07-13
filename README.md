@@ -1,9 +1,7 @@
-# BTC Signal AI v3.3.1
+# BTC Signal AI v3.4
 
-Corrección de integración del módulo Noticias BTC con Hardy Trading Backend.
+## Cambio principal
 
-## Cambios
-- Fuente de noticias: `https://hardy-trading-backend.onrender.com/api/news/btc`
-- Adaptación al formato JSON del backend (`data`)
-- Conserva respaldo local en el navegador
-- No modifica el análisis técnico ni los demás módulos
+Riesgo macro automático desde `https://hardy-trading-backend.onrender.com/api/macro`.
+
+Antes de subir esta versión del frontend, actualiza el repositorio `hardy-trading-backend` con la versión 3.1 incluida por separado.
