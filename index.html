@@ -18,7 +18,7 @@
 </head>
 <body>
 <header>
-  <div><h1>BTC Signal AI</h1><div class="sub">v4.1 · Asistente de operación 10x</div></div>
+  <div><h1>BTC Signal AI</h1><div class="sub">v4.1.2 · Riesgo variable según fuerza de compra</div></div>
   <div style="display:flex;gap:12px;align-items:center"><span id="globalStatus" class="pill">• Verificando</span><button id="refreshBtn">Actualizar</button></div>
 </header>
 
@@ -73,7 +73,7 @@
     <div class="operationConfig">
       <div><label for="operationCapital">Capital disponible (USD)</label><input id="operationCapital" type="number" min="10" step="10" value="400"></div>
       <div><label>Apalancamiento fijo</label><div class="fixedInput">10x</div></div>
-      <div><label for="operationTarget">Ganancia objetivo bruta (USD)</label><input id="operationTarget" type="number" min="1" step="1" value="10"></div>
+      <div><label>Riesgo máximo según señal</label><div id="operationRiskBudget" class="fixedInput">--</div></div>
     </div>
     <div class="operationGrid">
       <div class="operationMain">
@@ -90,7 +90,7 @@
         <div class="operationMetrics">
           <div><span>Margen requerido</span><b id="operationMargin">--</b></div>
           <div><span>Exposición 10x</span><b id="operationNotional">--</b></div>
-          <div><span>Ganancia objetivo</span><b id="operationProfit">--</b></div>
+          <div><span>Ganancia estimada al TP</span><b id="operationProfit">--</b></div>
           <div><span>Pérdida al stop</span><b id="operationLoss">--</b></div>
           <div><span>Riesgo / beneficio</span><b id="operationRR">--</b></div>
           <div><span>Movimiento al objetivo</span><b id="operationMove">--</b></div>
@@ -248,25 +248,38 @@ function clearOperation(message='No existe una señal operable en este momento.'
  $('operationWarning').className='operationWarning';$('operationWarning').textContent='Protege el capital: una señal “Esperar” significa que no se deben inventar precios de entrada.';
 }
 function updateOperationPlan(){
- const capital=Math.max(0,Number($('operationCapital')?.value||400));const target=Math.max(0,Number($('operationTarget')?.value||10));const leverage=10;
- localStorage.setItem('btcOperationPrefs',JSON.stringify({capital,target,leverage}));
+ const capital=Math.max(0,Number($('operationCapital')?.value||400));const leverage=10;
+ localStorage.setItem('btcOperationPrefs',JSON.stringify({capital,leverage}));
  const price=Number(decisionState.lastPrice),sup=Number(decisionState.support),res=Number(decisionState.resistance),a=Number(decisionState.atr),label=String(decisionState.decisionLabel||'');
+ const riskBySignal={'COMPRA FUERTE':30,'COMPRA MODERADA':18,'COMPRA CAUTELOSA':10};
+ const riskBudget=Number(riskBySignal[label]||0);
+ $('operationRiskBudget').textContent=riskBudget?money(riskBudget):'--';
  if(![price,sup,res,a].every(Number.isFinite)||a<=0){clearOperation('Esperando precio, soporte, resistencia y volatilidad ATR.');return;}
- let side=null;if(label.includes('COMPRA')&&!label.includes('ESPERAR'))side='LONG';else if((label.includes('EVITAR')||label==='NO COMPRAR')&&Number(decisionState.technical)<=30)side='SHORT';
- if(!side){clearOperation(label.includes('ESPERAR EVENTO')?'Hay un evento macro relevante. Espera su publicación y la reacción inicial del mercado.':'El motor no detecta una ventaja suficiente para proponer una operación.');return;}
- const entry=price;let stop,tpTech;
- if(side==='LONG'){stop=Math.min(sup-a*.20,entry-a*.85);const risk=entry-stop;tpTech=Math.max(res-a*.10,entry+risk*1.5);}
- else{stop=Math.max(res+a*.20,entry+a*.85);const risk=stop-entry;tpTech=Math.min(sup+a*.10,entry-risk*1.5);}
- const riskDistance=Math.abs(entry-stop);const rewardDistance=Math.abs(tpTech-entry);if(riskDistance<=0||rewardDistance<=0){clearOperation('La estructura actual no permite calcular una relación riesgo/beneficio válida.');return;}
- const movePct=rewardDistance/entry;const stopPct=riskDistance/entry;const requiredNotional=target/movePct;const requiredMargin=requiredNotional/leverage;const maxNotional=capital*leverage;const usedNotional=Math.min(requiredNotional,maxNotional);const usedMargin=usedNotional/leverage;const expectedProfit=usedNotional*movePct;const expectedLoss=usedNotional*stopPct;const rr=rewardDistance/riskDistance;
- const entryLow=side==='LONG'?entry-a*.12:entry-a*.05;const entryHigh=side==='LONG'?entry+a*.05:entry+a*.12;
- $('operationDirection').textContent=side+' BTC';$('operationDirection').className='operationDirection '+(side==='LONG'?'green':'red');$('operationStatus').textContent=requiredMargin<=capital?'Plan calculado':'Capital insuficiente';$('operationStatus').className='tag '+(requiredMargin<=capital?'ok':'bad');
- $('operationSummary').textContent=side==='LONG'?'Plan de compra basado en precio actual, soporte 1H, resistencia y ATR.':'Plan de venta basado en precio actual, resistencia 1H, soporte y ATR.';
+ // Solo se propone LONG cuando el motor recomienda explícitamente una compra.
+ const side=riskBudget>0?'LONG':null;
+ if(!side){
+  const message=label.includes('ESPERAR EVENTO')
+   ?'Hay un evento macro relevante. Espera su publicación y la reacción inicial del mercado.'
+   :label==='NO COMPRAR'||label.includes('EVITAR')
+    ?'El motor indica no comprar. No se genera entrada, take profit ni stop loss.'
+    :'El motor no detecta una ventaja suficiente para proponer una operación.';
+  clearOperation(message);$('operationRiskBudget').textContent='--';return;
+ }
+ const entry=price;const stop=Math.min(sup-a*.20,entry-a*.85);const riskDistance=entry-stop;const tpTech=Math.max(res-a*.10,entry+riskDistance*1.5);
+ const rewardDistance=tpTech-entry;if(riskDistance<=0||rewardDistance<=0){clearOperation('La estructura actual no permite calcular una relación riesgo/beneficio válida.');return;}
+ const movePct=rewardDistance/entry;const stopPct=riskDistance/entry;const maxNotional=capital*leverage;
+ const requiredNotional=riskBudget/stopPct;const usedNotional=Math.min(requiredNotional,maxNotional);const usedMargin=usedNotional/leverage;
+ const expectedProfit=usedNotional*movePct;const expectedLoss=usedNotional*stopPct;const rr=rewardDistance/riskDistance;const capitalLimited=requiredNotional>maxNotional;
+ const entryLow=entry-a*.12;const entryHigh=entry+a*.05;
+ $('operationDirection').textContent='LONG BTC';$('operationDirection').className='operationDirection green';
+ $('operationStatus').textContent=capitalLimited?'Limitado por capital':'Plan calculado';$('operationStatus').className='tag '+(capitalLimited?'warn':'ok');
+ $('operationSummary').textContent=`${label}: riesgo máximo definido en ${money(riskBudget)} con apalancamiento fijo 10x.`;
  $('operationEntry').textContent=`${money(Math.min(entryLow,entryHigh))} – ${money(Math.max(entryLow,entryHigh))}`;$('operationTp').textContent=money(tpTech);$('operationSl').textContent=money(stop);
  $('operationMargin').textContent=money(usedMargin);$('operationNotional').textContent=money(usedNotional);$('operationProfit').textContent=money(expectedProfit);$('operationLoss').textContent='-'+money(expectedLoss);$('operationRR').textContent='1 : '+rr.toFixed(2);$('operationMove').textContent=(movePct*100).toFixed(2)+'%';
- const warning=$('operationWarning');if(requiredMargin>capital){warning.className='operationWarning bad';warning.textContent=`Para buscar ${money(target)} con este objetivo técnico se necesitarían ${money(requiredMargin)} de margen a 10x. Con ${money(capital)}, la ganancia bruta estimada sería ${money(expectedProfit)}.`;}
- else if(rr<1.5){warning.className='operationWarning bad';warning.textContent='La relación riesgo/beneficio es inferior a 1:1,5. No se recomienda tomar esta operación aunque alcance el objetivo monetario.';}
- else{warning.className='operationWarning ok';warning.textContent=`El plan busca aproximadamente ${money(target)} brutos usando ${money(usedMargin)} de margen a 10x. Revisa comisiones y confirma el precio antes de operar.`;}
+ const warning=$('operationWarning');
+ if(capitalLimited){warning.className='operationWarning warn';warning.textContent=`Con ${money(capital)} y 10x no es posible alcanzar el riesgo completo de ${money(riskBudget)} usando este stop. El plan utiliza el máximo disponible y arriesga aproximadamente ${money(expectedLoss)}.`;}
+ else if(rr<1.5){warning.className='operationWarning bad';warning.textContent=`Aunque la pérdida máxima queda en ${money(expectedLoss)}, la relación riesgo/beneficio es inferior a 1:1,5. No se recomienda tomar esta operación.`;}
+ else{warning.className='operationWarning ok';warning.textContent=`Riesgo máximo según la señal: ${money(riskBudget)}. Pérdida estimada al stop: ${money(expectedLoss)}; ganancia estimada al take profit: ${money(expectedProfit)}. Revisa comisiones y confirma el precio antes de operar.`;}
 }
 
 function updateDecision(){
@@ -357,7 +370,7 @@ async function updateFundamental(){try{const fgData=await fetchJsonFallback(FUND
  try{const m=await fetchJsonFallback(FUND_MACRO);renderMacro(m);}catch(e){try{const cached=JSON.parse(localStorage.getItem('btcMacroCache')||'null');if(!cached)throw new Error('Sin caché');renderMacro(cached,true);}catch(_){$('macroStatus').textContent='Sin conexión';$('macroStatus').className='tag bad';$('macroLevel').textContent='No disponible';$('macroLevel').className='big red';$('macroReason').textContent='No fue posible consultar el calendario económico.';$('macroInput').value='0';}}
  scoreFundamental();}
 
-const operationPrefs=JSON.parse(localStorage.getItem('btcOperationPrefs')||'null');if(operationPrefs){$('operationCapital').value=operationPrefs.capital||400;$('operationTarget').value=operationPrefs.target||10;}['operationCapital','operationTarget'].forEach(id=>$(id).addEventListener('input',updateOperationPlan));
+const operationPrefs=JSON.parse(localStorage.getItem('btcOperationPrefs')||'null');if(operationPrefs){$('operationCapital').value=operationPrefs.capital||400;}$('operationCapital').addEventListener('input',updateOperationPlan);
 $('refreshBtn').addEventListener('click', ()=>{update();updateFundamental();}); update(); updateFundamental(); setInterval(update,30000); setInterval(updateFundamental,300000);
 </script>
 </body>

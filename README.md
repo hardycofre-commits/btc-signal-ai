@@ -1,14 +1,10 @@
-# BTC Signal AI v4.1
+# BTC Signal AI v4.1.2
 
-Asistente de operación basado en la v4.0.
+Asistente de operación con apalancamiento fijo 10x y riesgo monetario variable según la señal:
 
-## Cambios
-- Capital disponible configurable (por defecto USD 400).
-- Apalancamiento fijo 10x.
-- Ganancia objetivo configurable (por defecto USD 10 brutos).
-- Plan LONG, SHORT o ESPERAR según el motor técnico + fundamental.
-- Zona estimada de entrada, take profit y stop loss.
-- Margen y exposición calculados.
-- Ganancia y pérdida brutas estimadas.
-- Relación riesgo/beneficio.
-- El sistema no ejecuta órdenes y no incluye comisiones, funding ni deslizamiento.
+- Compra fuerte: riesgo máximo USD 30.
+- Compra moderada: riesgo máximo USD 18.
+- Compra cautelosa: riesgo máximo USD 10.
+- Esperar / No comprar / Evitar: no genera operación.
+
+El tamaño de la posición se calcula a partir de la distancia al stop loss y queda limitado por el capital disponible multiplicado por 10. Los cálculos son estimados y no incluyen comisiones, funding ni deslizamiento.
