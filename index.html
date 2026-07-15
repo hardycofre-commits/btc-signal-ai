@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BTC Signal AI v4.1</title>
+  <title>BTC Signal AI v4.2</title>
   <style>
     :root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12253d;--line:#26415f;--text:#f7fbff;--muted:#9fc4ee;--ok:#20d690;--bad:#ff5570;--warn:#ffd166;--blue:#4aa3ff;--purple:#b88cff}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#0a1830);font-family:Arial,Helvetica,sans-serif;color:var(--text)}header{position:sticky;top:0;z-index:5;background:#06111f;border-bottom:1px solid var(--line);padding:18px 22px;display:flex;gap:18px;justify-content:space-between;align-items:center}h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:14px;margin-top:4px}.wrap{max-width:1320px;margin:22px auto;padding:0 18px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:rgba(13,27,46,.92);border:1px solid var(--line);border-radius:18px;padding:20px}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:center}.label{color:var(--muted);font-size:16px}.price{font-size:44px;font-weight:800;margin:12px 0}.red{color:var(--bad)}.green{color:var(--ok)}.yellow{color:var(--warn)}.blue{color:var(--blue)}.purple{color:var(--purple)}button{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:800;padding:13px 20px;cursor:pointer}.pill{padding:10px 16px;border-radius:999px;background:#26313b;color:var(--warn);font-weight:800;display:inline-block}.statusTop{background:#132b2c;color:var(--ok)}.statusBad{background:#322332;color:var(--bad)}.small{font-size:13px;color:var(--muted)}.row{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);padding:11px 0;gap:12px}.row:last-child{border-bottom:0}.big{font-size:26px;font-weight:800}.statusGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.source{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}.source.ok{border-color:#0ea77e}.source.bad{border-color:#b84a65}.source.warn{border-color:#80672a}.tv{height:500px;overflow:hidden}.note{margin-top:12px;color:var(--muted);font-size:13px}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}.meter{height:12px;border-radius:999px;background:#071324;border:1px solid var(--line);overflow:hidden;margin-top:10px}.bar{height:100%;width:0%;background:var(--blue)}.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#071324;border:1px solid var(--line);font-weight:800}.tag.ok{color:var(--ok);border-color:#0ea77e}.tag.bad{color:var(--bad);border-color:#b84a65}.tag.warn{color:var(--warn);border-color:#80672a}.mtf{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:950px){.hero,.grid,.grid3,.statusGrid,.mtf{grid-template-columns:1fr}.price{font-size:36px}header{align-items:flex-start;flex-direction:column}.tv{height:390px}}
   
@@ -14,11 +14,13 @@
 
 .operationCard{margin-top:18px;border:1px solid #496d98;background:linear-gradient(135deg,rgba(10,29,50,.98),rgba(13,27,46,.98))}.operationHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}.operationConfig{display:grid;grid-template-columns:repeat(3,minmax(150px,1fr));gap:10px;margin-top:16px}.operationConfig label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}.operationConfig input,.fixedInput{width:100%;background:#071324;color:var(--text);border:1px solid var(--line);border-radius:11px;padding:11px;font-weight:800}.fixedInput{color:var(--blue)}.operationGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}.operationMain,.operationNumbers{background:#091729;border:1px solid var(--line);border-radius:14px;padding:16px}.operationDirection{font-size:30px;font-weight:900}.operationPrices{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.operationPrices>div,.operationMetrics>div{background:#071324;border:1px solid var(--line);border-radius:11px;padding:11px}.operationPrices span,.operationMetrics span{display:block;color:var(--muted);font-size:11px}.operationPrices b,.operationMetrics b{display:block;margin-top:5px;font-size:16px}.operationMetrics{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.operationWarning{margin-top:13px;padding:12px;border-radius:11px;background:#071324;border-left:4px solid var(--warn);font-size:13px;line-height:1.45}.operationWarning.ok{border-left-color:var(--ok)}.operationWarning.bad{border-left-color:var(--bad)}@media(max-width:950px){.operationGrid,.operationConfig{grid-template-columns:1fr}.operationPrices{grid-template-columns:1fr}.operationMetrics{grid-template-columns:1fr 1fr}}
 
+.paperCard{margin-top:18px;border:1px solid #3d668f;background:linear-gradient(135deg,rgba(9,25,44,.98),rgba(13,27,46,.98))}.paperHeader{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}.paperActions{display:flex;gap:8px;flex-wrap:wrap}.paperActions button{padding:9px 13px;font-size:12px}.paperActions .danger{background:#7b2840}.paperStats{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin-top:15px}.paperStat{background:#091729;border:1px solid var(--line);border-radius:12px;padding:11px}.paperStat span{display:block;color:var(--muted);font-size:11px}.paperStat b{display:block;margin-top:5px;font-size:17px}.waitDiag{margin-top:14px;background:#091729;border:1px solid var(--line);border-radius:13px;padding:13px}.waitDiag ul{margin:8px 0 0;padding-left:20px;color:var(--muted);line-height:1.55}.paperTableWrap{margin-top:14px;overflow:auto;border:1px solid var(--line);border-radius:12px}.paperTable{width:100%;border-collapse:collapse;min-width:950px}.paperTable th,.paperTable td{padding:10px;border-bottom:1px solid rgba(255,255,255,.08);font-size:12px;text-align:left;white-space:nowrap}.paperTable th{color:var(--muted);background:#071324}.paperTable tr:last-child td{border-bottom:0}.paperEmpty{padding:18px;color:var(--muted);text-align:center}.paperNote{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.45}@media(max-width:950px){.paperStats{grid-template-columns:repeat(2,1fr)}}
+
 </style>
 </head>
 <body>
 <header>
-  <div><h1>BTC Signal AI</h1><div class="sub">v4.1.2 · Riesgo variable según fuerza de compra</div></div>
+  <div><h1>BTC Signal AI</h1><div class="sub">v4.2 · Paper Trading y registro de señales</div></div>
   <div style="display:flex;gap:12px;align-items:center"><span id="globalStatus" class="pill">• Verificando</span><button id="refreshBtn">Actualizar</button></div>
 </header>
 
@@ -98,6 +100,25 @@
         <p class="small" style="margin:13px 0 0">Cálculos brutos, sin considerar comisiones, funding, deslizamiento ni liquidación.</p>
       </div>
     </div>
+  </section>
+
+
+  <section class="card paperCard">
+    <div class="paperHeader">
+      <div><div class="label">PAPER TRADING</div><h2 style="margin:6px 0 0">Registro de señales y operaciones simuladas</h2><div class="small" style="margin-top:6px">Registra qué decide el motor y abre operaciones simuladas solo cuando existe una señal válida.</div></div>
+      <div class="paperActions"><button id="paperExportBtn">Exportar CSV</button><button id="paperResetBtn" class="danger">Borrar registro</button></div>
+    </div>
+    <div class="paperStats">
+      <div class="paperStat"><span>Evaluaciones</span><b id="paperSignals">0</b></div>
+      <div class="paperStat"><span>Oportunidades</span><b id="paperOpportunities">0</b></div>
+      <div class="paperStat"><span>Operaciones cerradas</span><b id="paperClosed">0</b></div>
+      <div class="paperStat"><span>Win rate</span><b id="paperWinRate">--</b></div>
+      <div class="paperStat"><span>Resultado simulado</span><b id="paperPnl">USD 0,00</b></div>
+      <div class="paperStat"><span>Operación abierta</span><b id="paperOpen">No</b></div>
+    </div>
+    <div id="waitDiagnostic" class="waitDiag"><b>Diagnóstico de la señal</b><div class="small" style="margin-top:6px">Esperando la primera evaluación.</div></div>
+    <div class="paperTableWrap"><table class="paperTable"><thead><tr><th>Fecha</th><th>Señal</th><th>Puntaje</th><th>Entrada</th><th>TP</th><th>SL</th><th>Riesgo</th><th>Estado</th><th>Resultado</th></tr></thead><tbody id="paperRows"><tr><td colspan="9" class="paperEmpty">Todavía no existen operaciones simuladas.</td></tr></tbody></table></div>
+    <div class="paperNote">El registro se guarda en este navegador. La operación se controla mientras BTC Signal AI está abierto y al actualizar la página. No representa rendimiento real ni garantiza resultados futuros.</div>
   </section>
 
   <section class="card" style="margin-top:18px">
@@ -239,10 +260,11 @@ const FUND_NEWS='https://hardy-trading-backend.onrender.com/api/news/btc';
 const FUND_MACRO='https://hardy-trading-backend.onrender.com/api/macro';
 const FUND_ETF='https://hardy-trading-backend.onrender.com/api/etf';
 let fundamentalState={fear:null,newsScore:0,newsCount:0};
-let decisionState={technical:null,fundamental:null,quality:null,rsi:null,trend:null,macroScore:0,etfFlow:0,newsScore:0,fear:null,lastPrice:null,support:null,resistance:null,atr:null,decisionLabel:'ESPERAR',combined:null};
+let decisionState={technical:null,fundamental:null,quality:null,rsi:null,trend:null,macroScore:0,etfFlow:0,newsScore:0,fear:null,lastPrice:null,support:null,resistance:null,atr:null,decisionLabel:'ESPERAR',combined:null,confidence:null,risk:null,plan:null};
 
 function operationMoney(n){return Number.isFinite(Number(n))?money(Number(n)):'--';}
 function clearOperation(message='No existe una señal operable en este momento.'){
+ decisionState.plan=null;
  $('operationDirection').textContent='ESPERAR';$('operationDirection').className='operationDirection yellow';$('operationStatus').textContent='Sin operación';$('operationStatus').className='tag warn';$('operationSummary').textContent=message;
  ['operationEntry','operationTp','operationSl','operationMargin','operationNotional','operationProfit','operationLoss','operationRR','operationMove'].forEach(id=>$(id).textContent='--');
  $('operationWarning').className='operationWarning';$('operationWarning').textContent='Protege el capital: una señal “Esperar” significa que no se deben inventar precios de entrada.';
@@ -280,6 +302,8 @@ function updateOperationPlan(){
  if(capitalLimited){warning.className='operationWarning warn';warning.textContent=`Con ${money(capital)} y 10x no es posible alcanzar el riesgo completo de ${money(riskBudget)} usando este stop. El plan utiliza el máximo disponible y arriesga aproximadamente ${money(expectedLoss)}.`;}
  else if(rr<1.5){warning.className='operationWarning bad';warning.textContent=`Aunque la pérdida máxima queda en ${money(expectedLoss)}, la relación riesgo/beneficio es inferior a 1:1,5. No se recomienda tomar esta operación.`;}
  else{warning.className='operationWarning ok';warning.textContent=`Riesgo máximo según la señal: ${money(riskBudget)}. Pérdida estimada al stop: ${money(expectedLoss)}; ganancia estimada al take profit: ${money(expectedProfit)}. Revisa comisiones y confirma el precio antes de operar.`;}
+ decisionState.plan={side:'LONG',label,entry,entryLow,entryHigh,tp:tpTech,sl:stop,riskBudget,expectedProfit,expectedLoss,rr,margin:usedMargin,notional:usedNotional,capitalLimited,valid:rr>=1.5};
+ syncPaperTrading();
 }
 
 function updateDecision(){
@@ -312,7 +336,7 @@ function updateDecision(){
  else if(label.includes('COMPRA'))advice='Existe una ventaja moderada. Prioriza una entrada parcial, confirma soporte y mantén una relación riesgo/beneficio mínima de 1:2.';
  else if(label.includes('ESPERAR EVENTO'))advice='La señal es favorable, pero el riesgo macro domina. Espera la publicación y la reacción inicial del mercado.';
  else if(label==='NO COMPRAR'||label.includes('EVITAR'))advice='No hay una ventaja suficiente para abrir una posición larga. Protege el capital y espera una mejora clara.';
- $('decisionAdvice').textContent=advice;decisionState.decisionLabel=label;decisionState.combined=combined;updateOperationPlan();
+ $('decisionAdvice').textContent=advice;decisionState.decisionLabel=label;decisionState.combined=combined;decisionState.confidence=confidence;decisionState.risk=risk;updateOperationPlan();updateWaitDiagnostic();recordSignalEvaluation();
  localStorage.setItem('btcDecisionAI',JSON.stringify({score:combined,label,confidence,risk,technical:t,fundamental:f,time:new Date().toISOString()}));
 }
 
@@ -370,8 +394,50 @@ async function updateFundamental(){try{const fgData=await fetchJsonFallback(FUND
  try{const m=await fetchJsonFallback(FUND_MACRO);renderMacro(m);}catch(e){try{const cached=JSON.parse(localStorage.getItem('btcMacroCache')||'null');if(!cached)throw new Error('Sin caché');renderMacro(cached,true);}catch(_){$('macroStatus').textContent='Sin conexión';$('macroStatus').className='tag bad';$('macroLevel').textContent='No disponible';$('macroLevel').className='big red';$('macroReason').textContent='No fue posible consultar el calendario económico.';$('macroInput').value='0';}}
  scoreFundamental();}
 
+
+
+const PAPER_KEY='btcPaperTradingV42';
+function paperLoad(){try{return JSON.parse(localStorage.getItem(PAPER_KEY)||'{"signals":[],"trades":[]}')}catch(e){return {signals:[],trades:[]}}}
+function paperSave(db){localStorage.setItem(PAPER_KEY,JSON.stringify(db));}
+function paperId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function recordSignalEvaluation(){
+ const score=Number(decisionState.combined),label=String(decisionState.decisionLabel||'ESPERAR');if(!Number.isFinite(score))return;
+ const db=paperLoad(),now=Date.now(),last=db.signals.at(-1);
+ // Un registro cada 30 minutos, o inmediatamente cuando cambia la señal.
+ if(last&&last.label===label&&now-last.time<30*60*1000){renderPaperTrading();return;}
+ db.signals.push({id:paperId(),time:now,label,score,technical:decisionState.technical,fundamental:decisionState.fundamental,confidence:decisionState.confidence,price:decisionState.lastPrice,macro:decisionState.macroScore,etf:decisionState.etfFlow});
+ if(db.signals.length>1500)db.signals=db.signals.slice(-1500);paperSave(db);renderPaperTrading();
+}
+function syncPaperTrading(){
+ const db=paperLoad(),price=Number(decisionState.lastPrice);if(!Number.isFinite(price))return;
+ let open=db.trades.find(t=>t.status==='ABIERTA');
+ if(open){
+  if(price>=open.tp){open.status='GANADA';open.closedAt=Date.now();open.exit=open.tp;open.pnl=open.expectedProfit;}
+  else if(price<=open.sl){open.status='PERDIDA';open.closedAt=Date.now();open.exit=open.sl;open.pnl=-open.expectedLoss;}
+ }
+ const p=decisionState.plan;
+ if(!open&&p&&p.valid&&['COMPRA FUERTE','COMPRA MODERADA','COMPRA CAUTELOSA'].includes(p.label)){
+  const recent=db.trades.at(-1);const sameRecent=recent&&recent.label===p.label&&Date.now()-recent.openedAt<6*60*60*1000;
+  if(!sameRecent){db.trades.push({id:paperId(),openedAt:Date.now(),status:'ABIERTA',label:p.label,score:decisionState.combined,confidence:decisionState.confidence,entry:p.entry,tp:p.tp,sl:p.sl,riskBudget:p.riskBudget,expectedProfit:p.expectedProfit,expectedLoss:p.expectedLoss,margin:p.margin,notional:p.notional,pnl:0});}
+ }
+ if(db.trades.length>500)db.trades=db.trades.slice(-500);paperSave(db);renderPaperTrading();
+}
+function updateWaitDiagnostic(){
+ const box=$('waitDiagnostic');if(!box)return;const label=String(decisionState.decisionLabel||'ESPERAR'),score=Number(decisionState.combined),t=Number(decisionState.technical),f=Number(decisionState.fundamental),macro=Number(decisionState.macroScore||0);
+ const blockers=[];if(t<58)blockers.push(`Puntaje técnico ${t}/100: necesita al menos 58 para Compra moderada.`);if(score<65)blockers.push(`Puntaje combinado ${score}/100: faltan ${Math.max(0,65-score)} puntos para Compra moderada.`);if(f<50)blockers.push(`Fundamental ${f}/100: el contexto aún es débil.`);if(macro<=-12)blockers.push('Existe un evento macro de alto impacto que bloquea o reduce la señal.');if(Number(decisionState.etfFlow)<0)blockers.push('Los ETF Spot muestran salidas netas.');
+ if(label.includes('COMPRA'))box.innerHTML=`<b>Operación habilitada: ${escapeHtml(label)}</b><div class="small" style="margin-top:6px">El paper trading abrirá una operación simulada si el plan tiene relación riesgo/beneficio mínima de 1:1,5.</div>`;
+ else box.innerHTML=`<b>Por qué indica ${escapeHtml(label)}</b>${blockers.length?`<ul>${blockers.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>`:'<div class="small" style="margin-top:6px">No existe todavía una alineación suficiente entre técnico y fundamental.</div>'}`;
+}
+function renderPaperTrading(){
+ const db=paperLoad(),trades=db.trades||[],closed=trades.filter(t=>t.status!=='ABIERTA'),wins=closed.filter(t=>t.status==='GANADA'),pnl=closed.reduce((a,t)=>a+Number(t.pnl||0),0),ops=(db.signals||[]).filter(s=>String(s.label).includes('COMPRA')).length,open=trades.find(t=>t.status==='ABIERTA');
+ $('paperSignals').textContent=(db.signals||[]).length;$('paperOpportunities').textContent=ops;$('paperClosed').textContent=closed.length;$('paperWinRate').textContent=closed.length?`${(wins.length/closed.length*100).toFixed(1)}%`:'--';$('paperPnl').textContent=(pnl>=0?'+':'')+money(pnl);$('paperPnl').className=pnl>0?'green':pnl<0?'red':'yellow';$('paperOpen').textContent=open?'Sí':'No';$('paperOpen').className=open?'green':'yellow';
+ const rows=trades.slice().reverse().slice(0,30);$('paperRows').innerHTML=rows.length?rows.map(t=>`<tr><td>${new Date(t.openedAt).toLocaleString('es-CL')}</td><td>${escapeHtml(t.label)}</td><td>${t.score}/100</td><td>${money(t.entry)}</td><td>${money(t.tp)}</td><td>${money(t.sl)}</td><td>${money(t.riskBudget)}</td><td class="${t.status==='GANADA'?'green':t.status==='PERDIDA'?'red':'yellow'}">${t.status}</td><td class="${Number(t.pnl)>0?'green':Number(t.pnl)<0?'red':''}">${t.status==='ABIERTA'?'--':(Number(t.pnl)>=0?'+':'')+money(t.pnl)}</td></tr>`).join(''):'<tr><td colspan="9" class="paperEmpty">Todavía no existen operaciones simuladas.</td></tr>';
+}
+function exportPaperCsv(){const db=paperLoad(),head=['fecha','senal','puntaje','entrada','take_profit','stop_loss','riesgo_usd','estado','resultado_usd'];const lines=[head.join(',')].concat((db.trades||[]).map(t=>[new Date(t.openedAt).toISOString(),t.label,t.score,t.entry,t.tp,t.sl,t.riskBudget,t.status,t.pnl||0].map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')));const blob=new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='btc-paper-trading-v4.2.csv';a.click();URL.revokeObjectURL(a.href);}
+$('paperExportBtn').addEventListener('click',exportPaperCsv);$('paperResetBtn').addEventListener('click',()=>{if(confirm('¿Borrar todo el registro de señales y operaciones simuladas?')){localStorage.removeItem(PAPER_KEY);renderPaperTrading();updateWaitDiagnostic();}});
+
 const operationPrefs=JSON.parse(localStorage.getItem('btcOperationPrefs')||'null');if(operationPrefs){$('operationCapital').value=operationPrefs.capital||400;}$('operationCapital').addEventListener('input',updateOperationPlan);
-$('refreshBtn').addEventListener('click', ()=>{update();updateFundamental();}); update(); updateFundamental(); setInterval(update,30000); setInterval(updateFundamental,300000);
+$('refreshBtn').addEventListener('click', ()=>{update();updateFundamental();}); renderPaperTrading(); update(); updateFundamental(); setInterval(update,30000); setInterval(updateFundamental,300000);
 </script>
 </body>
 </html>
