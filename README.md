@@ -1,10 +1,10 @@
-# BTC Signal AI v4.3.2
+# BTC Signal AI v4.4
 
-Versión simplificada del asistente de operación.
+Rediseño tipo terminal de trading sobre la base estable v4.3.2.
 
-## Cambios
-
-- El asistente muestra únicamente LONG BTC, zona de entrada, Take Profit y Stop Loss.
-- Se ocultan capital, margen, exposición, ganancias estimadas y demás métricas.
-- Se oculta el panel de Paper Trading.
-- Se mantiene la lógica de plan congelado y la validación de entrada antes de evaluar TP o SL.
+- Interfaz oscura y compacta.
+- Estado de módulos y paneles técnicos detallados ocultos; continúan calculándose internamente.
+- Gráfico TradingView BTCUSDT Perpetual sin RSI, MACD ni volumen.
+- Barra lateral de herramientas de dibujo y medición habilitada.
+- Asistente simplificado: dirección, entrada, take profit y stop loss.
+- Noticias relevantes en panel lateral.

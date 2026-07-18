@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BTC Signal AI v4.3.2</title>
+  <title>BTC Signal AI v4.4</title>
   <style>
     :root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12253d;--line:#26415f;--text:#f7fbff;--muted:#9fc4ee;--ok:#20d690;--bad:#ff5570;--warn:#ffd166;--blue:#4aa3ff;--purple:#b88cff}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#0a1830);font-family:Arial,Helvetica,sans-serif;color:var(--text)}header{position:sticky;top:0;z-index:5;background:#06111f;border-bottom:1px solid var(--line);padding:18px 22px;display:flex;gap:18px;justify-content:space-between;align-items:center}h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:14px;margin-top:4px}.wrap{max-width:1320px;margin:22px auto;padding:0 18px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:rgba(13,27,46,.92);border:1px solid var(--line);border-radius:18px;padding:20px}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:center}.label{color:var(--muted);font-size:16px}.price{font-size:44px;font-weight:800;margin:12px 0}.red{color:var(--bad)}.green{color:var(--ok)}.yellow{color:var(--warn)}.blue{color:var(--blue)}.purple{color:var(--purple)}button{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:800;padding:13px 20px;cursor:pointer}.pill{padding:10px 16px;border-radius:999px;background:#26313b;color:var(--warn);font-weight:800;display:inline-block}.statusTop{background:#132b2c;color:var(--ok)}.statusBad{background:#322332;color:var(--bad)}.small{font-size:13px;color:var(--muted)}.row{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);padding:11px 0;gap:12px}.row:last-child{border-bottom:0}.big{font-size:26px;font-weight:800}.statusGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.source{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}.source.ok{border-color:#0ea77e}.source.bad{border-color:#b84a65}.source.warn{border-color:#80672a}.tv{height:500px;overflow:hidden}.note{margin-top:12px;color:var(--muted);font-size:13px}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}.meter{height:12px;border-radius:999px;background:#071324;border:1px solid var(--line);overflow:hidden;margin-top:10px}.bar{height:100%;width:0%;background:var(--blue)}.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#071324;border:1px solid var(--line);font-weight:800}.tag.ok{color:var(--ok);border-color:#0ea77e}.tag.bad{color:var(--bad);border-color:#b84a65}.tag.warn{color:var(--warn);border-color:#80672a}.mtf{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:950px){.hero,.grid,.grid3,.statusGrid,.mtf{grid-template-columns:1fr}.price{font-size:36px}header{align-items:flex-start;flex-direction:column}.tv{height:390px}}
   
@@ -18,6 +18,26 @@
 
 
 .simpleOperationCard{padding:22px}.simpleOperationMain{width:100%;padding:20px}.simpleOperationCard .operationPrices{grid-template-columns:repeat(3,1fr)}.simpleOperationCard .operationPrices>div{padding:16px}.simpleOperationCard .operationPrices b{font-size:20px}@media(max-width:760px){.simpleOperationCard .operationPrices{grid-template-columns:1fr}}
+
+
+/* ===== Terminal visual v4.4 ===== */
+body{background:#050d18;color:#f7fbff;min-height:100vh}
+header{position:relative;top:auto;padding:14px 24px;background:#050d18;border-bottom:1px solid #1b2d42}
+header h1{font-size:24px;letter-spacing:-.4px}header .sub{font-size:13px}
+.wrap{max-width:none;margin:0;padding:0 22px 18px}
+body.terminal-ready>section:not(.terminalDashboard),body.terminal-ready main.wrap>section:not(.terminalDashboard){display:none!important}
+.terminalDashboard{display:block!important;max-width:1540px;margin:0 auto;padding-top:18px}
+.terminalTop{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:center;margin-bottom:16px}
+.terminalPriceRow{display:flex;align-items:center;gap:18px;flex-wrap:wrap}.terminalPrice{font-size:38px;font-weight:900;letter-spacing:-1px}.terminalChange{font-size:18px;font-weight:800}
+.terminalLive{display:flex;justify-content:flex-end;align-items:center;gap:18px;color:#9fc4ee;font-size:14px}.liveDot{width:8px;height:8px;border-radius:50%;background:#20d690;box-shadow:0 0 14px #20d690}.terminalSelect{padding:11px 15px;border:1px solid #243a53;border-radius:10px;background:#081421;color:#fff;font-weight:700}
+.terminalMetrics{display:grid;grid-template-columns:.85fr .55fr .8fr 1.45fr;gap:14px;margin-bottom:16px}.terminalMetric,.terminalSummary,.terminalPanel{background:linear-gradient(145deg,#091624,#07111d);border:1px solid #20364e;border-radius:14px}.terminalMetric{padding:18px 20px;min-height:130px}.terminalMetric .metricLabel{color:#b8c8da;font-size:14px}.terminalMetric .metricValue{font-size:27px;font-weight:900;margin-top:12px}.confidenceTrack{height:13px;background:#17283a;border-radius:999px;margin-top:17px;overflow:hidden}.confidenceFill{height:100%;background:linear-gradient(90deg,#ff405e,#ffb43b,#16d887);width:0%;transition:width .35s}
+.terminalSummary{padding:16px 20px;min-height:130px}.terminalSummary h3{margin:0 0 10px;font-size:15px}.summaryLine{display:flex;gap:9px;margin:7px 0;color:#d7e2ed;font-size:14px}.summaryLine:before{content:'•';color:#20d690;font-weight:900}
+.terminalWorkspace{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(340px,.95fr);gap:16px}.terminalPanel{overflow:hidden}.panelTitle{padding:14px 18px;border-bottom:1px solid #20364e;font-size:17px;font-weight:800}.chartMeta{padding:10px 18px;color:#9fc4ee;border-bottom:1px solid #20364e;font-size:13px}.terminalChartHost{height:650px;background:#06111d}.terminalChartHost .tradingview-widget-container,.terminalChartHost #tradingview_widget{height:100%!important;width:100%!important}
+.terminalSide{display:grid;grid-template-rows:auto minmax(330px,1fr);gap:16px}.terminalOperation{padding:19px}.terminalOperation .smallHead{color:#a8b8ca;font-size:16px}.terminalDirection{font-size:31px;font-weight:900;color:#20d690;margin:13px 0 12px}.tradeRows{border:1px solid #28425f;border-radius:10px;overflow:hidden}.tradeRow{display:flex;justify-content:space-between;gap:16px;padding:18px 14px;border-bottom:1px solid #28425f;font-size:17px}.tradeRow:last-child{border-bottom:0}.tradeRow b{text-align:right}.terminalDisclaimer{color:#94a9bf;font-size:12px;line-height:1.5;margin-top:13px}
+.terminalNews{display:flex;flex-direction:column;min-height:330px}.newsTerminalHead{padding:14px 18px;border-bottom:1px solid #20364e;color:#b8c8da;font-size:16px}.terminalNewsList{padding:0 14px 10px;overflow:auto;max-height:460px}.terminalNewsList .newsItem{border:0;border-bottom:1px solid #1c3047;border-radius:0;background:transparent;padding:13px 4px}.terminalNewsList .newsItem:last-child{border-bottom:0}.terminalNewsList .newsExcerpt,.terminalNewsList .impact{display:none}.terminalNewsList .newsMeta{font-size:11px}.terminalNewsList a{font-size:14px}.terminalFooter{display:flex;justify-content:space-between;color:#8296aa;font-size:11px;padding:14px 2px 0}
+@media(max-width:1080px){.terminalMetrics{grid-template-columns:1fr 1fr}.terminalWorkspace{grid-template-columns:1fr}.terminalChartHost{height:520px}.terminalSide{grid-template-columns:1fr 1fr;grid-template-rows:auto}.terminalNews{min-height:0}}
+@media(max-width:680px){.terminalTop{grid-template-columns:1fr}.terminalLive{justify-content:flex-start}.terminalMetrics{grid-template-columns:1fr}.terminalSide{grid-template-columns:1fr}.terminalChartHost{height:430px}.terminalPrice{font-size:30px}.tradeRow{font-size:15px}}
+
 </style>
 </head>
 <body>
@@ -27,6 +47,49 @@
 </header>
 
 <main class="wrap">
+
+<section id="terminalDashboard" class="terminalDashboard">
+  <div class="terminalTop">
+    <div class="terminalPriceRow">
+      <div id="terminalPrice" class="terminalPrice">--</div>
+      <div id="terminalChange" class="terminalChange">--</div>
+    </div>
+    <div class="terminalLive"><span class="liveDot"></span><b>En vivo</b><span id="terminalClock">--:--:--</span><span class="terminalSelect">BTCUSDT</span><span class="terminalSelect">1H</span></div>
+  </div>
+
+  <div class="terminalMetrics">
+    <div class="terminalMetric"><div class="metricLabel">Confianza</div><div id="terminalConfidence" class="metricValue">--</div><div class="confidenceTrack"><div id="terminalConfidenceBar" class="confidenceFill"></div></div></div>
+    <div class="terminalMetric"><div class="metricLabel">Riesgo</div><div id="terminalRisk" class="metricValue green">--</div></div>
+    <div class="terminalMetric"><div class="metricLabel">Horizonte</div><div id="terminalHorizon" class="metricValue" style="font-size:22px">Swing / 4H–1D</div></div>
+    <div class="terminalSummary"><h3>Resumen de análisis</h3><div id="terminalSummaryLines"><div class="summaryLine">Esperando análisis...</div></div></div>
+  </div>
+
+  <div class="terminalWorkspace">
+    <div class="terminalPanel">
+      <div class="panelTitle">BTCUSDT Perpetual · 1H · Bybit <span class="green">●</span></div>
+      <div id="terminalChartMeta" class="chartMeta">Cargando datos de mercado...</div>
+      <div id="terminalChartHost" class="terminalChartHost"></div>
+    </div>
+    <div class="terminalSide">
+      <div class="terminalPanel terminalOperation">
+        <div class="smallHead">ASISTENTE DE OPERACIÓN</div>
+        <div id="terminalDirection" class="terminalDirection">ESPERAR</div>
+        <div class="tradeRows">
+          <div class="tradeRow"><span>Zona de entrada</span><b id="terminalEntry">--</b></div>
+          <div class="tradeRow"><span>Take Profit</span><b id="terminalTp">--</b></div>
+          <div class="tradeRow"><span>Stop Loss</span><b id="terminalSl">--</b></div>
+        </div>
+        <div class="terminalDisclaimer">Plan estimado con apalancamiento fijo 10x. Tú decides cuándo operar.</div>
+      </div>
+      <div class="terminalPanel terminalNews">
+        <div class="newsTerminalHead">NOTICIAS RELEVANTES</div>
+        <div id="terminalNewsList" class="terminalNewsList"><div class="small">Consultando noticias...</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="terminalFooter"><span>Los datos se actualizan automáticamente. La información puede retrasarse.</span><span>Versión 4.4</span></div>
+</section>
+
   <section class="card hero">
     <div>
       <div class="label">MÓDULOS 1, 2 Y 3</div>
@@ -188,7 +251,30 @@
     <div class="card" style="grid-column:span 2"><div class="newsTop"><div><h3 style="margin:0">Noticias BTC</h3><div class="small">Actualización automática desde fuentes especializadas.</div></div><span id="newsStatus" class="tag warn">Cargando</span></div><div class="newsStats"><div class="newsStat"><span>Alcistas</span><b id="newsBull" class="green">--</b></div><div class="newsStat"><span>Neutrales</span><b id="newsNeutral" class="yellow">--</b></div><div class="newsStat"><span>Bajistas</span><b id="newsBear" class="red">--</b></div><div class="newsStat"><span>Sesgo</span><b id="newsBias">--</b></div></div><div id="newsSummary" class="newsSummary small">Analizando titulares recientes...</div><div id="newsList" class="newsList"><div class="small">Consultando fuentes...</div></div><p id="newsUpdated" class="small newsUpdated">Fuente: Hardy Trading Backend.</p></div>
     <div class="card"><h3>Puntaje fundamental</h3><div id="fundScore" class="big">--/100</div><div id="fundLabel" class="tag warn">Esperando</div><div class="meter"><div id="fundBar" class="bar"></div></div><div class="scoreParts" style="margin-top:14px"><div class="scorePart"><span>Fear & Greed</span><b id="fgPoints">--</b></div><div class="scorePart"><span>Noticias</span><b id="newsPoints">--</b></div><div class="scorePart"><span>ETF automático</span><b id="etfPoints">--</b></div><div class="scorePart"><span>Macro automático</span><b id="macroPoints">--</b></div></div><p id="fundSummary" class="small">Esperando datos...</p></div>
   </section>
-<script src="https://s3.tradingview.com/tv.js" async onload="loadTV()" onerror="tvError()"></script>
+<script src="https://s3.tradingview.com/tv.js" async onload="loadTV()" onerror="tvError()">
+
+function terminalText(id,fallback='--'){const el=$(id);return el&&el.textContent.trim()?el.textContent.trim():fallback;}
+function terminalSync(){
+  const p=terminalText('price');const c=terminalText('change24');
+  $('terminalPrice').textContent=p;$('terminalChange').textContent=c;$('terminalChange').className='terminalChange '+(($('change24')?.className||'').includes('red')?'red':'green');
+  const conf=terminalText('decisionConfidence');$('terminalConfidence').textContent=conf;const confNum=parseFloat(conf)||0;$('terminalConfidenceBar').style.width=Math.max(0,Math.min(100,confNum))+'%';
+  const risk=terminalText('decisionRisk');$('terminalRisk').textContent=risk;$('terminalRisk').className='metricValue '+(/alto/i.test(risk)?'red':/medio/i.test(risk)?'yellow':'green');
+  $('terminalHorizon').textContent=terminalText('decisionHorizon','Swing / 4H–1D');
+  const reasons=[...document.querySelectorAll('#decisionReasons .decisionReason')].slice(0,4).map(x=>x.textContent.trim()).filter(Boolean);
+  $('terminalSummaryLines').innerHTML=(reasons.length?reasons:['Esperando análisis...']).map(x=>`<div class="summaryLine">${x}</div>`).join('');
+  $('terminalDirection').textContent=terminalText('operationDirection','ESPERAR');$('terminalDirection').className='terminalDirection '+(($('operationDirection')?.className||'').includes('red')?'red':(($('operationDirection')?.className||'').includes('green')?'green':'yellow'));
+  $('terminalEntry').textContent=terminalText('operationEntry');$('terminalTp').textContent=terminalText('operationTp');$('terminalSl').textContent=terminalText('operationSl');
+  $('terminalChartMeta').textContent=`Precio ${terminalText('lastPrice')} · 24h ${terminalText('changeCard')} · Máx. ${terminalText('high24')} · Mín. ${terminalText('low24')}`;
+  const news=$('newsList');if(news&&news.innerHTML&&!/Consultando fuentes/.test(news.textContent||'')){$('terminalNewsList').innerHTML=news.innerHTML;}
+}
+function prepareTerminal(){
+  document.body.classList.add('terminal-ready');
+  const widget=$('tradingview_widget');const host=$('terminalChartHost');if(widget&&host){const parent=widget.parentElement;host.appendChild(widget);if(parent&&parent!==host)parent.style.display='none';}
+  terminalSync();setInterval(terminalSync,700);setInterval(()=>{$('terminalClock').textContent=new Date().toLocaleTimeString('es-CL')+' (UTC-4)';},1000);
+}
+window.addEventListener('DOMContentLoaded',prepareTerminal);
+
+</script>
 <script>
 const $ = id => document.getElementById(id);
 let isLoading=false;
@@ -245,7 +331,7 @@ async function update(){
  }catch(e){setSource('market',false,e.name==='AbortError'?'Tiempo agotado':'Error');setSource('tech',false,e.message);setGlobal(false,'Error de datos');$('updated').textContent='Actualización fallida: '+new Date().toLocaleString('es-CL')+'. '+e.message;}
  finally{isLoading=false;}
 }
-function loadTV(){try{new TradingView.widget({container_id:'tradingview_widget',autosize:true,symbol:'BYBIT:BTCUSDT',interval:'60',timezone:'America/Santiago',theme:'dark',style:'1',locale:'es',hide_top_toolbar:false,allow_symbol_change:false,calendar:false,studies:['RSI@tv-basicstudies','MACD@tv-basicstudies','MASimple@tv-basicstudies']});setSource('tv',true,'Cargado');}catch(e){tvError();}}
+function loadTV(){try{new TradingView.widget({container_id:'tradingview_widget',autosize:true,symbol:'BYBIT:BTCUSDT.P',interval:'60',timezone:'America/Santiago',theme:'dark',style:'1',locale:'es',hide_top_toolbar:false,hide_side_toolbar:false,allow_symbol_change:false,withdateranges:true,details:false,hotlist:false,calendar:false,enable_publishing:false,save_image:true,studies:[]});setSource('tv',true,'Cargado');}catch(e){tvError();}}
 function tvError(){setSource('tv',false,'No cargó');}
 
 const FUND_FG='https://api.alternative.me/fng/?limit=31&format=json';
