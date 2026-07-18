@@ -1,10 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BTC Signal AI v4.4</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>BTC Signal AI v4.4</title>
+<style>
     :root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12253d;--line:#26415f;--text:#f7fbff;--muted:#9fc4ee;--ok:#20d690;--bad:#ff5570;--warn:#ffd166;--blue:#4aa3ff;--purple:#b88cff}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#0a1830);font-family:Arial,Helvetica,sans-serif;color:var(--text)}header{position:sticky;top:0;z-index:5;background:#06111f;border-bottom:1px solid var(--line);padding:18px 22px;display:flex;gap:18px;justify-content:space-between;align-items:center}h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:14px;margin-top:4px}.wrap{max-width:1320px;margin:22px auto;padding:0 18px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:rgba(13,27,46,.92);border:1px solid var(--line);border-radius:18px;padding:20px}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:center}.label{color:var(--muted);font-size:16px}.price{font-size:44px;font-weight:800;margin:12px 0}.red{color:var(--bad)}.green{color:var(--ok)}.yellow{color:var(--warn)}.blue{color:var(--blue)}.purple{color:var(--purple)}button{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:800;padding:13px 20px;cursor:pointer}.pill{padding:10px 16px;border-radius:999px;background:#26313b;color:var(--warn);font-weight:800;display:inline-block}.statusTop{background:#132b2c;color:var(--ok)}.statusBad{background:#322332;color:var(--bad)}.small{font-size:13px;color:var(--muted)}.row{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);padding:11px 0;gap:12px}.row:last-child{border-bottom:0}.big{font-size:26px;font-weight:800}.statusGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.source{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}.source.ok{border-color:#0ea77e}.source.bad{border-color:#b84a65}.source.warn{border-color:#80672a}.tv{height:500px;overflow:hidden}.note{margin-top:12px;color:var(--muted);font-size:13px}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}.meter{height:12px;border-radius:999px;background:#071324;border:1px solid var(--line);overflow:hidden;margin-top:10px}.bar{height:100%;width:0%;background:var(--blue)}.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#071324;border:1px solid var(--line);font-weight:800}.tag.ok{color:var(--ok);border-color:#0ea77e}.tag.bad{color:var(--bad);border-color:#b84a65}.tag.warn{color:var(--warn);border-color:#80672a}.mtf{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:950px){.hero,.grid,.grid3,.statusGrid,.mtf{grid-template-columns:1fr}.price{font-size:36px}header{align-items:flex-start;flex-direction:column}.tv{height:390px}}
   
 .newsList{display:grid;gap:10px}.newsItem{background:#0b192a;border:1px solid var(--line);border-radius:14px;padding:14px}.newsItem a{color:var(--text);text-decoration:none;font-weight:800;line-height:1.35}.newsItem a:hover{color:var(--blue)}.newsMeta{margin-top:7px;color:var(--muted);font-size:12px}.newsTop{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.newsStats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}.newsStat{background:#091729;border:1px solid var(--line);border-radius:10px;padding:9px;text-align:center}.newsStat span{display:block;color:var(--muted);font-size:11px}.newsStat b{display:block;margin-top:4px;font-size:15px}.impact{font-size:11px;font-weight:800;padding:3px 7px;border-radius:999px;border:1px solid var(--line)}.impact.high{color:var(--bad);border-color:#b84a65}.impact.medium{color:var(--warn);border-color:#80672a}.impact.low{color:var(--muted)}.newsSummary{background:#091729;border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px}.newsUpdated{margin-top:10px}.newsExcerpt{margin-top:8px;color:var(--muted);font-size:12px;line-height:1.45}@media(max-width:600px){.newsStats{grid-template-columns:repeat(2,1fr)}}.scoreParts{display:grid;gap:8px}.scorePart{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}.scorePart:last-child{border-bottom:0}.inputDark{width:100%;background:#071324;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:16px}.badgePos{color:var(--ok)}.badgeNeg{color:var(--bad)}.badgeNeu{color:var(--warn)}
@@ -42,216 +43,167 @@ body.terminal-ready>section:not(.terminalDashboard),body.terminal-ready main.wra
 </head>
 <body>
 <header>
-  <div><h1>BTC Signal AI</h1><div class="sub">v4.3.2 · Asistente de operación simplificado</div></div>
-  <div style="display:flex;gap:12px;align-items:center"><span id="globalStatus" class="pill">• Verificando</span><button id="refreshBtn">Actualizar</button></div>
+<div><h1>BTC Signal AI</h1><div class="sub">v4.3.2 · Asistente de operación simplificado</div></div>
+<div style="display:flex;gap:12px;align-items:center"><span class="pill" id="globalStatus">• Verificando</span><button id="refreshBtn">Actualizar</button></div>
 </header>
-
 <main class="wrap">
-
-<section id="terminalDashboard" class="terminalDashboard">
-  <div class="terminalTop">
-    <div class="terminalPriceRow">
-      <div id="terminalPrice" class="terminalPrice">--</div>
-      <div id="terminalChange" class="terminalChange">--</div>
-    </div>
-    <div class="terminalLive"><span class="liveDot"></span><b>En vivo</b><span id="terminalClock">--:--:--</span><span class="terminalSelect">BTCUSDT</span><span class="terminalSelect">1H</span></div>
-  </div>
-
-  <div class="terminalMetrics">
-    <div class="terminalMetric"><div class="metricLabel">Confianza</div><div id="terminalConfidence" class="metricValue">--</div><div class="confidenceTrack"><div id="terminalConfidenceBar" class="confidenceFill"></div></div></div>
-    <div class="terminalMetric"><div class="metricLabel">Riesgo</div><div id="terminalRisk" class="metricValue green">--</div></div>
-    <div class="terminalMetric"><div class="metricLabel">Horizonte</div><div id="terminalHorizon" class="metricValue" style="font-size:22px">Swing / 4H–1D</div></div>
-    <div class="terminalSummary"><h3>Resumen de análisis</h3><div id="terminalSummaryLines"><div class="summaryLine">Esperando análisis...</div></div></div>
-  </div>
-
-  <div class="terminalWorkspace">
-    <div class="terminalPanel">
-      <div class="panelTitle">BTCUSDT Perpetual · 1H · Bybit <span class="green">●</span></div>
-      <div id="terminalChartMeta" class="chartMeta">Cargando datos de mercado...</div>
-      <div id="terminalChartHost" class="terminalChartHost"></div>
-    </div>
-    <div class="terminalSide">
-      <div class="terminalPanel terminalOperation">
-        <div class="smallHead">ASISTENTE DE OPERACIÓN</div>
-        <div id="terminalDirection" class="terminalDirection">ESPERAR</div>
-        <div class="tradeRows">
-          <div class="tradeRow"><span>Zona de entrada</span><b id="terminalEntry">--</b></div>
-          <div class="tradeRow"><span>Take Profit</span><b id="terminalTp">--</b></div>
-          <div class="tradeRow"><span>Stop Loss</span><b id="terminalSl">--</b></div>
-        </div>
-        <div class="terminalDisclaimer">Plan estimado con apalancamiento fijo 10x. Tú decides cuándo operar.</div>
-      </div>
-      <div class="terminalPanel terminalNews">
-        <div class="newsTerminalHead">NOTICIAS RELEVANTES</div>
-        <div id="terminalNewsList" class="terminalNewsList"><div class="small">Consultando noticias...</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="terminalFooter"><span>Los datos se actualizan automáticamente. La información puede retrasarse.</span><span>Versión 4.4</span></div>
+<section class="terminalDashboard" id="terminalDashboard">
+<div class="terminalTop">
+<div class="terminalPriceRow">
+<div class="terminalPrice" id="terminalPrice">--</div>
+<div class="terminalChange" id="terminalChange">--</div>
+</div>
+<div class="terminalLive"><span class="liveDot"></span><b>En vivo</b><span id="terminalClock">--:--:--</span><span class="terminalSelect">BTCUSDT</span><span class="terminalSelect">1H</span></div>
+</div>
+<div class="terminalMetrics">
+<div class="terminalMetric"><div class="metricLabel">Confianza</div><div class="metricValue" id="terminalConfidence">--</div><div class="confidenceTrack"><div class="confidenceFill" id="terminalConfidenceBar"></div></div></div>
+<div class="terminalMetric"><div class="metricLabel">Riesgo</div><div class="metricValue green" id="terminalRisk">--</div></div>
+<div class="terminalMetric"><div class="metricLabel">Horizonte</div><div class="metricValue" id="terminalHorizon" style="font-size:22px">Swing / 4H–1D</div></div>
+<div class="terminalSummary"><h3>Resumen de análisis</h3><div id="terminalSummaryLines"><div class="summaryLine">Esperando análisis...</div></div></div>
+</div>
+<div class="terminalWorkspace">
+<div class="terminalPanel">
+<div class="panelTitle">BTCUSDT Perpetual · 1H · Bybit <span class="green">●</span></div>
+<div class="chartMeta" id="terminalChartMeta">Cargando datos de mercado...</div>
+<div class="terminalChartHost" id="terminalChartHost"></div>
+</div>
+<div class="terminalSide">
+<div class="terminalPanel terminalOperation">
+<div class="smallHead">ASISTENTE DE OPERACIÓN</div>
+<div class="terminalDirection" id="terminalDirection">ESPERAR</div>
+<div class="tradeRows">
+<div class="tradeRow"><span>Zona de entrada</span><b id="terminalEntry">--</b></div>
+<div class="tradeRow"><span>Take Profit</span><b id="terminalTp">--</b></div>
+<div class="tradeRow"><span>Stop Loss</span><b id="terminalSl">--</b></div>
+</div>
+<div class="terminalDisclaimer">Plan estimado con apalancamiento fijo 10x. Tú decides cuándo operar.</div>
+</div>
+<div class="terminalPanel terminalNews">
+<div class="newsTerminalHead">NOTICIAS RELEVANTES</div>
+<div class="terminalNewsList" id="terminalNewsList"><div class="small">Consultando noticias...</div></div>
+</div>
+</div>
+</div>
+<div class="terminalFooter"><span>Los datos se actualizan automáticamente. La información puede retrasarse.</span><span>Versión 4.4</span></div>
+</section>
+<section class="card hero">
+<div>
+<div class="label">MÓDULOS 1, 2 Y 3</div>
+<div class="big" style="font-size:42px;margin:8px 0">Análisis técnico + fundamental</div>
+<div class="label">Integra mercado y análisis técnico con sentimiento, noticias y variables fundamentales transparentes.</div>
+</div>
+<div>
+<div class="label">BTC/USDT · Bybit Spot</div>
+<div class="price" id="price">--</div>
+<div class="big" id="change24">--</div>
+</div>
+</section>
+<section class="card decisionCard">
+<div class="decisionGrid">
+<div>
+<div class="label">MOTOR DE DECISIÓN</div>
+<div class="decisionLabel yellow" id="decisionLabel">ESPERANDO DATOS</div>
+<div class="decisionScore" id="decisionScore">--/100</div>
+<div class="decisionMeter"><div id="decisionBar"></div></div>
+<div class="decisionMeta">
+<div><span>Confianza</span><b id="decisionConfidence">--</b></div>
+<div><span>Riesgo</span><b id="decisionRisk">--</b></div>
+<div><span>Horizonte</span><b id="decisionHorizon">Swing / 4H–1D</b></div>
+</div>
+<div class="decisionAdvice small" id="decisionAdvice">El sistema combinará el análisis técnico y fundamental cuando ambos estén disponibles.</div>
+</div>
+<div>
+<div class="decisionBreakdown">
+<div><span>Puntaje técnico</span><b id="decisionTech">--/100</b></div>
+<div><span>Puntaje fundamental</span><b id="decisionFund">--/100</b></div>
+<div><span>Consenso</span><b id="decisionConsensus">--</b></div>
+<div><span>Última evaluación</span><b id="decisionUpdated">--</b></div>
+</div>
+<div class="decisionReasons" id="decisionReasons">
+<div class="decisionReason warn">Esperando análisis técnico y fundamental.</div>
+</div>
+</div>
+</div>
+</section>
+<section class="card operationCard simpleOperationCard">
+<div class="operationMain simpleOperationMain">
+<div class="operationDirection yellow" id="operationDirection">ESPERAR</div>
+<div class="operationPrices">
+<div><span>Zona de entrada</span><b id="operationEntry">--</b></div>
+<div><span>Take Profit</span><b id="operationTp">--</b></div>
+<div><span>Stop Loss</span><b id="operationSl">--</b></div>
+</div>
+</div>
+<!-- Elementos internos conservados para los cálculos, pero ocultos en la vista simple. -->
+<div style="display:none">
+<span class="tag warn" id="operationStatus">Esperando señal</span>
+<button id="operationCancelBtn" type="button">Cancelar plan</button>
+<input id="operationCapital" type="number" value="400"/>
+<div id="operationRiskBudget">--</div>
+<div id="operationSummary"></div>
+<div id="operationWarning"></div>
+<div id="operationMargin">--</div>
+<div id="operationNotional">--</div>
+<div id="operationProfit">--</div>
+<div id="operationLoss">--</div>
+<div id="operationRR">--</div>
+<div id="operationMove">--</div>
+</div>
 </section>
 
-  <section class="card hero">
-    <div>
-      <div class="label">MÓDULOS 1, 2 Y 3</div>
-      <div class="big" style="font-size:42px;margin:8px 0">Análisis técnico + fundamental</div>
-      <div class="label">Integra mercado y análisis técnico con sentimiento, noticias y variables fundamentales transparentes.</div>
-    </div>
-    <div>
-      <div class="label">BTC/USDT · Bybit Spot</div>
-      <div id="price" class="price">--</div>
-      <div id="change24" class="big">--</div>
-    </div>
-  </section>
 
-  <section class="card decisionCard">
-    <div class="decisionGrid">
-      <div>
-        <div class="label">MOTOR DE DECISIÓN</div>
-        <div id="decisionLabel" class="decisionLabel yellow">ESPERANDO DATOS</div>
-        <div id="decisionScore" class="decisionScore">--/100</div>
-        <div class="decisionMeter"><div id="decisionBar"></div></div>
-        <div class="decisionMeta">
-          <div><span>Confianza</span><b id="decisionConfidence">--</b></div>
-          <div><span>Riesgo</span><b id="decisionRisk">--</b></div>
-          <div><span>Horizonte</span><b id="decisionHorizon">Swing / 4H–1D</b></div>
-        </div>
-        <div id="decisionAdvice" class="decisionAdvice small">El sistema combinará el análisis técnico y fundamental cuando ambos estén disponibles.</div>
-      </div>
-      <div>
-        <div class="decisionBreakdown">
-          <div><span>Puntaje técnico</span><b id="decisionTech">--/100</b></div>
-          <div><span>Puntaje fundamental</span><b id="decisionFund">--/100</b></div>
-          <div><span>Consenso</span><b id="decisionConsensus">--</b></div>
-          <div><span>Última evaluación</span><b id="decisionUpdated">--</b></div>
-        </div>
-        <div id="decisionReasons" class="decisionReasons">
-          <div class="decisionReason warn">Esperando análisis técnico y fundamental.</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="grid" style="margin-top:18px">
+<div class="card"><b>Precio</b><div class="big" id="lastPrice" style="margin-top:18px">--</div><div class="small">Bybit Spot</div></div>
+<div class="card"><b>Variación 24h</b><div class="big" id="changeCard" style="margin-top:18px">--</div><div class="small">Movimiento diario</div></div>
+<div class="card"><b>Máximo 24h</b><div class="big" id="high24" style="margin-top:18px">--</div><div class="small">Resistencia diaria</div></div>
+<div class="card"><b>Mínimo 24h</b><div class="big" id="low24" style="margin-top:18px">--</div><div class="small">Soporte diario</div></div>
+</section>
+<section class="grid3" style="margin-top:18px">
+<div class="card"><h3>RSI 14</h3><div class="big" id="rsiVal">--</div><div class="tag warn" id="rsiTag">Esperando</div><div class="meter"><div class="bar" id="rsiBar"></div></div><p class="small">Sobre 70 = sobrecompra. Bajo 30 = sobreventa.</p></div>
+<div class="card"><h3>MACD</h3><div class="big" id="macdVal">--</div><div class="tag warn" id="macdTag">Esperando</div><div class="row"><span class="label">MACD</span><b id="macdLine">--</b></div><div class="row"><span class="label">Señal</span><b id="signalLine">--</b></div><div class="row"><span class="label">Histograma</span><b id="histLine">--</b></div></div>
+<div class="card"><h3>Tendencia EMA</h3><div class="big" id="trendVal">--</div><div class="tag warn" id="trendTag">Esperando</div><div class="row"><span class="label">EMA 20</span><b id="ema20">--</b></div><div class="row"><span class="label">EMA 50</span><b id="ema50">--</b></div><div class="row"><span class="label">EMA 200</span><b id="ema200">--</b></div></div>
+</section>
+<section class="grid3" style="margin-top:18px">
+<div class="card"><h3>Soporte / Resistencia</h3><div class="row"><span class="label">Soporte 100 velas</span><b id="support">--</b></div><div class="row"><span class="label">Resistencia 100 velas</span><b id="resistance">--</b></div><div class="row"><span class="label">Posición actual</span><b id="positionRange">--</b></div><p class="small">Calculado con mínimos y máximos recientes de velas 1H.</p></div>
+<div class="card"><h3>Puntaje técnico</h3><div class="big" id="techScore">--/100</div><div class="tag warn" id="techLabel">Esperando</div><div class="meter"><div class="bar" id="scoreBar"></div></div><p class="small" id="techSummary">Esperando datos...</p></div>
+<div class="card"><h3>Lectura operativa</h3><div class="big" id="tradeBias">--</div><p class="small" id="tradeText">Esta versión no ejecuta operaciones ni recomienda inversión directa. Solo entrega lectura técnica.</p></div>
+</section>
+<section class="card" style="margin-top:18px">
+<div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><h2 style="margin:0">Temporalidades</h2><span class="tag warn" id="dominantTf">Dominante: --</span></div>
+<div class="mtf" style="margin-top:14px">
+<div class="source" id="card15"><b>15 min</b><div class="yellow" id="tf15" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tf15Score">--</b></div><div class="row"><span class="label">RSI</span><b id="tf15Rsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tf15Macd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tf15Fresh">--</b></div></div>
+<div class="source" id="card60"><b>1 hora</b><div class="yellow" id="tf60" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tf60Score">--</b></div><div class="row"><span class="label">RSI</span><b id="tf60Rsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tf60Macd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tf60Fresh">--</b></div></div>
+<div class="source" id="card240"><b>4 horas</b><div class="yellow" id="tf240" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tf240Score">--</b></div><div class="row"><span class="label">RSI</span><b id="tf240Rsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tf240Macd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tf240Fresh">--</b></div></div>
+<div class="source" id="cardD"><b>1 día</b><div class="yellow" id="tfD" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tfDScore">--</b></div><div class="row"><span class="label">RSI</span><b id="tfDRsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tfDMacd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tfDFresh">--</b></div></div>
+</div>
+</section>
+<section class="grid3" style="margin-top:18px">
+<div class="card"><h3>Consenso técnico</h3><div class="big" id="consensusScore">--/100</div><div class="tag warn" id="consensusTag">Esperando</div><p class="small" id="consensusText">Ponderación: 15m 15%, 1H 35%, 4H 30%, 1D 20%.</p></div>
+<div class="card"><h3>Comparación anterior</h3><div class="big" id="previousDelta">--</div><div class="small" id="previousTime">Sin análisis previo guardado.</div><p class="small">Se guarda localmente en este navegador.</p></div>
+<div class="card"><h3>Calidad de datos</h3><div class="big" id="qualityValue">--</div><div class="tag warn" id="qualityTag">Verificando</div><p class="small" id="qualityText">Comprueba temporalidades completas y velas recientes.</p></div>
+</section>
 
-
-  <section class="card operationCard simpleOperationCard">
-    <div class="operationMain simpleOperationMain">
-      <div id="operationDirection" class="operationDirection yellow">ESPERAR</div>
-      <div class="operationPrices">
-        <div><span>Zona de entrada</span><b id="operationEntry">--</b></div>
-        <div><span>Take Profit</span><b id="operationTp">--</b></div>
-        <div><span>Stop Loss</span><b id="operationSl">--</b></div>
-      </div>
-    </div>
-
-    <!-- Elementos internos conservados para los cálculos, pero ocultos en la vista simple. -->
-    <div style="display:none">
-      <span id="operationStatus" class="tag warn">Esperando señal</span>
-      <button id="operationCancelBtn" type="button">Cancelar plan</button>
-      <input id="operationCapital" type="number" value="400">
-      <div id="operationRiskBudget">--</div>
-      <div id="operationSummary"></div>
-      <div id="operationWarning"></div>
-      <div id="operationMargin">--</div>
-      <div id="operationNotional">--</div>
-      <div id="operationProfit">--</div>
-      <div id="operationLoss">--</div>
-      <div id="operationRR">--</div>
-      <div id="operationMove">--</div>
-    </div>
-  </section>
-
-  <section class="card paperCard" style="display:none">
-    <div class="paperHeader">
-      <div><div class="label">PAPER TRADING</div><h2 style="margin:6px 0 0">Registro de señales y operaciones simuladas</h2><div class="small" style="margin-top:6px">Registra qué decide el motor y abre operaciones simuladas solo cuando existe una señal válida.</div></div>
-      <div class="paperActions"><button id="paperExportBtn">Exportar CSV</button><button id="paperResetBtn" class="danger">Borrar registro</button></div>
-    </div>
-    <div class="paperStats">
-      <div class="paperStat"><span>Evaluaciones</span><b id="paperSignals">0</b></div>
-      <div class="paperStat"><span>Oportunidades</span><b id="paperOpportunities">0</b></div>
-      <div class="paperStat"><span>Operaciones cerradas</span><b id="paperClosed">0</b></div>
-      <div class="paperStat"><span>Win rate</span><b id="paperWinRate">--</b></div>
-      <div class="paperStat"><span>Resultado simulado</span><b id="paperPnl">USD 0,00</b></div>
-      <div class="paperStat"><span>Operación abierta</span><b id="paperOpen">No</b></div>
-    </div>
-    <div id="waitDiagnostic" class="waitDiag"><b>Diagnóstico de la señal</b><div class="small" style="margin-top:6px">Esperando la primera evaluación.</div></div>
-    <div class="paperTableWrap"><table class="paperTable"><thead><tr><th>Fecha</th><th>Señal</th><th>Puntaje</th><th>Entrada</th><th>TP</th><th>SL</th><th>Riesgo</th><th>Estado</th><th>Resultado</th></tr></thead><tbody id="paperRows"><tr><td colspan="9" class="paperEmpty">Todavía no existen operaciones simuladas.</td></tr></tbody></table></div>
-    <div class="paperNote">El registro se guarda en este navegador. La operación se controla mientras BTC Signal AI está abierto y al actualizar la página. No representa rendimiento real ni garantiza resultados futuros.</div>
-  </section>
-
-  <section class="card" style="margin-top:18px">
-    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 style="margin:0">Estado de módulos</h2><span class="small">Mercado + técnico</span></div>
-    <div class="statusGrid" style="margin-top:18px">
-      <div id="marketBox" class="source warn"><b>Módulo 1 · Mercado</b><div class="small">Ticker Bybit Spot</div><div id="marketStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Verificando...</div></div>
-      <div id="techBox" class="source warn"><b>Módulo 2 · Técnico</b><div class="small">Velas e indicadores</div><div id="techStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Calculando...</div></div>
-      <div id="tvBox" class="source warn"><b>TradingView</b><div class="small">Gráfico visual BTCUSDT</div><div id="tvStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Cargando...</div></div>
-    </div>
-    <div id="updated" class="note">Última actualización: --.</div>
-  </section>
-
-  <section class="grid" style="margin-top:18px">
-    <div class="card"><b>Precio</b><div id="lastPrice" class="big" style="margin-top:18px">--</div><div class="small">Bybit Spot</div></div>
-    <div class="card"><b>Variación 24h</b><div id="changeCard" class="big" style="margin-top:18px">--</div><div class="small">Movimiento diario</div></div>
-    <div class="card"><b>Máximo 24h</b><div id="high24" class="big" style="margin-top:18px">--</div><div class="small">Resistencia diaria</div></div>
-    <div class="card"><b>Mínimo 24h</b><div id="low24" class="big" style="margin-top:18px">--</div><div class="small">Soporte diario</div></div>
-  </section>
-
-  <section class="grid3" style="margin-top:18px">
-    <div class="card"><h3>RSI 14</h3><div id="rsiVal" class="big">--</div><div id="rsiTag" class="tag warn">Esperando</div><div class="meter"><div id="rsiBar" class="bar"></div></div><p class="small">Sobre 70 = sobrecompra. Bajo 30 = sobreventa.</p></div>
-    <div class="card"><h3>MACD</h3><div id="macdVal" class="big">--</div><div id="macdTag" class="tag warn">Esperando</div><div class="row"><span class="label">MACD</span><b id="macdLine">--</b></div><div class="row"><span class="label">Señal</span><b id="signalLine">--</b></div><div class="row"><span class="label">Histograma</span><b id="histLine">--</b></div></div>
-    <div class="card"><h3>Tendencia EMA</h3><div id="trendVal" class="big">--</div><div id="trendTag" class="tag warn">Esperando</div><div class="row"><span class="label">EMA 20</span><b id="ema20">--</b></div><div class="row"><span class="label">EMA 50</span><b id="ema50">--</b></div><div class="row"><span class="label">EMA 200</span><b id="ema200">--</b></div></div>
-  </section>
-
-  <section class="grid3" style="margin-top:18px">
-    <div class="card"><h3>Soporte / Resistencia</h3><div class="row"><span class="label">Soporte 100 velas</span><b id="support">--</b></div><div class="row"><span class="label">Resistencia 100 velas</span><b id="resistance">--</b></div><div class="row"><span class="label">Posición actual</span><b id="positionRange">--</b></div><p class="small">Calculado con mínimos y máximos recientes de velas 1H.</p></div>
-    <div class="card"><h3>Puntaje técnico</h3><div id="techScore" class="big">--/100</div><div id="techLabel" class="tag warn">Esperando</div><div class="meter"><div id="scoreBar" class="bar"></div></div><p id="techSummary" class="small">Esperando datos...</p></div>
-    <div class="card"><h3>Lectura operativa</h3><div id="tradeBias" class="big">--</div><p id="tradeText" class="small">Esta versión no ejecuta operaciones ni recomienda inversión directa. Solo entrega lectura técnica.</p></div>
-  </section>
-
-  <section class="card" style="margin-top:18px">
-    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><h2 style="margin:0">Temporalidades</h2><span id="dominantTf" class="tag warn">Dominante: --</span></div>
-    <div class="mtf" style="margin-top:14px">
-      <div class="source" id="card15"><b>15 min</b><div id="tf15" class="yellow" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tf15Score">--</b></div><div class="row"><span class="label">RSI</span><b id="tf15Rsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tf15Macd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tf15Fresh">--</b></div></div>
-      <div class="source" id="card60"><b>1 hora</b><div id="tf60" class="yellow" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tf60Score">--</b></div><div class="row"><span class="label">RSI</span><b id="tf60Rsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tf60Macd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tf60Fresh">--</b></div></div>
-      <div class="source" id="card240"><b>4 horas</b><div id="tf240" class="yellow" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tf240Score">--</b></div><div class="row"><span class="label">RSI</span><b id="tf240Rsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tf240Macd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tf240Fresh">--</b></div></div>
-      <div class="source" id="cardD"><b>1 día</b><div id="tfD" class="yellow" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tfDScore">--</b></div><div class="row"><span class="label">RSI</span><b id="tfDRsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tfDMacd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tfDFresh">--</b></div></div>
-    </div>
-  </section>
-
-  <section class="grid3" style="margin-top:18px">
-    <div class="card"><h3>Consenso técnico</h3><div id="consensusScore" class="big">--/100</div><div id="consensusTag" class="tag warn">Esperando</div><p id="consensusText" class="small">Ponderación: 15m 15%, 1H 35%, 4H 30%, 1D 20%.</p></div>
-    <div class="card"><h3>Comparación anterior</h3><div id="previousDelta" class="big">--</div><div id="previousTime" class="small">Sin análisis previo guardado.</div><p class="small">Se guarda localmente en este navegador.</p></div>
-    <div class="card"><h3>Calidad de datos</h3><div id="qualityValue" class="big">--</div><div id="qualityTag" class="tag warn">Verificando</div><p id="qualityText" class="small">Comprueba temporalidades completas y velas recientes.</p></div>
-  </section>
-
-  <section class="card" style="margin-top:18px">
-    <div style="display:flex;justify-content:space-between;gap:12px"><h2 style="margin:0">Salida del Módulo 2</h2><span class="small">Para alimentar el futuro motor de decisión</span></div>
-    <pre id="jsonOut" class="mono small" style="white-space:pre-wrap;background:#071324;border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:14px">Esperando datos...</pre>
-  </section>
-
-  <section class="card tv" style="margin-top:18px">
-    <h2 style="margin:0 0 12px">Gráfico TradingView</h2>
-    <div class="tradingview-widget-container" style="height:420px;width:100%"><div id="tradingview_widget" style="height:100%;width:100%"></div></div>
-  </section>
+<section class="card tv" style="margin-top:18px">
+<h2 style="margin:0 0 12px">Gráfico TradingView</h2>
+<div class="tradingview-widget-container" style="height:420px;width:100%"><div id="tradingview_widget" style="height:100%;width:100%"></div></div>
+</section>
 </main>
-
-
-  <section class="card" style="margin-top:18px">
-    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
-      <div><h2 style="margin:0">Módulo 3 · Análisis fundamental</h2><div class="small">Datos automáticos y entradas manuales claramente identificadas.</div></div>
-      <span id="fundStatus" class="tag warn">Esperando</span>
-    </div>
-  </section>
-
-  <section class="grid3" style="margin-top:18px">
-    <div class="card fgCard"><div class="fgHeader"><h3>Fear & Greed</h3><span id="fgConnection" class="tag warn">Conectando</span></div><div class="fgTop"><div><div id="fgValue" class="big">--</div><div id="fgLabel" class="tag warn">Esperando</div></div><div id="fgDelta" class="fgDelta">--</div></div><div class="fgScale"><div class="fgMarker" id="fgMarker"><span id="fgMarkerValue">--</span></div></div><div class="fgScaleLabels"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div><canvas id="fgChart" class="fgChart" width="560" height="150" aria-label="Historial Fear & Greed de 30 días"></canvas><div class="fgStats"><div><span>7 días</span><b id="fg7d">--</b></div><div><span>30 días</span><b id="fg30d">--</b></div><div><span>Promedio</span><b id="fgAvg">--</b></div><div><span>Mín./Máx.</span><b id="fgMinMax">--</b></div></div><p id="fgInsight" class="small fgInsight">Esperando lectura...</p><p id="fgText" class="small">Fuente: Alternative.me.</p></div>
-    <div class="card"><div class="newsTop"><h3 style="margin:0">Flujo ETF Spot</h3><span id="etfStatus" class="tag warn">Conectando</span></div><div id="etfValue" class="big" style="margin-top:18px">--</div><div id="etfLevel" class="tag warn" style="margin-top:8px">Esperando</div><div class="newsSummary small" style="margin-top:14px"><b>Contexto institucional</b><div id="etfContext" style="margin-top:6px">Consultando flujos diarios...</div><div id="etfStats" class="small" style="margin-top:5px">--</div></div><input id="etfInput" type="hidden" value="0"><p id="etfUpdated" class="small">Fuente: Hardy Trading Backend.</p></div>
-    <div class="card"><div class="newsTop"><h3 style="margin:0">Riesgo macro</h3><span id="macroStatus" class="tag warn">Conectando</span></div><div id="macroLevel" class="big" style="margin-top:18px">--</div><div id="macroReason" class="small" style="margin-top:10px">Consultando calendario económico...</div><div class="newsSummary small" style="margin-top:14px"><b>Próximo evento</b><div id="macroEvent" style="margin-top:6px">--</div><div id="macroTime" class="small" style="margin-top:4px">--</div></div><input id="macroInput" type="hidden" value="0"><p id="macroUpdated" class="small">Fuente: Hardy Trading Backend.</p></div>
-  </section>
-
-  <section class="grid3" style="margin-top:18px">
-    <div class="card" style="grid-column:span 2"><div class="newsTop"><div><h3 style="margin:0">Noticias BTC</h3><div class="small">Actualización automática desde fuentes especializadas.</div></div><span id="newsStatus" class="tag warn">Cargando</span></div><div class="newsStats"><div class="newsStat"><span>Alcistas</span><b id="newsBull" class="green">--</b></div><div class="newsStat"><span>Neutrales</span><b id="newsNeutral" class="yellow">--</b></div><div class="newsStat"><span>Bajistas</span><b id="newsBear" class="red">--</b></div><div class="newsStat"><span>Sesgo</span><b id="newsBias">--</b></div></div><div id="newsSummary" class="newsSummary small">Analizando titulares recientes...</div><div id="newsList" class="newsList"><div class="small">Consultando fuentes...</div></div><p id="newsUpdated" class="small newsUpdated">Fuente: Hardy Trading Backend.</p></div>
-    <div class="card"><h3>Puntaje fundamental</h3><div id="fundScore" class="big">--/100</div><div id="fundLabel" class="tag warn">Esperando</div><div class="meter"><div id="fundBar" class="bar"></div></div><div class="scoreParts" style="margin-top:14px"><div class="scorePart"><span>Fear & Greed</span><b id="fgPoints">--</b></div><div class="scorePart"><span>Noticias</span><b id="newsPoints">--</b></div><div class="scorePart"><span>ETF automático</span><b id="etfPoints">--</b></div><div class="scorePart"><span>Macro automático</span><b id="macroPoints">--</b></div></div><p id="fundSummary" class="small">Esperando datos...</p></div>
-  </section>
-<script src="https://s3.tradingview.com/tv.js" async onload="loadTV()" onerror="tvError()">
+<section class="card" style="margin-top:18px">
+<div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+<div><h2 style="margin:0">Módulo 3 · Análisis fundamental</h2><div class="small">Datos automáticos y entradas manuales claramente identificadas.</div></div>
+<span class="tag warn" id="fundStatus">Esperando</span>
+</div>
+</section>
+<section class="grid3" style="margin-top:18px">
+<div class="card fgCard"><div class="fgHeader"><h3>Fear &amp; Greed</h3><span class="tag warn" id="fgConnection">Conectando</span></div><div class="fgTop"><div><div class="big" id="fgValue">--</div><div class="tag warn" id="fgLabel">Esperando</div></div><div class="fgDelta" id="fgDelta">--</div></div><div class="fgScale"><div class="fgMarker" id="fgMarker"><span id="fgMarkerValue">--</span></div></div><div class="fgScaleLabels"><span>0</span><span>25</span><span>50</span><span>75</span><span>100</span></div><canvas aria-label="Historial Fear &amp; Greed de 30 días" class="fgChart" height="150" id="fgChart" width="560"></canvas><div class="fgStats"><div><span>7 días</span><b id="fg7d">--</b></div><div><span>30 días</span><b id="fg30d">--</b></div><div><span>Promedio</span><b id="fgAvg">--</b></div><div><span>Mín./Máx.</span><b id="fgMinMax">--</b></div></div><p class="small fgInsight" id="fgInsight">Esperando lectura...</p><p class="small" id="fgText">Fuente: Alternative.me.</p></div>
+<div class="card"><div class="newsTop"><h3 style="margin:0">Flujo ETF Spot</h3><span class="tag warn" id="etfStatus">Conectando</span></div><div class="big" id="etfValue" style="margin-top:18px">--</div><div class="tag warn" id="etfLevel" style="margin-top:8px">Esperando</div><div class="newsSummary small" style="margin-top:14px"><b>Contexto institucional</b><div id="etfContext" style="margin-top:6px">Consultando flujos diarios...</div><div class="small" id="etfStats" style="margin-top:5px">--</div></div><input id="etfInput" type="hidden" value="0"/><p class="small" id="etfUpdated">Fuente: Hardy Trading Backend.</p></div>
+<div class="card"><div class="newsTop"><h3 style="margin:0">Riesgo macro</h3><span class="tag warn" id="macroStatus">Conectando</span></div><div class="big" id="macroLevel" style="margin-top:18px">--</div><div class="small" id="macroReason" style="margin-top:10px">Consultando calendario económico...</div><div class="newsSummary small" style="margin-top:14px"><b>Próximo evento</b><div id="macroEvent" style="margin-top:6px">--</div><div class="small" id="macroTime" style="margin-top:4px">--</div></div><input id="macroInput" type="hidden" value="0"/><p class="small" id="macroUpdated">Fuente: Hardy Trading Backend.</p></div>
+</section>
+<section class="grid3" style="margin-top:18px">
+<div class="card" style="grid-column:span 2"><div class="newsTop"><div><h3 style="margin:0">Noticias BTC</h3><div class="small">Actualización automática desde fuentes especializadas.</div></div><span class="tag warn" id="newsStatus">Cargando</span></div><div class="newsStats"><div class="newsStat"><span>Alcistas</span><b class="green" id="newsBull">--</b></div><div class="newsStat"><span>Neutrales</span><b class="yellow" id="newsNeutral">--</b></div><div class="newsStat"><span>Bajistas</span><b class="red" id="newsBear">--</b></div><div class="newsStat"><span>Sesgo</span><b id="newsBias">--</b></div></div><div class="newsSummary small" id="newsSummary">Analizando titulares recientes...</div><div class="newsList" id="newsList"><div class="small">Consultando fuentes...</div></div><p class="small newsUpdated" id="newsUpdated">Fuente: Hardy Trading Backend.</p></div>
+<div class="card"><h3>Puntaje fundamental</h3><div class="big" id="fundScore">--/100</div><div class="tag warn" id="fundLabel">Esperando</div><div class="meter"><div class="bar" id="fundBar"></div></div><div class="scoreParts" style="margin-top:14px"><div class="scorePart"><span>Fear &amp; Greed</span><b id="fgPoints">--</b></div><div class="scorePart"><span>Noticias</span><b id="newsPoints">--</b></div><div class="scorePart"><span>ETF automático</span><b id="etfPoints">--</b></div><div class="scorePart"><span>Macro automático</span><b id="macroPoints">--</b></div></div><p class="small" id="fundSummary">Esperando datos...</p></div>
+</section>
+<script async="" onerror="tvError()" onload="loadTV()" src="https://s3.tradingview.com/tv.js">
 
 function terminalText(id,fallback='--'){const el=$(id);return el&&el.textContent.trim()?el.textContent.trim():fallback;}
 function terminalSync(){
