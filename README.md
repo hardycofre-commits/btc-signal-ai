@@ -1,14 +1,12 @@
-# BTC Signal AI v4.2
+# BTC Signal AI v4.3
 
-Basada en v4.1.2.
+Basada en v4.2.
 
-## Cambios
-- Paper Trading local automático.
-- Registro de evaluaciones del motor.
-- Operaciones simuladas para Compra fuerte, moderada y cautelosa.
-- Seguimiento de Take Profit y Stop Loss mientras la aplicación está abierta o se actualiza.
-- Estadísticas: oportunidades, operaciones, win rate y resultado simulado.
-- Diagnóstico de por qué el motor indica Esperar o No comprar.
-- Exportación CSV y opción de borrar el registro.
+## Cambio principal
+- Cuando aparece una señal operable válida, el plan queda congelado.
+- La zona de entrada, Take Profit y Stop Loss no se recalculan en cada actualización.
+- El plan permanece visible hasta alcanzar TP, alcanzar SL o cancelarse manualmente.
+- Se agregó el botón **Cancelar plan**.
+- Se mantiene el Paper Trading y el resto de los módulos sin cambios.
 
-Los datos se guardan en el navegador mediante localStorage. No ejecuta órdenes ni garantiza resultados futuros.
+Los datos quedan guardados en el navegador mediante localStorage. No ejecuta órdenes ni garantiza resultados futuros.
