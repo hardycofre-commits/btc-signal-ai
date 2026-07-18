@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BTC Signal AI v4.3</title>
+  <title>BTC Signal AI v4.3.1</title>
   <style>
     :root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12253d;--line:#26415f;--text:#f7fbff;--muted:#9fc4ee;--ok:#20d690;--bad:#ff5570;--warn:#ffd166;--blue:#4aa3ff;--purple:#b88cff}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#0a1830);font-family:Arial,Helvetica,sans-serif;color:var(--text)}header{position:sticky;top:0;z-index:5;background:#06111f;border-bottom:1px solid var(--line);padding:18px 22px;display:flex;gap:18px;justify-content:space-between;align-items:center}h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:14px;margin-top:4px}.wrap{max-width:1320px;margin:22px auto;padding:0 18px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:rgba(13,27,46,.92);border:1px solid var(--line);border-radius:18px;padding:20px}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:center}.label{color:var(--muted);font-size:16px}.price{font-size:44px;font-weight:800;margin:12px 0}.red{color:var(--bad)}.green{color:var(--ok)}.yellow{color:var(--warn)}.blue{color:var(--blue)}.purple{color:var(--purple)}button{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:800;padding:13px 20px;cursor:pointer}.pill{padding:10px 16px;border-radius:999px;background:#26313b;color:var(--warn);font-weight:800;display:inline-block}.statusTop{background:#132b2c;color:var(--ok)}.statusBad{background:#322332;color:var(--bad)}.small{font-size:13px;color:var(--muted)}.row{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);padding:11px 0;gap:12px}.row:last-child{border-bottom:0}.big{font-size:26px;font-weight:800}.statusGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.source{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}.source.ok{border-color:#0ea77e}.source.bad{border-color:#b84a65}.source.warn{border-color:#80672a}.tv{height:500px;overflow:hidden}.note{margin-top:12px;color:var(--muted);font-size:13px}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}.meter{height:12px;border-radius:999px;background:#071324;border:1px solid var(--line);overflow:hidden;margin-top:10px}.bar{height:100%;width:0%;background:var(--blue)}.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#071324;border:1px solid var(--line);font-weight:800}.tag.ok{color:var(--ok);border-color:#0ea77e}.tag.bad{color:var(--bad);border-color:#b84a65}.tag.warn{color:var(--warn);border-color:#80672a}.mtf{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:950px){.hero,.grid,.grid3,.statusGrid,.mtf{grid-template-columns:1fr}.price{font-size:36px}header{align-items:flex-start;flex-direction:column}.tv{height:390px}}
   
@@ -20,7 +20,7 @@
 </head>
 <body>
 <header>
-  <div><h1>BTC Signal AI</h1><div class="sub">v4.3 · Plan de operación congelado</div></div>
+  <div><h1>BTC Signal AI</h1><div class="sub">v4.3.1 · Entrada confirmada antes de evaluar TP/SL</div></div>
   <div style="display:flex;gap:12px;align-items:center"><span id="globalStatus" class="pill">• Verificando</span><button id="refreshBtn">Actualizar</button></div>
 </header>
 
@@ -263,27 +263,37 @@ let fundamentalState={fear:null,newsScore:0,newsCount:0};
 let decisionState={technical:null,fundamental:null,quality:null,rsi:null,trend:null,macroScore:0,etfFlow:0,newsScore:0,fear:null,lastPrice:null,support:null,resistance:null,atr:null,decisionLabel:'ESPERAR',combined:null,confidence:null,risk:null,plan:null};
 
 function operationMoney(n){return Number.isFinite(Number(n))?money(Number(n)):'--';}
-const FROZEN_OPERATION_KEY='btcFrozenOperationV43';
+const FROZEN_OPERATION_KEY='btcFrozenOperationV431';
 function loadFrozenOperation(){try{return JSON.parse(localStorage.getItem(FROZEN_OPERATION_KEY)||'null')}catch(e){return null}}
 function saveFrozenOperation(plan){localStorage.setItem(FROZEN_OPERATION_KEY,JSON.stringify(plan));}
 function clearFrozenOperation(){localStorage.removeItem(FROZEN_OPERATION_KEY);}
 function renderFrozenOperation(plan){
  if(!plan)return false;
- const price=Number(decisionState.lastPrice),tp=Number(plan.tp),sl=Number(plan.sl);
- if(plan.status==='ACTIVA'&&Number.isFinite(price)){
-  if(price>=tp){plan.status='TP ALCANZADO';plan.closedAt=Date.now();plan.exit=tp;saveFrozenOperation(plan);}
-  else if(price<=sl){plan.status='STOP ALCANZADO';plan.closedAt=Date.now();plan.exit=sl;saveFrozenOperation(plan);}
+ const price=Number(decisionState.lastPrice),tp=Number(plan.tp),sl=Number(plan.sl),entryLow=Number(plan.entryLow),entryHigh=Number(plan.entryHigh);
+ const now=Date.now();
+ if(Number.isFinite(price)){
+  const previous=Number(plan.lastObservedPrice);
+  const insideEntry=price>=Math.min(entryLow,entryHigh)&&price<=Math.max(entryLow,entryHigh);
+  const crossedEntry=Number.isFinite(previous)&&((previous>Math.max(entryLow,entryHigh)&&price<Math.min(entryLow,entryHigh))||(previous<Math.min(entryLow,entryHigh)&&price>Math.max(entryLow,entryHigh)));
+  if(plan.status==='ESPERANDO ENTRADA'&&(insideEntry||crossedEntry)){
+   plan.status='ACTIVA';plan.entryActivatedAt=now;plan.entryPrice=insideEntry?price:Number(plan.entry);plan.lastObservedPrice=price;saveFrozenOperation(plan);
+  }else if(plan.status==='ACTIVA'&&plan.entryActivatedAt&&now>plan.entryActivatedAt){
+   if(price>=tp){plan.status='TP ALCANZADO';plan.closedAt=now;plan.exit=tp;saveFrozenOperation(plan);}
+   else if(price<=sl){plan.status='STOP ALCANZADO';plan.closedAt=now;plan.exit=sl;saveFrozenOperation(plan);}
+   else{plan.lastObservedPrice=price;saveFrozenOperation(plan);}
+  }else{plan.lastObservedPrice=price;saveFrozenOperation(plan);}
  }
  decisionState.plan=plan;
  $('operationRiskBudget').textContent=money(plan.riskBudget);
  $('operationDirection').textContent='LONG BTC';$('operationDirection').className='operationDirection '+(plan.status==='STOP ALCANZADO'?'red':'green');
- $('operationStatus').textContent=plan.status==='ACTIVA'?'Plan congelado':plan.status;
- $('operationStatus').className='tag '+(plan.status==='STOP ALCANZADO'?'bad':plan.status==='TP ALCANZADO'?'ok':'warn');
- $('operationSummary').textContent=`${plan.label}: precios fijados el ${new Date(plan.frozenAt).toLocaleString('es-CL')}. No se recalculan con cada actualización.`;
+ $('operationStatus').textContent=plan.status==='ESPERANDO ENTRADA'?'ESPERANDO ENTRADA':plan.status==='ACTIVA'?'OPERACIÓN ACTIVA':plan.status;
+ $('operationStatus').className='tag '+(plan.status==='STOP ALCANZADO'?'bad':plan.status==='TP ALCANZADO'||plan.status==='ACTIVA'?'ok':'warn');
+ const activationText=plan.entryActivatedAt?` Entrada confirmada el ${new Date(plan.entryActivatedAt).toLocaleString('es-CL')}.`:'';
+ $('operationSummary').textContent=`${plan.label}: precios fijados el ${new Date(plan.frozenAt).toLocaleString('es-CL')}.${activationText} No se recalculan con cada actualización.`;
  $('operationEntry').textContent=`${money(plan.entryLow)} – ${money(plan.entryHigh)}`;$('operationTp').textContent=money(plan.tp);$('operationSl').textContent=money(plan.sl);
  $('operationMargin').textContent=money(plan.margin);$('operationNotional').textContent=money(plan.notional);$('operationProfit').textContent=money(plan.expectedProfit);$('operationLoss').textContent='-'+money(plan.expectedLoss);$('operationRR').textContent='1 : '+Number(plan.rr).toFixed(2);$('operationMove').textContent=(Number(plan.movePct)*100).toFixed(2)+'%';
- $('operationWarning').className='operationWarning '+(plan.status==='STOP ALCANZADO'?'bad':plan.status==='TP ALCANZADO'?'ok':'warn');
- $('operationWarning').textContent=plan.status==='ACTIVA'?'Este plan permanece fijo hasta alcanzar Take Profit, Stop Loss o ser cancelado manualmente.':plan.status==='TP ALCANZADO'?'El precio alcanzó el Take Profit del plan congelado.': 'El precio alcanzó el Stop Loss del plan congelado.';
+ $('operationWarning').className='operationWarning '+(plan.status==='STOP ALCANZADO'?'bad':plan.status==='TP ALCANZADO'||plan.status==='ACTIVA'?'ok':'warn');
+ $('operationWarning').textContent=plan.status==='ESPERANDO ENTRADA'?'El plan está congelado, pero todavía no existe una operación. TP y SL se evaluarán solamente después de que el precio alcance o cruce la zona de entrada.':plan.status==='ACTIVA'?'La entrada ya fue confirmada. Desde las actualizaciones posteriores se controla Take Profit y Stop Loss.':plan.status==='TP ALCANZADO'?'Después de confirmarse la entrada, el precio alcanzó el Take Profit.':'Después de confirmarse la entrada, el precio alcanzó el Stop Loss.';
  $('operationCancelBtn').style.display='inline-block';
  return true;
 }
@@ -313,7 +323,7 @@ function updateOperationPlan(){
  const requiredNotional=riskBudget/stopPct;const usedNotional=Math.min(requiredNotional,maxNotional);const usedMargin=usedNotional/leverage;
  const expectedProfit=usedNotional*movePct;const expectedLoss=usedNotional*stopPct;const rr=rewardDistance/riskDistance;const capitalLimited=requiredNotional>maxNotional;
  const entryLow=entry-a*.12;const entryHigh=entry+a*.05;
- const plan={side:'LONG',label,entry,entryLow,entryHigh,tp:tpTech,sl:stop,riskBudget,expectedProfit,expectedLoss,rr,margin:usedMargin,notional:usedNotional,capitalLimited,valid:rr>=1.5,movePct,status:'ACTIVA',frozenAt:Date.now()};
+ const plan={side:'LONG',label,entry,entryLow,entryHigh,tp:tpTech,sl:stop,riskBudget,expectedProfit,expectedLoss,rr,margin:usedMargin,notional:usedNotional,capitalLimited,valid:rr>=1.5,movePct,status:'ESPERANDO ENTRADA',frozenAt:Date.now(),entryActivatedAt:null,lastObservedPrice:entry};
  if(!plan.valid){clearOperation('La relación riesgo/beneficio es inferior a 1:1,5. El plan no se congela.');return;}
  saveFrozenOperation(plan);renderFrozenOperation(plan);syncPaperTrading();
 }
@@ -428,9 +438,9 @@ function syncPaperTrading(){
   else if(price<=open.sl){open.status='PERDIDA';open.closedAt=Date.now();open.exit=open.sl;open.pnl=-open.expectedLoss;}
  }
  const p=decisionState.plan;
- if(!open&&p&&p.valid&&['COMPRA FUERTE','COMPRA MODERADA','COMPRA CAUTELOSA'].includes(p.label)){
+ if(!open&&p&&p.valid&&p.status==='ACTIVA'&&p.entryActivatedAt&&['COMPRA FUERTE','COMPRA MODERADA','COMPRA CAUTELOSA'].includes(p.label)){
   const recent=db.trades.at(-1);const sameRecent=recent&&recent.label===p.label&&Date.now()-recent.openedAt<6*60*60*1000;
-  if(!sameRecent){db.trades.push({id:paperId(),openedAt:Date.now(),status:'ABIERTA',label:p.label,score:decisionState.combined,confidence:decisionState.confidence,entry:p.entry,tp:p.tp,sl:p.sl,riskBudget:p.riskBudget,expectedProfit:p.expectedProfit,expectedLoss:p.expectedLoss,margin:p.margin,notional:p.notional,pnl:0});}
+  if(!sameRecent){db.trades.push({id:paperId(),openedAt:Date.now(),status:'ABIERTA',label:p.label,score:decisionState.combined,confidence:decisionState.confidence,entry:Number(p.entryPrice||p.entry),tp:p.tp,sl:p.sl,riskBudget:p.riskBudget,expectedProfit:p.expectedProfit,expectedLoss:p.expectedLoss,margin:p.margin,notional:p.notional,pnl:0});}
  }
  if(db.trades.length>500)db.trades=db.trades.slice(-500);paperSave(db);renderPaperTrading();
 }
