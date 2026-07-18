@@ -102,6 +102,35 @@
     </div>
   </section>
 
+
+  <section class="card paperCard">
+    <div class="paperHeader">
+      <div><div class="label">PAPER TRADING</div><h2 style="margin:6px 0 0">Registro de señales y operaciones simuladas</h2><div class="small" style="margin-top:6px">Registra qué decide el motor y abre operaciones simuladas solo cuando existe una señal válida.</div></div>
+      <div class="paperActions"><button id="paperExportBtn">Exportar CSV</button><button id="paperResetBtn" class="danger">Borrar registro</button></div>
+    </div>
+    <div class="paperStats">
+      <div class="paperStat"><span>Evaluaciones</span><b id="paperSignals">0</b></div>
+      <div class="paperStat"><span>Oportunidades</span><b id="paperOpportunities">0</b></div>
+      <div class="paperStat"><span>Operaciones cerradas</span><b id="paperClosed">0</b></div>
+      <div class="paperStat"><span>Win rate</span><b id="paperWinRate">--</b></div>
+      <div class="paperStat"><span>Resultado simulado</span><b id="paperPnl">USD 0,00</b></div>
+      <div class="paperStat"><span>Operación abierta</span><b id="paperOpen">No</b></div>
+    </div>
+    <div id="waitDiagnostic" class="waitDiag"><b>Diagnóstico de la señal</b><div class="small" style="margin-top:6px">Esperando la primera evaluación.</div></div>
+    <div class="paperTableWrap"><table class="paperTable"><thead><tr><th>Fecha</th><th>Señal</th><th>Puntaje</th><th>Entrada</th><th>TP</th><th>SL</th><th>Riesgo</th><th>Estado</th><th>Resultado</th></tr></thead><tbody id="paperRows"><tr><td colspan="9" class="paperEmpty">Todavía no existen operaciones simuladas.</td></tr></tbody></table></div>
+    <div class="paperNote">El registro se guarda en este navegador. La operación se controla mientras BTC Signal AI está abierto y al actualizar la página. No representa rendimiento real ni garantiza resultados futuros.</div>
+  </section>
+
+  <section class="card" style="margin-top:18px">
+    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 style="margin:0">Estado de módulos</h2><span class="small">Mercado + técnico</span></div>
+    <div class="statusGrid" style="margin-top:18px">
+      <div id="marketBox" class="source warn"><b>Módulo 1 · Mercado</b><div class="small">Ticker Bybit Spot</div><div id="marketStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Verificando...</div></div>
+      <div id="techBox" class="source warn"><b>Módulo 2 · Técnico</b><div class="small">Velas e indicadores</div><div id="techStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Calculando...</div></div>
+      <div id="tvBox" class="source warn"><b>TradingView</b><div class="small">Gráfico visual BTCUSDT</div><div id="tvStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Cargando...</div></div>
+    </div>
+    <div id="updated" class="note">Última actualización: --.</div>
+  </section>
+
   <section class="grid" style="margin-top:18px">
     <div class="card"><b>Precio</b><div id="lastPrice" class="big" style="margin-top:18px">--</div><div class="small">Bybit Spot</div></div>
     <div class="card"><b>Variación 24h</b><div id="changeCard" class="big" style="margin-top:18px">--</div><div class="small">Movimiento diario</div></div>
