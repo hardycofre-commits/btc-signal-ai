@@ -1,13 +1,10 @@
-# BTC Signal AI v4.3.1
+# BTC Signal AI v4.3.2
 
-Basada en v4.3.
+Versión simplificada del asistente de operación.
 
-## Corrección principal
-- Un plan congelado comienza en estado **ESPERANDO ENTRADA**.
-- El sistema no puede marcar Take Profit ni Stop Loss antes de que el precio alcance o cruce la zona de entrada.
-- Al detectarse la entrada, cambia a **OPERACIÓN ACTIVA**.
-- TP y SL se controlan únicamente en actualizaciones posteriores a la confirmación de entrada.
-- Se evita reutilizar el estado incorrecto guardado por v4.3 mediante una nueva clave local.
-- El Paper Trading abre la operación solo después de confirmar la entrada.
+## Cambios
 
-No ejecuta órdenes ni garantiza resultados futuros.
+- El asistente muestra únicamente LONG BTC, zona de entrada, Take Profit y Stop Loss.
+- Se ocultan capital, margen, exposición, ganancias estimadas y demás métricas.
+- Se oculta el panel de Paper Trading.
+- Se mantiene la lógica de plan congelado y la validación de entrada antes de evaluar TP o SL.

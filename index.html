@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BTC Signal AI v4.3.1</title>
+  <title>BTC Signal AI v4.3.2</title>
   <style>
     :root{--bg:#07111f;--panel:#0d1b2e;--panel2:#12253d;--line:#26415f;--text:#f7fbff;--muted:#9fc4ee;--ok:#20d690;--bad:#ff5570;--warn:#ffd166;--blue:#4aa3ff;--purple:#b88cff}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#07111f,#0a1830);font-family:Arial,Helvetica,sans-serif;color:var(--text)}header{position:sticky;top:0;z-index:5;background:#06111f;border-bottom:1px solid var(--line);padding:18px 22px;display:flex;gap:18px;justify-content:space-between;align-items:center}h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:14px;margin-top:4px}.wrap{max-width:1320px;margin:22px auto;padding:0 18px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:rgba(13,27,46,.92);border:1px solid var(--line);border-radius:18px;padding:20px}.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:center}.label{color:var(--muted);font-size:16px}.price{font-size:44px;font-weight:800;margin:12px 0}.red{color:var(--bad)}.green{color:var(--ok)}.yellow{color:var(--warn)}.blue{color:var(--blue)}.purple{color:var(--purple)}button{border:0;border-radius:14px;background:var(--blue);color:#fff;font-weight:800;padding:13px 20px;cursor:pointer}.pill{padding:10px 16px;border-radius:999px;background:#26313b;color:var(--warn);font-weight:800;display:inline-block}.statusTop{background:#132b2c;color:var(--ok)}.statusBad{background:#322332;color:var(--bad)}.small{font-size:13px;color:var(--muted)}.row{display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.08);padding:11px 0;gap:12px}.row:last-child{border-bottom:0}.big{font-size:26px;font-weight:800}.statusGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.source{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px}.source.ok{border-color:#0ea77e}.source.bad{border-color:#b84a65}.source.warn{border-color:#80672a}.tv{height:500px;overflow:hidden}.note{margin-top:12px;color:var(--muted);font-size:13px}.mono{font-family:ui-monospace,Menlo,Consolas,monospace}.meter{height:12px;border-radius:999px;background:#071324;border:1px solid var(--line);overflow:hidden;margin-top:10px}.bar{height:100%;width:0%;background:var(--blue)}.tag{display:inline-block;padding:6px 10px;border-radius:999px;background:#071324;border:1px solid var(--line);font-weight:800}.tag.ok{color:var(--ok);border-color:#0ea77e}.tag.bad{color:var(--bad);border-color:#b84a65}.tag.warn{color:var(--warn);border-color:#80672a}.mtf{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:950px){.hero,.grid,.grid3,.statusGrid,.mtf{grid-template-columns:1fr}.price{font-size:36px}header{align-items:flex-start;flex-direction:column}.tv{height:390px}}
   
@@ -16,11 +16,13 @@
 
 .paperCard{margin-top:18px;border:1px solid #3d668f;background:linear-gradient(135deg,rgba(9,25,44,.98),rgba(13,27,46,.98))}.paperHeader{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}.paperActions{display:flex;gap:8px;flex-wrap:wrap}.paperActions button{padding:9px 13px;font-size:12px}.paperActions .danger{background:#7b2840}.paperStats{display:grid;grid-template-columns:repeat(6,1fr);gap:9px;margin-top:15px}.paperStat{background:#091729;border:1px solid var(--line);border-radius:12px;padding:11px}.paperStat span{display:block;color:var(--muted);font-size:11px}.paperStat b{display:block;margin-top:5px;font-size:17px}.waitDiag{margin-top:14px;background:#091729;border:1px solid var(--line);border-radius:13px;padding:13px}.waitDiag ul{margin:8px 0 0;padding-left:20px;color:var(--muted);line-height:1.55}.paperTableWrap{margin-top:14px;overflow:auto;border:1px solid var(--line);border-radius:12px}.paperTable{width:100%;border-collapse:collapse;min-width:950px}.paperTable th,.paperTable td{padding:10px;border-bottom:1px solid rgba(255,255,255,.08);font-size:12px;text-align:left;white-space:nowrap}.paperTable th{color:var(--muted);background:#071324}.paperTable tr:last-child td{border-bottom:0}.paperEmpty{padding:18px;color:var(--muted);text-align:center}.paperNote{margin-top:10px;color:var(--muted);font-size:12px;line-height:1.45}@media(max-width:950px){.paperStats{grid-template-columns:repeat(2,1fr)}}
 
+
+.simpleOperationCard{padding:22px}.simpleOperationMain{width:100%;padding:20px}.simpleOperationCard .operationPrices{grid-template-columns:repeat(3,1fr)}.simpleOperationCard .operationPrices>div{padding:16px}.simpleOperationCard .operationPrices b{font-size:20px}@media(max-width:760px){.simpleOperationCard .operationPrices{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header>
-  <div><h1>BTC Signal AI</h1><div class="sub">v4.3.1 · Entrada confirmada antes de evaluar TP/SL</div></div>
+  <div><h1>BTC Signal AI</h1><div class="sub">v4.3.2 · Asistente de operación simplificado</div></div>
   <div style="display:flex;gap:12px;align-items:center"><span id="globalStatus" class="pill">• Verificando</span><button id="refreshBtn">Actualizar</button></div>
 </header>
 
@@ -67,43 +69,34 @@
   </section>
 
 
-  <section class="card operationCard">
-    <div class="operationHeader">
-      <div><div class="label">ASISTENTE DE OPERACIÓN</div><h2 style="margin:6px 0 0">Plan estimado con apalancamiento fijo 10x</h2><div class="small" style="margin-top:6px">Calcula entrada, salida, stop loss y capital requerido. No ejecuta órdenes.</div></div>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span id="operationStatus" class="tag warn">Esperando señal</span><button id="operationCancelBtn" type="button" style="display:none;padding:8px 12px;font-size:12px;background:#7b2840">Cancelar plan</button></div>
-    </div>
-    <div class="operationConfig">
-      <div><label for="operationCapital">Capital disponible (USD)</label><input id="operationCapital" type="number" min="10" step="10" value="400"></div>
-      <div><label>Apalancamiento fijo</label><div class="fixedInput">10x</div></div>
-      <div><label>Riesgo máximo según señal</label><div id="operationRiskBudget" class="fixedInput">--</div></div>
-    </div>
-    <div class="operationGrid">
-      <div class="operationMain">
-        <div id="operationDirection" class="operationDirection yellow">ESPERAR</div>
-        <div id="operationSummary" class="small" style="margin-top:7px">El sistema necesita una señal suficientemente clara antes de proponer precios.</div>
-        <div class="operationPrices">
-          <div><span>Zona de entrada</span><b id="operationEntry">--</b></div>
-          <div><span>Take Profit</span><b id="operationTp">--</b></div>
-          <div><span>Stop Loss</span><b id="operationSl">--</b></div>
-        </div>
-        <div id="operationWarning" class="operationWarning">Plan educativo y estimado. Verifica precios y comisiones en Bybit antes de operar.</div>
+  <section class="card operationCard simpleOperationCard">
+    <div class="operationMain simpleOperationMain">
+      <div id="operationDirection" class="operationDirection yellow">ESPERAR</div>
+      <div class="operationPrices">
+        <div><span>Zona de entrada</span><b id="operationEntry">--</b></div>
+        <div><span>Take Profit</span><b id="operationTp">--</b></div>
+        <div><span>Stop Loss</span><b id="operationSl">--</b></div>
       </div>
-      <div class="operationNumbers">
-        <div class="operationMetrics">
-          <div><span>Margen requerido</span><b id="operationMargin">--</b></div>
-          <div><span>Exposición 10x</span><b id="operationNotional">--</b></div>
-          <div><span>Ganancia estimada al TP</span><b id="operationProfit">--</b></div>
-          <div><span>Pérdida al stop</span><b id="operationLoss">--</b></div>
-          <div><span>Riesgo / beneficio</span><b id="operationRR">--</b></div>
-          <div><span>Movimiento al objetivo</span><b id="operationMove">--</b></div>
-        </div>
-        <p class="small" style="margin:13px 0 0">Cálculos brutos, sin considerar comisiones, funding, deslizamiento ni liquidación.</p>
-      </div>
+    </div>
+
+    <!-- Elementos internos conservados para los cálculos, pero ocultos en la vista simple. -->
+    <div style="display:none">
+      <span id="operationStatus" class="tag warn">Esperando señal</span>
+      <button id="operationCancelBtn" type="button">Cancelar plan</button>
+      <input id="operationCapital" type="number" value="400">
+      <div id="operationRiskBudget">--</div>
+      <div id="operationSummary"></div>
+      <div id="operationWarning"></div>
+      <div id="operationMargin">--</div>
+      <div id="operationNotional">--</div>
+      <div id="operationProfit">--</div>
+      <div id="operationLoss">--</div>
+      <div id="operationRR">--</div>
+      <div id="operationMove">--</div>
     </div>
   </section>
 
-
-  <section class="card paperCard">
+  <section class="card paperCard" style="display:none">
     <div class="paperHeader">
       <div><div class="label">PAPER TRADING</div><h2 style="margin:6px 0 0">Registro de señales y operaciones simuladas</h2><div class="small" style="margin-top:6px">Registra qué decide el motor y abre operaciones simuladas solo cuando existe una señal válida.</div></div>
       <div class="paperActions"><button id="paperExportBtn">Exportar CSV</button><button id="paperResetBtn" class="danger">Borrar registro</button></div>
@@ -455,7 +448,7 @@ function renderPaperTrading(){
  $('paperSignals').textContent=(db.signals||[]).length;$('paperOpportunities').textContent=ops;$('paperClosed').textContent=closed.length;$('paperWinRate').textContent=closed.length?`${(wins.length/closed.length*100).toFixed(1)}%`:'--';$('paperPnl').textContent=(pnl>=0?'+':'')+money(pnl);$('paperPnl').className=pnl>0?'green':pnl<0?'red':'yellow';$('paperOpen').textContent=open?'Sí':'No';$('paperOpen').className=open?'green':'yellow';
  const rows=trades.slice().reverse().slice(0,30);$('paperRows').innerHTML=rows.length?rows.map(t=>`<tr><td>${new Date(t.openedAt).toLocaleString('es-CL')}</td><td>${escapeHtml(t.label)}</td><td>${t.score}/100</td><td>${money(t.entry)}</td><td>${money(t.tp)}</td><td>${money(t.sl)}</td><td>${money(t.riskBudget)}</td><td class="${t.status==='GANADA'?'green':t.status==='PERDIDA'?'red':'yellow'}">${t.status}</td><td class="${Number(t.pnl)>0?'green':Number(t.pnl)<0?'red':''}">${t.status==='ABIERTA'?'--':(Number(t.pnl)>=0?'+':'')+money(t.pnl)}</td></tr>`).join(''):'<tr><td colspan="9" class="paperEmpty">Todavía no existen operaciones simuladas.</td></tr>';
 }
-function exportPaperCsv(){const db=paperLoad(),head=['fecha','senal','puntaje','entrada','take_profit','stop_loss','riesgo_usd','estado','resultado_usd'];const lines=[head.join(',')].concat((db.trades||[]).map(t=>[new Date(t.openedAt).toISOString(),t.label,t.score,t.entry,t.tp,t.sl,t.riskBudget,t.status,t.pnl||0].map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')));const blob=new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='btc-paper-trading-v4.3.csv';a.click();URL.revokeObjectURL(a.href);}
+function exportPaperCsv(){const db=paperLoad(),head=['fecha','senal','puntaje','entrada','take_profit','stop_loss','riesgo_usd','estado','resultado_usd'];const lines=[head.join(',')].concat((db.trades||[]).map(t=>[new Date(t.openedAt).toISOString(),t.label,t.score,t.entry,t.tp,t.sl,t.riskBudget,t.status,t.pnl||0].map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')));const blob=new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='btc-paper-trading-v4.3.2.csv';a.click();URL.revokeObjectURL(a.href);}
 $('operationCancelBtn').addEventListener('click',()=>{if(confirm('¿Cancelar el plan congelado actual?')){clearFrozenOperation();decisionState.plan=null;updateOperationPlan();}});
 $('paperExportBtn').addEventListener('click',exportPaperCsv);$('paperResetBtn').addEventListener('click',()=>{if(confirm('¿Borrar todo el registro de señales y operaciones simuladas?')){localStorage.removeItem(PAPER_KEY);renderPaperTrading();updateWaitDiagnostic();}});
 
