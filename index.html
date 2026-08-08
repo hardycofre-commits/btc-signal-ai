@@ -66,69 +66,9 @@
     </div>
   </section>
 
-
-  <section class="card operationCard">
-    <div class="operationHeader">
-      <div><div class="label">ASISTENTE DE OPERACIÓN</div><h2 style="margin:6px 0 0">Plan estimado con apalancamiento fijo 10x</h2><div class="small" style="margin-top:6px">Calcula entrada, salida, stop loss y capital requerido. No ejecuta órdenes.</div></div>
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span id="operationStatus" class="tag warn">Esperando señal</span><button id="operationCancelBtn" type="button" style="display:none;padding:8px 12px;font-size:12px;background:#7b2840">Cancelar plan</button></div>
-    </div>
-    <div class="operationConfig">
-      <div><label for="operationCapital">Capital disponible (USD)</label><input id="operationCapital" type="number" min="10" step="10" value="400"></div>
-      <div><label>Apalancamiento fijo</label><div class="fixedInput">10x</div></div>
-      <div><label>Riesgo máximo según señal</label><div id="operationRiskBudget" class="fixedInput">--</div></div>
-    </div>
-    <div class="operationGrid">
-      <div class="operationMain">
-        <div id="operationDirection" class="operationDirection yellow">ESPERAR</div>
-        <div id="operationSummary" class="small" style="margin-top:7px">El sistema necesita una señal suficientemente clara antes de proponer precios.</div>
-        <div class="operationPrices">
-          <div><span>Zona de entrada</span><b id="operationEntry">--</b></div>
-          <div><span>Take Profit</span><b id="operationTp">--</b></div>
-          <div><span>Stop Loss</span><b id="operationSl">--</b></div>
-        </div>
-        <div id="operationWarning" class="operationWarning">Plan educativo y estimado. Verifica precios y comisiones en Bybit antes de operar.</div>
-      </div>
-      <div class="operationNumbers">
-        <div class="operationMetrics">
-          <div><span>Margen requerido</span><b id="operationMargin">--</b></div>
-          <div><span>Exposición 10x</span><b id="operationNotional">--</b></div>
-          <div><span>Ganancia estimada al TP</span><b id="operationProfit">--</b></div>
-          <div><span>Pérdida al stop</span><b id="operationLoss">--</b></div>
-          <div><span>Riesgo / beneficio</span><b id="operationRR">--</b></div>
-          <div><span>Movimiento al objetivo</span><b id="operationMove">--</b></div>
-        </div>
-        <p class="small" style="margin:13px 0 0">Cálculos brutos, sin considerar comisiones, funding, deslizamiento ni liquidación.</p>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="card paperCard">
-    <div class="paperHeader">
-      <div><div class="label">PAPER TRADING</div><h2 style="margin:6px 0 0">Registro de señales y operaciones simuladas</h2><div class="small" style="margin-top:6px">Registra qué decide el motor y abre operaciones simuladas solo cuando existe una señal válida.</div></div>
-      <div class="paperActions"><button id="paperExportBtn">Exportar CSV</button><button id="paperResetBtn" class="danger">Borrar registro</button></div>
-    </div>
-    <div class="paperStats">
-      <div class="paperStat"><span>Evaluaciones</span><b id="paperSignals">0</b></div>
-      <div class="paperStat"><span>Oportunidades</span><b id="paperOpportunities">0</b></div>
-      <div class="paperStat"><span>Operaciones cerradas</span><b id="paperClosed">0</b></div>
-      <div class="paperStat"><span>Win rate</span><b id="paperWinRate">--</b></div>
-      <div class="paperStat"><span>Resultado simulado</span><b id="paperPnl">USD 0,00</b></div>
-      <div class="paperStat"><span>Operación abierta</span><b id="paperOpen">No</b></div>
-    </div>
-    <div id="waitDiagnostic" class="waitDiag"><b>Diagnóstico de la señal</b><div class="small" style="margin-top:6px">Esperando la primera evaluación.</div></div>
-    <div class="paperTableWrap"><table class="paperTable"><thead><tr><th>Fecha</th><th>Señal</th><th>Puntaje</th><th>Entrada</th><th>TP</th><th>SL</th><th>Riesgo</th><th>Estado</th><th>Resultado</th></tr></thead><tbody id="paperRows"><tr><td colspan="9" class="paperEmpty">Todavía no existen operaciones simuladas.</td></tr></tbody></table></div>
-    <div class="paperNote">El registro se guarda en este navegador. La operación se controla mientras BTC Signal AI está abierto y al actualizar la página. No representa rendimiento real ni garantiza resultados futuros.</div>
-  </section>
-
-  <section class="card" style="margin-top:18px">
-    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><h2 style="margin:0">Estado de módulos</h2><span class="small">Mercado + técnico</span></div>
-    <div class="statusGrid" style="margin-top:18px">
-      <div id="marketBox" class="source warn"><b>Módulo 1 · Mercado</b><div class="small">Ticker Bybit Spot</div><div id="marketStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Verificando...</div></div>
-      <div id="techBox" class="source warn"><b>Módulo 2 · Técnico</b><div class="small">Velas e indicadores</div><div id="techStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Calculando...</div></div>
-      <div id="tvBox" class="source warn"><b>TradingView</b><div class="small">Gráfico visual BTCUSDT</div><div id="tvStatus" class="yellow" style="margin-top:12px;font-weight:800">⏳ Cargando...</div></div>
-    </div>
-    <div id="updated" class="note">Última actualización: --.</div>
+  <section class="card tv" style="margin-top:18px">
+    <div class="newsTop"><div><h2 style="margin:0">BTC/USDT · Gráfico 1 hora</h2><div class="small">Velas de Bybit con soporte y resistencia de las últimas 100 horas.</div></div><span id="chartStatus" class="tag warn">Cargando</span></div>
+    <div id="tradingview_widget" style="height:500px;width:100%;margin-top:14px"></div>
   </section>
 
   <section class="grid" style="margin-top:18px">
@@ -166,15 +106,6 @@
     <div class="card"><h3>Calidad de datos</h3><div id="qualityValue" class="big">--</div><div id="qualityTag" class="tag warn">Verificando</div><p id="qualityText" class="small">Comprueba temporalidades completas y velas recientes.</p></div>
   </section>
 
-  <section class="card" style="margin-top:18px">
-    <div style="display:flex;justify-content:space-between;gap:12px"><h2 style="margin:0">Salida del Módulo 2</h2><span class="small">Para alimentar el futuro motor de decisión</span></div>
-    <pre id="jsonOut" class="mono small" style="white-space:pre-wrap;background:#071324;border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:14px">Esperando datos...</pre>
-  </section>
-
-  <section class="card tv" style="margin-top:18px">
-    <h2 style="margin:0 0 12px">Gráfico TradingView</h2>
-    <div class="tradingview-widget-container" style="height:420px;width:100%"><div id="tradingview_widget" style="height:100%;width:100%"></div></div>
-  </section>
 </main>
 
 
@@ -195,7 +126,7 @@
     <div class="card" style="grid-column:span 2"><div class="newsTop"><div><h3 style="margin:0">Noticias BTC</h3><div class="small">Actualización automática desde fuentes especializadas.</div></div><span id="newsStatus" class="tag warn">Cargando</span></div><div class="newsStats"><div class="newsStat"><span>Alcistas</span><b id="newsBull" class="green">--</b></div><div class="newsStat"><span>Neutrales</span><b id="newsNeutral" class="yellow">--</b></div><div class="newsStat"><span>Bajistas</span><b id="newsBear" class="red">--</b></div><div class="newsStat"><span>Sesgo</span><b id="newsBias">--</b></div></div><div id="newsSummary" class="newsSummary small">Analizando titulares recientes...</div><div id="newsList" class="newsList"><div class="small">Consultando fuentes...</div></div><p id="newsUpdated" class="small newsUpdated">Fuente: Hardy Trading Backend.</p></div>
     <div class="card"><h3>Puntaje fundamental</h3><div id="fundScore" class="big">--/100</div><div id="fundLabel" class="tag warn">Esperando</div><div class="meter"><div id="fundBar" class="bar"></div></div><div class="scoreParts" style="margin-top:14px"><div class="scorePart"><span>Fear & Greed</span><b id="fgPoints">--</b></div><div class="scorePart"><span>Noticias</span><b id="newsPoints">--</b></div><div class="scorePart"><span>ETF automático</span><b id="etfPoints">--</b></div><div class="scorePart"><span>Macro automático</span><b id="macroPoints">--</b></div></div><p id="fundSummary" class="small">Esperando datos...</p></div>
   </section>
-<script src="https://s3.tradingview.com/tv.js" async onload="loadTV()" onerror="tvError()"></script>
+<script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js" onload="loadTV()" onerror="tvError()"></script>
 <script>
 const $ = id => document.getElementById(id);
 let isLoading=false;
@@ -211,9 +142,9 @@ function money(n){return Number(n).toLocaleString('en-US',{style:'currency',curr
 function num(n,d=2){return Number(n).toLocaleString('en-US',{maximumFractionDigits:d});}
 function pct(n){return (Number(n)*100).toFixed(2)+'%';}
 function timeoutFetch(url,ms=6500){const c=new AbortController();const t=setTimeout(()=>c.abort(),ms);return fetch(url,{signal:c.signal,cache:'no-store'}).finally(()=>clearTimeout(t));}
-function setSource(id, ok, msg){const box=$(id+'Box'), st=$(id+'Status');box.className='source '+(ok?'ok':'bad');st.className=ok?'green':'red';st.textContent=(ok?'✅ ':'❌ ')+msg;}
+function setSource(id, ok, msg){const box=$(id+'Box'),st=$(id+'Status');if(!box||!st)return;box.className='source '+(ok?'ok':'bad');st.className=ok?'green':'red';st.textContent=(ok?'✅ ':'❌ ')+msg;}
 function setGlobal(ok,msg){const el=$('globalStatus');el.className='pill '+(ok?'statusTop':'statusBad');el.textContent=msg;}
-function reset(){['market','tech'].forEach(id=>{ $(id+'Box').className='source warn'; $(id+'Status').className='yellow'; $(id+'Status').textContent='⏳ Verificando...';}); setGlobal(false,'• Verificando');}
+function reset(){setGlobal(false,'• Verificando');}
 function ema(values,period){if(!values.length)return[];const k=2/(period+1);let out=[],prev=values[0];for(let i=0;i<values.length;i++){prev=i===0?values[i]:(values[i]*k+prev*(1-k));out.push(prev);}return out;}
 function rsi(values,period=14){if(values.length<period+2)return NaN;let gains=[],losses=[];for(let i=1;i<values.length;i++){const d=values[i]-values[i-1];gains.push(Math.max(d,0));losses.push(Math.max(-d,0));}let avgG=gains.slice(0,period).reduce((a,b)=>a+b,0)/period,avgL=losses.slice(0,period).reduce((a,b)=>a+b,0)/period,last=50;for(let i=period;i<gains.length;i++){avgG=(avgG*(period-1)+gains[i])/period;avgL=(avgL*(period-1)+losses[i])/period;const rs=avgL===0?100:avgG/avgL;last=100-(100/(1+rs));}return last;}
 function macd(values){const e12=ema(values,12),e26=ema(values,26),line=e12.map((v,i)=>v-e26[i]),sig=ema(line.slice(25),9),m=line.at(-1),s=sig.at(-1);return {macd:m,signal:s,hist:m-s};}
@@ -241,92 +172,42 @@ async function update(){
   $('rsiVal').textContent=num(rsi14,1)+'/100';$('rsiBar').style.width=Math.max(0,Math.min(100,rsi14))+'%';let rTxt='Neutral',rCls='warn';if(rsi14>70){rTxt='Sobrecompra';rCls='bad'}else if(rsi14<30){rTxt='Sobreventa';rCls='ok'}else if(rsi14>55){rTxt='Fuerza alcista';rCls='ok'}else if(rsi14<45){rTxt='Debilidad';rCls='bad'}$('rsiTag').textContent=rTxt;$('rsiTag').className='tag '+rCls;
   $('macdLine').textContent=num(m.macd,2);$('signalLine').textContent=num(m.signal,2);$('histLine').textContent=num(m.hist,2);$('macdVal').textContent=m.hist>=0?'Histograma positivo':'Histograma negativo';$('macdTag').textContent=m.macd>m.signal?'Cruce alcista':'Cruce bajista';$('macdTag').className='tag '+(m.macd>m.signal?'ok':'bad');
   $('ema20').textContent=money(ema20v);$('ema50').textContent=money(ema50v);$('ema200').textContent=money(ema200v);let trend='Lateral',trendClass='warn';if(last>ema20v&&ema20v>ema50v&&ema50v>ema200v){trend='Alcista fuerte';trendClass='ok'}else if(last<ema20v&&ema20v<ema50v&&ema50v<ema200v){trend='Bajista fuerte';trendClass='bad'}else if(last>ema50v){trend='Alcista moderada';trendClass='ok'}else if(last<ema50v){trend='Bajista moderada';trendClass='bad'}$('trendVal').textContent=trend;$('trendTag').textContent=trend;$('trendTag').className='tag '+trendClass;
-  const sixtyData=settled.find(([k])=>k==='60')?.[1];if(Array.isArray(sixtyData)){const recent=sixtyData.slice(-100),sup=Math.min(...recent.map(c=>c.low)),res=Math.max(...recent.map(c=>c.high)),pos=((last-sup)/(res-sup))*100,a=atr(sixtyData,14);$('support').textContent=money(sup);$('resistance').textContent=money(res);$('positionRange').textContent=num(pos,1)+'% del rango';decisionState.lastPrice=last;decisionState.support=sup;decisionState.resistance=res;decisionState.atr=a;}
+  const sixtyData=settled.find(([k])=>k==='60')?.[1];if(Array.isArray(sixtyData)){const recent=sixtyData.slice(-100),sup=Math.min(...recent.map(c=>c.low)),res=Math.max(...recent.map(c=>c.high)),pos=((last-sup)/(res-sup))*100,a=atr(sixtyData,14);$('support').textContent=money(sup);$('resistance').textContent=money(res);$('positionRange').textContent=num(pos,1)+'% del rango';decisionState.lastPrice=last;decisionState.support=sup;decisionState.resistance=res;decisionState.atr=a;renderPriceChart(sixtyData,sup,res);}
   const label=scoreLabel(consensus);$('techScore').textContent=consensus+'/100';$('scoreBar').style.width=consensus+'%';$('techLabel').textContent=label.text;$('techLabel').className='tag '+label.cls;$('tradeBias').textContent=label.bias;$('tradeBias').className='big '+(label.cls==='ok'?'green':label.cls==='bad'?'red':'yellow');$('techSummary').textContent=`Consenso ${consensus}/100. RSI 1H ${num(rsi14,1)}, MACD ${m.macd>m.signal?'alcista':'bajista'}, tendencia ${trend.toLowerCase()}.`;$('tradeText').textContent=consensus>=58?'Hay impulso técnico favorable, pero falta validación fundamental y de riesgo.':consensus<=42?'Predomina debilidad técnica; no se debe operar sin confirmar contexto y riesgo.':'No existe una ventaja técnica clara. Esperar confirmación.';
   $('consensusScore').textContent=consensus+'/100';$('consensusTag').textContent=label.text;$('consensusTag').className='tag '+label.cls;$('consensusText').textContent=`15m ${analyses['15']?.score??'--'} · 1H ${analyses['60']?.score??'--'} · 4H ${analyses['240']?.score??'--'} · 1D ${analyses['D']?.score??'--'}.`;
   const freshCount=valid.filter(a=>a.fresh.ok).length,quality=Math.round((valid.length/4*.6+freshCount/4*.4)*100);$('qualityValue').textContent=quality+'%';$('qualityTag').textContent=quality>=90?'Datos completos':quality>=65?'Datos parciales':'Datos insuficientes';$('qualityTag').className='tag '+(quality>=90?'ok':quality>=65?'warn':'bad');$('qualityText').textContent=`${valid.length}/4 temporalidades cargadas y ${freshCount}/4 con vela reciente.${errors.length?' Errores: '+errors.join(' | '):''}`;
   const prev=JSON.parse(localStorage.getItem('btcTechnicalAnalysis')||'null');if(prev){const d=consensus-prev.consensus;$('previousDelta').textContent=(d>=0?'+':'')+d+' puntos';$('previousDelta').className='big '+(d>0?'green':d<0?'red':'yellow');$('previousTime').textContent='Anterior: '+new Date(prev.time).toLocaleString('es-CL')+' · '+prev.consensus+'/100';}
   decisionState.technical=consensus;decisionState.quality=quality;decisionState.rsi=rsi14;decisionState.trend=trend;decisionState.lastPrice=last;updateDecision();
-  const out={module:'technical',version:'4.1',symbol:'BTCUSDT',source:'Bybit Spot',lastPrice:last,consensusScore:consensus,dominantTimeframe:dominant.key,qualityPct:quality,timeframes:Object.fromEntries(valid.map(a=>[a.key,{score:a.score,trend:a.trend,rsi:a.rsi,macd:a.macd,ema20:a.ema20,ema50:a.ema50,ema200:a.ema200,lastCandle:new Date(a.lastCandle).toISOString(),fresh:a.fresh.ok}])),errors,lastUpdate:new Date().toISOString()};$('jsonOut').textContent=JSON.stringify(out,null,2);localStorage.setItem('btcTechnicalAnalysis',JSON.stringify({consensus,time:out.lastUpdate}));
-  $('updated').textContent='Última actualización: '+new Date().toLocaleString('es-CL')+'. Auto actualización cada 30 segundos.';setSource('tech',true,errors.length?'Calculado con datos parciales':'Calculado');setGlobal(true,(errors.length?'2/3':'3/3')+' fuentes activas');
- }catch(e){setSource('market',false,e.name==='AbortError'?'Tiempo agotado':'Error');setSource('tech',false,e.message);setGlobal(false,'Error de datos');$('updated').textContent='Actualización fallida: '+new Date().toLocaleString('es-CL')+'. '+e.message;}
+  localStorage.setItem('btcTechnicalAnalysis',JSON.stringify({consensus,time:new Date().toISOString()}));setGlobal(true,errors.length?'Datos parciales':'Datos actualizados');
+ }catch(e){setGlobal(false,'Error de datos');const chartStatus=$('chartStatus');if(chartStatus){chartStatus.textContent='Sin datos';chartStatus.className='tag bad';}}
  finally{isLoading=false;}
 }
-function loadTV(){try{new TradingView.widget({container_id:'tradingview_widget',autosize:true,symbol:'BYBIT:BTCUSDT',interval:'60',timezone:'America/Santiago',theme:'dark',style:'1',locale:'es',hide_top_toolbar:false,allow_symbol_change:false,calendar:false,studies:['RSI@tv-basicstudies','MACD@tv-basicstudies','MASimple@tv-basicstudies']});setSource('tv',true,'Cargado');}catch(e){tvError();}}
-function tvError(){setSource('tv',false,'No cargó');}
+let priceChart=null,candleSeries=null,supportLine=null,resistanceLine=null;
+function loadTV(){
+ try{
+  const container=$('tradingview_widget');if(!container||typeof LightweightCharts==='undefined')throw new Error('Librería no disponible');
+  priceChart=LightweightCharts.createChart(container,{width:container.clientWidth,height:500,layout:{background:{color:'#091729'},textColor:'#d7e8fa'},grid:{vertLines:{color:'rgba(38,65,95,.35)'},horzLines:{color:'rgba(38,65,95,.35)'}},rightPriceScale:{borderColor:'#26415f'},timeScale:{borderColor:'#26415f',timeVisible:true,secondsVisible:false},localization:{locale:'es-CL',priceFormatter:price=>money(price)}});
+  candleSeries=priceChart.addCandlestickSeries({upColor:'#20d690',downColor:'#ff5570',borderUpColor:'#20d690',borderDownColor:'#ff5570',wickUpColor:'#20d690',wickDownColor:'#ff5570'});
+  new ResizeObserver(()=>priceChart.applyOptions({width:container.clientWidth})).observe(container);
+  const status=$('chartStatus');status.textContent='1H · Sin indicadores';status.className='tag ok';
+ }catch(e){tvError();}
+}
+function renderPriceChart(candles,support,resistance){
+ if(!candleSeries)return;
+ candleSeries.setData(candles.map(c=>({time:Math.floor(c.time/1000),open:c.open,high:c.high,low:c.low,close:c.close})));
+ if(supportLine)candleSeries.removePriceLine(supportLine);if(resistanceLine)candleSeries.removePriceLine(resistanceLine);
+ supportLine=candleSeries.createPriceLine({price:support,color:'#20d690',lineWidth:2,lineStyle:LightweightCharts.LineStyle.Solid,axisLabelVisible:true,title:'Soporte 100H'});
+ resistanceLine=candleSeries.createPriceLine({price:resistance,color:'#ff5570',lineWidth:2,lineStyle:LightweightCharts.LineStyle.Solid,axisLabelVisible:true,title:'Resistencia 100H'});
+ priceChart.timeScale().fitContent();
+}
+function tvError(){const status=$('chartStatus');if(status){status.textContent='No se pudo cargar';status.className='tag bad';}}
 
 const FUND_FG='https://api.alternative.me/fng/?limit=31&format=json';
 const FUND_NEWS='https://hardy-trading-backend.onrender.com/api/news/btc';
 const FUND_MACRO='https://hardy-trading-backend.onrender.com/api/macro';
 const FUND_ETF='https://hardy-trading-backend.onrender.com/api/etf';
 let fundamentalState={fear:null,newsScore:0,newsCount:0};
-let decisionState={technical:null,fundamental:null,quality:null,rsi:null,trend:null,macroScore:0,etfFlow:0,newsScore:0,fear:null,lastPrice:null,support:null,resistance:null,atr:null,decisionLabel:'ESPERAR',combined:null,confidence:null,risk:null,plan:null};
-
-function operationMoney(n){return Number.isFinite(Number(n))?money(Number(n)):'--';}
-const FROZEN_OPERATION_KEY='btcFrozenOperationV431';
-function loadFrozenOperation(){try{return JSON.parse(localStorage.getItem(FROZEN_OPERATION_KEY)||'null')}catch(e){return null}}
-function saveFrozenOperation(plan){localStorage.setItem(FROZEN_OPERATION_KEY,JSON.stringify(plan));}
-function clearFrozenOperation(){localStorage.removeItem(FROZEN_OPERATION_KEY);}
-function renderFrozenOperation(plan){
- if(!plan)return false;
- const price=Number(decisionState.lastPrice),tp=Number(plan.tp),sl=Number(plan.sl),entryLow=Number(plan.entryLow),entryHigh=Number(plan.entryHigh);
- const now=Date.now();
- if(Number.isFinite(price)){
-  const previous=Number(plan.lastObservedPrice);
-  const insideEntry=price>=Math.min(entryLow,entryHigh)&&price<=Math.max(entryLow,entryHigh);
-  const crossedEntry=Number.isFinite(previous)&&((previous>Math.max(entryLow,entryHigh)&&price<Math.min(entryLow,entryHigh))||(previous<Math.min(entryLow,entryHigh)&&price>Math.max(entryLow,entryHigh)));
-  if(plan.status==='ESPERANDO ENTRADA'&&(insideEntry||crossedEntry)){
-   plan.status='ACTIVA';plan.entryActivatedAt=now;plan.entryPrice=insideEntry?price:Number(plan.entry);plan.lastObservedPrice=price;saveFrozenOperation(plan);
-  }else if(plan.status==='ACTIVA'&&plan.entryActivatedAt&&now>plan.entryActivatedAt){
-   if(price>=tp){plan.status='TP ALCANZADO';plan.closedAt=now;plan.exit=tp;saveFrozenOperation(plan);}
-   else if(price<=sl){plan.status='STOP ALCANZADO';plan.closedAt=now;plan.exit=sl;saveFrozenOperation(plan);}
-   else{plan.lastObservedPrice=price;saveFrozenOperation(plan);}
-  }else{plan.lastObservedPrice=price;saveFrozenOperation(plan);}
- }
- decisionState.plan=plan;
- $('operationRiskBudget').textContent=money(plan.riskBudget);
- $('operationDirection').textContent='LONG BTC';$('operationDirection').className='operationDirection '+(plan.status==='STOP ALCANZADO'?'red':'green');
- $('operationStatus').textContent=plan.status==='ESPERANDO ENTRADA'?'ESPERANDO ENTRADA':plan.status==='ACTIVA'?'OPERACIÓN ACTIVA':plan.status;
- $('operationStatus').className='tag '+(plan.status==='STOP ALCANZADO'?'bad':plan.status==='TP ALCANZADO'||plan.status==='ACTIVA'?'ok':'warn');
- const activationText=plan.entryActivatedAt?` Entrada confirmada el ${new Date(plan.entryActivatedAt).toLocaleString('es-CL')}.`:'';
- $('operationSummary').textContent=`${plan.label}: precios fijados el ${new Date(plan.frozenAt).toLocaleString('es-CL')}.${activationText} No se recalculan con cada actualización.`;
- $('operationEntry').textContent=`${money(plan.entryLow)} – ${money(plan.entryHigh)}`;$('operationTp').textContent=money(plan.tp);$('operationSl').textContent=money(plan.sl);
- $('operationMargin').textContent=money(plan.margin);$('operationNotional').textContent=money(plan.notional);$('operationProfit').textContent=money(plan.expectedProfit);$('operationLoss').textContent='-'+money(plan.expectedLoss);$('operationRR').textContent='1 : '+Number(plan.rr).toFixed(2);$('operationMove').textContent=(Number(plan.movePct)*100).toFixed(2)+'%';
- $('operationWarning').className='operationWarning '+(plan.status==='STOP ALCANZADO'?'bad':plan.status==='TP ALCANZADO'||plan.status==='ACTIVA'?'ok':'warn');
- $('operationWarning').textContent=plan.status==='ESPERANDO ENTRADA'?'El plan está congelado, pero todavía no existe una operación. TP y SL se evaluarán solamente después de que el precio alcance o cruce la zona de entrada.':plan.status==='ACTIVA'?'La entrada ya fue confirmada. Desde las actualizaciones posteriores se controla Take Profit y Stop Loss.':plan.status==='TP ALCANZADO'?'Después de confirmarse la entrada, el precio alcanzó el Take Profit.':'Después de confirmarse la entrada, el precio alcanzó el Stop Loss.';
- $('operationCancelBtn').style.display='inline-block';
- return true;
-}
-function clearOperation(message='No existe una señal operable en este momento.'){
- decisionState.plan=null;
- $('operationDirection').textContent='ESPERAR';$('operationDirection').className='operationDirection yellow';$('operationStatus').textContent='Sin operación';$('operationStatus').className='tag warn';$('operationSummary').textContent=message;
- ['operationEntry','operationTp','operationSl','operationMargin','operationNotional','operationProfit','operationLoss','operationRR','operationMove'].forEach(id=>$(id).textContent='--');
- $('operationWarning').className='operationWarning';$('operationWarning').textContent='Protege el capital: una señal “Esperar” significa que no se deben inventar precios de entrada.';$('operationCancelBtn').style.display='none';
-}
-function updateOperationPlan(){
- const frozen=loadFrozenOperation();if(frozen){renderFrozenOperation(frozen);syncPaperTrading();return;}
- const capital=Math.max(0,Number($('operationCapital')?.value||400));const leverage=10;
- localStorage.setItem('btcOperationPrefs',JSON.stringify({capital,leverage}));
- const price=Number(decisionState.lastPrice),sup=Number(decisionState.support),res=Number(decisionState.resistance),a=Number(decisionState.atr),label=String(decisionState.decisionLabel||'');
- const riskBySignal={'COMPRA FUERTE':30,'COMPRA MODERADA':18,'COMPRA CAUTELOSA':10};
- const riskBudget=Number(riskBySignal[label]||0);
- $('operationRiskBudget').textContent=riskBudget?money(riskBudget):'--';
- if(![price,sup,res,a].every(Number.isFinite)||a<=0){clearOperation('Esperando precio, soporte, resistencia y volatilidad ATR.');return;}
- const side=riskBudget>0?'LONG':null;
- if(!side){
-  const message=label.includes('ESPERAR EVENTO')?'Hay un evento macro relevante. Espera su publicación y la reacción inicial del mercado.':label==='NO COMPRAR'||label.includes('EVITAR')?'El motor indica no comprar. No se genera entrada, take profit ni stop loss.':'El motor no detecta una ventaja suficiente para proponer una operación.';
-  clearOperation(message);$('operationRiskBudget').textContent='--';return;
- }
- const entry=price;const stop=Math.min(sup-a*.20,entry-a*.85);const riskDistance=entry-stop;const tpTech=Math.max(res-a*.10,entry+riskDistance*1.5);
- const rewardDistance=tpTech-entry;if(riskDistance<=0||rewardDistance<=0){clearOperation('La estructura actual no permite calcular una relación riesgo/beneficio válida.');return;}
- const movePct=rewardDistance/entry;const stopPct=riskDistance/entry;const maxNotional=capital*leverage;
- const requiredNotional=riskBudget/stopPct;const usedNotional=Math.min(requiredNotional,maxNotional);const usedMargin=usedNotional/leverage;
- const expectedProfit=usedNotional*movePct;const expectedLoss=usedNotional*stopPct;const rr=rewardDistance/riskDistance;const capitalLimited=requiredNotional>maxNotional;
- const entryLow=entry-a*.12;const entryHigh=entry+a*.05;
- const plan={side:'LONG',label,entry,entryLow,entryHigh,tp:tpTech,sl:stop,riskBudget,expectedProfit,expectedLoss,rr,margin:usedMargin,notional:usedNotional,capitalLimited,valid:rr>=1.5,movePct,status:'ESPERANDO ENTRADA',frozenAt:Date.now(),entryActivatedAt:null,lastObservedPrice:entry};
- if(!plan.valid){clearOperation('La relación riesgo/beneficio es inferior a 1:1,5. El plan no se congela.');return;}
- saveFrozenOperation(plan);renderFrozenOperation(plan);syncPaperTrading();
-}
+let decisionState={technical:null,fundamental:null,quality:null,rsi:null,trend:null,macroScore:0,etfFlow:0,newsScore:0,fear:null,lastPrice:null,support:null,resistance:null,atr:null,decisionLabel:'ESPERAR',combined:null,confidence:null,risk:null};
 
 function updateDecision(){
  const t=Number(decisionState.technical),f=Number(decisionState.fundamental);
@@ -358,7 +239,7 @@ function updateDecision(){
  else if(label.includes('COMPRA'))advice='Existe una ventaja moderada. Prioriza una entrada parcial, confirma soporte y mantén una relación riesgo/beneficio mínima de 1:2.';
  else if(label.includes('ESPERAR EVENTO'))advice='La señal es favorable, pero el riesgo macro domina. Espera la publicación y la reacción inicial del mercado.';
  else if(label==='NO COMPRAR'||label.includes('EVITAR'))advice='No hay una ventaja suficiente para abrir una posición larga. Protege el capital y espera una mejora clara.';
- $('decisionAdvice').textContent=advice;decisionState.decisionLabel=label;decisionState.combined=combined;decisionState.confidence=confidence;decisionState.risk=risk;updateOperationPlan();updateWaitDiagnostic();recordSignalEvaluation();
+ $('decisionAdvice').textContent=advice;decisionState.decisionLabel=label;decisionState.combined=combined;decisionState.confidence=confidence;decisionState.risk=risk;
  localStorage.setItem('btcDecisionAI',JSON.stringify({score:combined,label,confidence,risk,technical:t,fundamental:f,time:new Date().toISOString()}));
 }
 
@@ -409,58 +290,30 @@ function renderMacro(data,fromCache=false){
  localStorage.setItem('btcMacroCache',JSON.stringify(data));scoreFundamental();
 }
 
-function renderNews(items,fromCache=false){const seen=new Set();const clean=(items||[]).filter(x=>x&&x.title&&x.url).filter(x=>{const k=x.title.trim().toLowerCase();if(seen.has(k))return false;seen.add(k);return true;}).sort((a,b)=>Number(b.published_on||0)-Number(a.published_on||0)).slice(0,10);if(!clean.length)throw new Error('Sin noticias');const analyzed=clean.map(x=>({...x,_a:newsAnalysis(x)}));const bull=analyzed.filter(x=>x._a.sentiment>0).length,bear=analyzed.filter(x=>x._a.sentiment<0).length,neutral=analyzed.length-bull-bear;fundamentalState.newsCount=analyzed.length;fundamentalState.newsScore=analyzed.reduce((a,x)=>a+x._a.weighted,0);$('newsBull').textContent=bull;$('newsNeutral').textContent=neutral;$('newsBear').textContent=bear;let bias='Neutral',biasCls='yellow';if(fundamentalState.newsScore>=2){bias='Alcista';biasCls='green'}else if(fundamentalState.newsScore<=-2){bias='Bajista';biasCls='red'}$('newsBias').textContent=bias;$('newsBias').className=biasCls;$('newsSummary').textContent=bias==='Alcista'?'Predominan noticias favorables para Bitcoin, aunque deben confirmarse con precio y volumen.':bias==='Bajista'?'Predominan noticias adversas o de riesgo. Conviene reducir exposición y evitar entradas impulsivas.':'El flujo informativo está equilibrado; no entrega una ventaja fundamental clara por sí solo.';$('newsList').innerHTML=analyzed.map(x=>{const s=x._a.sentiment,cls=s>0?'badgePos':s<0?'badgeNeg':'badgeNeu',lab=s>0?'Alcista':s<0?'Bajista':'Neutral';const excerpt=(x.body||'').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,180);return `<div class="newsItem"><div class="newsTop"><span class="impact ${x._a.impactClass}">Impacto ${x._a.impact.toLowerCase()}</span><span class="${cls}">${lab}</span></div><a href="${escapeHtml(x.url)}" target="_blank" rel="noopener">${escapeHtml(x.title)}</a>${excerpt?`<div class="newsExcerpt">${escapeHtml(excerpt)}${excerpt.length>=180?'…':''}</div>`:''}<div class="newsMeta">${escapeHtml(x.source_info?.name||x.source||'Fuente')} · ${new Date(Number(x.published_on||0)*1000).toLocaleString('es-CL')}</div></div>`}).join('');$('newsStatus').textContent=fromCache?'Dato guardado':'Conectado';$('newsStatus').className='tag '+(fromCache?'warn':'ok');$('newsUpdated').textContent='Actualizado: '+new Date().toLocaleString('es-CL')+(fromCache?' · Mostrando último dato guardado':'')+' · Fuente: Hardy Trading Backend.';localStorage.setItem('btcNewsCache',JSON.stringify(clean));}
+function looksSpanish(text=''){return /\b(el|la|los|las|un|una|para|con|por|bitcoin|mercado|precio|criptomonedas)\b/i.test(text);}
+async function translateTextSpanish(text=''){
+ const clean=String(text).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,450);if(!clean||looksSpanish(clean))return clean;
+ const key='btcTranslation:'+clean;const cached=localStorage.getItem(key);if(cached)return cached;
+ try{const url='https://api.mymemory.translated.net/get?q='+encodeURIComponent(clean)+'&langpair=en|es';const response=await timeoutFetch(url,8000);if(!response.ok)throw new Error('Traducción no disponible');const data=await response.json();const translated=data?.responseData?.translatedText;if(translated){localStorage.setItem(key,translated);return translated;}}catch(_){return clean;}return clean;
+}
+async function renderNews(items,fromCache=false){
+ const seen=new Set(),clean=(items||[]).filter(x=>x&&x.title&&x.url).filter(x=>{const k=x.title.trim().toLowerCase();if(seen.has(k))return false;seen.add(k);return true;}).sort((a,b)=>Number(b.published_on||0)-Number(a.published_on||0)).slice(0,10);if(!clean.length)throw new Error('Sin noticias');
+ $('newsStatus').textContent='Traduciendo';$('newsStatus').className='tag warn';
+ const analyzed=await Promise.all(clean.map(async x=>({...x,_a:newsAnalysis(x),_titleEs:x.title_es||x.titleEs||await translateTextSpanish(x.title),_bodyEs:x.body_es||x.summary_es||x.description_es||await translateTextSpanish((x.body||x.description||'').slice(0,450))})));
+ const bull=analyzed.filter(x=>x._a.sentiment>0).length,bear=analyzed.filter(x=>x._a.sentiment<0).length,neutral=analyzed.length-bull-bear;fundamentalState.newsCount=analyzed.length;fundamentalState.newsScore=analyzed.reduce((a,x)=>a+x._a.weighted,0);$('newsBull').textContent=bull;$('newsNeutral').textContent=neutral;$('newsBear').textContent=bear;
+ let bias='Neutral',biasCls='yellow';if(fundamentalState.newsScore>=2){bias='Alcista';biasCls='green'}else if(fundamentalState.newsScore<=-2){bias='Bajista';biasCls='red'}$('newsBias').textContent=bias;$('newsBias').className=biasCls;$('newsSummary').textContent=bias==='Alcista'?'Predominan noticias favorables para Bitcoin, aunque deben confirmarse con el precio.':bias==='Bajista'?'Predominan noticias adversas o de riesgo. Conviene reducir exposición y evitar entradas impulsivas.':'El flujo informativo está equilibrado; no entrega una ventaja fundamental clara por sí solo.';
+ $('newsList').innerHTML=analyzed.map(x=>{const s=x._a.sentiment,cls=s>0?'badgePos':s<0?'badgeNeg':'badgeNeu',lab=s>0?'Alcista':s<0?'Bajista':'Neutral',excerpt=String(x._bodyEs||'').slice(0,220);return `<div class="newsItem"><div class="newsTop"><span class="impact ${x._a.impactClass}">Impacto ${x._a.impact.toLowerCase()}</span><span class="${cls}">${lab}</span></div><a href="${escapeHtml(x.url)}" target="_blank" rel="noopener">${escapeHtml(x._titleEs)}</a>${excerpt?`<div class="newsExcerpt">${escapeHtml(excerpt)}${String(x._bodyEs).length>220?'…':''}</div>`:''}<div class="newsMeta">${escapeHtml(x.source_info?.name||x.source||'Fuente')} · ${new Date(Number(x.published_on||0)*1000).toLocaleString('es-CL')}</div></div>`}).join('');
+ $('newsStatus').textContent=fromCache?'Dato guardado':'En español';$('newsStatus').className='tag '+(fromCache?'warn':'ok');$('newsUpdated').textContent='Actualizado: '+new Date().toLocaleString('es-CL')+(fromCache?' · Mostrando último dato guardado':'')+' · Noticias traducidas automáticamente al español.';localStorage.setItem('btcNewsCache',JSON.stringify(clean));
+}
 async function updateFundamental(){try{const fgData=await fetchJsonFallback(FUND_FG);renderFearGreed(fgData?.data||[]);}catch(e){try{const cached=JSON.parse(localStorage.getItem('btcFearGreedCache')||'[]');renderFearGreed(cached,true);}catch(_){$('fgLabel').textContent='Sin conexión';$('fgLabel').className='tag bad';$('fgConnection').textContent='Sin conexión';$('fgConnection').className='tag bad';$('fgInsight').textContent='No fue posible obtener el indicador ni recuperar un dato guardado.';}}
- try{const n=await fetchJsonFallback(FUND_NEWS);const items=Array.isArray(n?.data)?n.data:Array.isArray(n?.Data)?n.Data:Array.isArray(n)?n:[];renderNews(items);}catch(e){try{const cached=JSON.parse(localStorage.getItem('btcNewsCache')||'[]');renderNews(cached,true);}catch(_){$('newsList').innerHTML='<div class="small red">No fue posible cargar noticias ni recuperar datos guardados.</div>';$('newsStatus').textContent='Sin conexión';$('newsStatus').className='tag bad';$('newsSummary').textContent='Sin datos para calcular el sesgo informativo.';$('newsBull').textContent=$('newsNeutral').textContent=$('newsBear').textContent='--';$('newsBias').textContent='--';fundamentalState.newsCount=0;fundamentalState.newsScore=0;}}
+ try{const n=await fetchJsonFallback(FUND_NEWS);const items=Array.isArray(n?.data)?n.data:Array.isArray(n?.Data)?n.Data:Array.isArray(n)?n:[];await renderNews(items);}catch(e){try{const cached=JSON.parse(localStorage.getItem('btcNewsCache')||'[]');await renderNews(cached,true);}catch(_){$('newsList').innerHTML='<div class="small red">No fue posible cargar noticias ni recuperar datos guardados.</div>';$('newsStatus').textContent='Sin conexión';$('newsStatus').className='tag bad';$('newsSummary').textContent='Sin datos para calcular el sesgo informativo.';$('newsBull').textContent=$('newsNeutral').textContent=$('newsBear').textContent='--';$('newsBias').textContent='--';fundamentalState.newsCount=0;fundamentalState.newsScore=0;}}
  try{const e=await fetchJsonFallback(FUND_ETF);renderEtf(e);}catch(err){try{const cached=JSON.parse(localStorage.getItem('btcEtfCache')||'null');if(!cached)throw new Error('Sin caché');renderEtf(cached,true);}catch(_){$('etfStatus').textContent='Sin conexión';$('etfStatus').className='tag bad';$('etfValue').textContent='No disponible';$('etfValue').className='big red';$('etfLevel').textContent='Sin datos';$('etfLevel').className='tag bad';$('etfContext').textContent='No fue posible consultar los flujos ETF Spot.';$('etfStats').textContent='--';$('etfInput').value='0';}}
  try{const m=await fetchJsonFallback(FUND_MACRO);renderMacro(m);}catch(e){try{const cached=JSON.parse(localStorage.getItem('btcMacroCache')||'null');if(!cached)throw new Error('Sin caché');renderMacro(cached,true);}catch(_){$('macroStatus').textContent='Sin conexión';$('macroStatus').className='tag bad';$('macroLevel').textContent='No disponible';$('macroLevel').className='big red';$('macroReason').textContent='No fue posible consultar el calendario económico.';$('macroInput').value='0';}}
  scoreFundamental();}
 
 
 
-const PAPER_KEY='btcPaperTradingV42';
-function paperLoad(){try{return JSON.parse(localStorage.getItem(PAPER_KEY)||'{"signals":[],"trades":[]}')}catch(e){return {signals:[],trades:[]}}}
-function paperSave(db){localStorage.setItem(PAPER_KEY,JSON.stringify(db));}
-function paperId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
-function recordSignalEvaluation(){
- const score=Number(decisionState.combined),label=String(decisionState.decisionLabel||'ESPERAR');if(!Number.isFinite(score))return;
- const db=paperLoad(),now=Date.now(),last=db.signals.at(-1);
- // Un registro cada 30 minutos, o inmediatamente cuando cambia la señal.
- if(last&&last.label===label&&now-last.time<30*60*1000){renderPaperTrading();return;}
- db.signals.push({id:paperId(),time:now,label,score,technical:decisionState.technical,fundamental:decisionState.fundamental,confidence:decisionState.confidence,price:decisionState.lastPrice,macro:decisionState.macroScore,etf:decisionState.etfFlow});
- if(db.signals.length>1500)db.signals=db.signals.slice(-1500);paperSave(db);renderPaperTrading();
-}
-function syncPaperTrading(){
- const db=paperLoad(),price=Number(decisionState.lastPrice);if(!Number.isFinite(price))return;
- let open=db.trades.find(t=>t.status==='ABIERTA');
- if(open){
-  if(price>=open.tp){open.status='GANADA';open.closedAt=Date.now();open.exit=open.tp;open.pnl=open.expectedProfit;}
-  else if(price<=open.sl){open.status='PERDIDA';open.closedAt=Date.now();open.exit=open.sl;open.pnl=-open.expectedLoss;}
- }
- const p=decisionState.plan;
- if(!open&&p&&p.valid&&p.status==='ACTIVA'&&p.entryActivatedAt&&['COMPRA FUERTE','COMPRA MODERADA','COMPRA CAUTELOSA'].includes(p.label)){
-  const recent=db.trades.at(-1);const sameRecent=recent&&recent.label===p.label&&Date.now()-recent.openedAt<6*60*60*1000;
-  if(!sameRecent){db.trades.push({id:paperId(),openedAt:Date.now(),status:'ABIERTA',label:p.label,score:decisionState.combined,confidence:decisionState.confidence,entry:Number(p.entryPrice||p.entry),tp:p.tp,sl:p.sl,riskBudget:p.riskBudget,expectedProfit:p.expectedProfit,expectedLoss:p.expectedLoss,margin:p.margin,notional:p.notional,pnl:0});}
- }
- if(db.trades.length>500)db.trades=db.trades.slice(-500);paperSave(db);renderPaperTrading();
-}
-function updateWaitDiagnostic(){
- const box=$('waitDiagnostic');if(!box)return;const label=String(decisionState.decisionLabel||'ESPERAR'),score=Number(decisionState.combined),t=Number(decisionState.technical),f=Number(decisionState.fundamental),macro=Number(decisionState.macroScore||0);
- const blockers=[];if(t<58)blockers.push(`Puntaje técnico ${t}/100: necesita al menos 58 para Compra moderada.`);if(score<65)blockers.push(`Puntaje combinado ${score}/100: faltan ${Math.max(0,65-score)} puntos para Compra moderada.`);if(f<50)blockers.push(`Fundamental ${f}/100: el contexto aún es débil.`);if(macro<=-12)blockers.push('Existe un evento macro de alto impacto que bloquea o reduce la señal.');if(Number(decisionState.etfFlow)<0)blockers.push('Los ETF Spot muestran salidas netas.');
- if(label.includes('COMPRA'))box.innerHTML=`<b>Operación habilitada: ${escapeHtml(label)}</b><div class="small" style="margin-top:6px">El paper trading abrirá una operación simulada si el plan tiene relación riesgo/beneficio mínima de 1:1,5.</div>`;
- else box.innerHTML=`<b>Por qué indica ${escapeHtml(label)}</b>${blockers.length?`<ul>${blockers.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul>`:'<div class="small" style="margin-top:6px">No existe todavía una alineación suficiente entre técnico y fundamental.</div>'}`;
-}
-function renderPaperTrading(){
- const db=paperLoad(),trades=db.trades||[],closed=trades.filter(t=>t.status!=='ABIERTA'),wins=closed.filter(t=>t.status==='GANADA'),pnl=closed.reduce((a,t)=>a+Number(t.pnl||0),0),ops=(db.signals||[]).filter(s=>String(s.label).includes('COMPRA')).length,open=trades.find(t=>t.status==='ABIERTA');
- $('paperSignals').textContent=(db.signals||[]).length;$('paperOpportunities').textContent=ops;$('paperClosed').textContent=closed.length;$('paperWinRate').textContent=closed.length?`${(wins.length/closed.length*100).toFixed(1)}%`:'--';$('paperPnl').textContent=(pnl>=0?'+':'')+money(pnl);$('paperPnl').className=pnl>0?'green':pnl<0?'red':'yellow';$('paperOpen').textContent=open?'Sí':'No';$('paperOpen').className=open?'green':'yellow';
- const rows=trades.slice().reverse().slice(0,30);$('paperRows').innerHTML=rows.length?rows.map(t=>`<tr><td>${new Date(t.openedAt).toLocaleString('es-CL')}</td><td>${escapeHtml(t.label)}</td><td>${t.score}/100</td><td>${money(t.entry)}</td><td>${money(t.tp)}</td><td>${money(t.sl)}</td><td>${money(t.riskBudget)}</td><td class="${t.status==='GANADA'?'green':t.status==='PERDIDA'?'red':'yellow'}">${t.status}</td><td class="${Number(t.pnl)>0?'green':Number(t.pnl)<0?'red':''}">${t.status==='ABIERTA'?'--':(Number(t.pnl)>=0?'+':'')+money(t.pnl)}</td></tr>`).join(''):'<tr><td colspan="9" class="paperEmpty">Todavía no existen operaciones simuladas.</td></tr>';
-}
-function exportPaperCsv(){const db=paperLoad(),head=['fecha','senal','puntaje','entrada','take_profit','stop_loss','riesgo_usd','estado','resultado_usd'];const lines=[head.join(',')].concat((db.trades||[]).map(t=>[new Date(t.openedAt).toISOString(),t.label,t.score,t.entry,t.tp,t.sl,t.riskBudget,t.status,t.pnl||0].map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')));const blob=new Blob([lines.join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='btc-paper-trading-v4.3.csv';a.click();URL.revokeObjectURL(a.href);}
-$('operationCancelBtn').addEventListener('click',()=>{if(confirm('¿Cancelar el plan congelado actual?')){clearFrozenOperation();decisionState.plan=null;updateOperationPlan();}});
-$('paperExportBtn').addEventListener('click',exportPaperCsv);$('paperResetBtn').addEventListener('click',()=>{if(confirm('¿Borrar todo el registro de señales y operaciones simuladas?')){localStorage.removeItem(PAPER_KEY);renderPaperTrading();updateWaitDiagnostic();}});
-
-const operationPrefs=JSON.parse(localStorage.getItem('btcOperationPrefs')||'null');if(operationPrefs){$('operationCapital').value=operationPrefs.capital||400;}$('operationCapital').addEventListener('input',updateOperationPlan);
-$('refreshBtn').addEventListener('click', ()=>{update();updateFundamental();}); renderPaperTrading(); update(); updateFundamental(); setInterval(update,30000); setInterval(updateFundamental,300000);
+$('refreshBtn').addEventListener('click',()=>{update();updateFundamental();});update();updateFundamental();setInterval(update,30000);setInterval(updateFundamental,300000);
 </script>
 </body>
 </html>
