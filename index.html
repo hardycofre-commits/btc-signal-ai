@@ -126,7 +126,7 @@
     <div class="card" style="grid-column:span 2"><div class="newsTop"><div><h3 style="margin:0">Noticias BTC</h3><div class="small">Actualización automática desde fuentes especializadas.</div></div><span id="newsStatus" class="tag warn">Cargando</span></div><div class="newsStats"><div class="newsStat"><span>Alcistas</span><b id="newsBull" class="green">--</b></div><div class="newsStat"><span>Neutrales</span><b id="newsNeutral" class="yellow">--</b></div><div class="newsStat"><span>Bajistas</span><b id="newsBear" class="red">--</b></div><div class="newsStat"><span>Sesgo</span><b id="newsBias">--</b></div></div><div id="newsSummary" class="newsSummary small">Analizando titulares recientes...</div><div id="newsList" class="newsList"><div class="small">Consultando fuentes...</div></div><p id="newsUpdated" class="small newsUpdated">Fuente: Hardy Trading Backend.</p></div>
     <div class="card"><h3>Puntaje fundamental</h3><div id="fundScore" class="big">--/100</div><div id="fundLabel" class="tag warn">Esperando</div><div class="meter"><div id="fundBar" class="bar"></div></div><div class="scoreParts" style="margin-top:14px"><div class="scorePart"><span>Fear & Greed</span><b id="fgPoints">--</b></div><div class="scorePart"><span>Noticias</span><b id="newsPoints">--</b></div><div class="scorePart"><span>ETF automático</span><b id="etfPoints">--</b></div><div class="scorePart"><span>Macro automático</span><b id="macroPoints">--</b></div></div><p id="fundSummary" class="small">Esperando datos...</p></div>
   </section>
-<script defer src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js" onload="loadTV()" onerror="tvError()"></script>
+<script defer src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
 <script>
 const $ = id => document.getElementById(id);
 let isLoading=false;
@@ -314,7 +314,7 @@ async function updateFundamental(){try{const fgData=await fetchJsonFallback(FUND
 
 
 
-$('refreshBtn').addEventListener('click',()=>{update();updateFundamental();});update();updateFundamental();setInterval(update,30000);setInterval(updateFundamental,300000);
+$('refreshBtn').addEventListener('click',()=>{update();updateFundamental();});window.addEventListener('DOMContentLoaded',loadTV);update();updateFundamental();setInterval(update,30000);setInterval(updateFundamental,300000);
 </script>
 </body>
 </html>
