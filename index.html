@@ -126,7 +126,7 @@
     <div class="card" style="grid-column:span 2"><div class="newsTop"><div><h3 style="margin:0">Noticias BTC</h3><div class="small">Actualización automática desde fuentes especializadas.</div></div><span id="newsStatus" class="tag warn">Cargando</span></div><div class="newsStats"><div class="newsStat"><span>Alcistas</span><b id="newsBull" class="green">--</b></div><div class="newsStat"><span>Neutrales</span><b id="newsNeutral" class="yellow">--</b></div><div class="newsStat"><span>Bajistas</span><b id="newsBear" class="red">--</b></div><div class="newsStat"><span>Sesgo</span><b id="newsBias">--</b></div></div><div id="newsSummary" class="newsSummary small">Analizando titulares recientes...</div><div id="newsList" class="newsList"><div class="small">Consultando fuentes...</div></div><p id="newsUpdated" class="small newsUpdated">Fuente: Hardy Trading Backend.</p></div>
     <div class="card"><h3>Puntaje fundamental</h3><div id="fundScore" class="big">--/100</div><div id="fundLabel" class="tag warn">Esperando</div><div class="meter"><div id="fundBar" class="bar"></div></div><div class="scoreParts" style="margin-top:14px"><div class="scorePart"><span>Fear & Greed</span><b id="fgPoints">--</b></div><div class="scorePart"><span>Noticias</span><b id="newsPoints">--</b></div><div class="scorePart"><span>ETF automático</span><b id="etfPoints">--</b></div><div class="scorePart"><span>Macro automático</span><b id="macroPoints">--</b></div></div><p id="fundSummary" class="small">Esperando datos...</p></div>
   </section>
-<script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js" onload="loadTV()" onerror="tvError()"></script>
+<script defer src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js" onload="loadTV()" onerror="tvError()"></script>
 <script>
 const $ = id => document.getElementById(id);
 let isLoading=false;
@@ -182,7 +182,7 @@ async function update(){
  }catch(e){setGlobal(false,'Error de datos');const chartStatus=$('chartStatus');if(chartStatus){chartStatus.textContent='Sin datos';chartStatus.className='tag bad';}}
  finally{isLoading=false;}
 }
-let priceChart=null,candleSeries=null,supportLine=null,resistanceLine=null;
+let priceChart=null,candleSeries=null,supportLine=null,resistanceLine=null,pendingChartData=null;
 function loadTV(){
  try{
   const container=$('tradingview_widget');if(!container||typeof LightweightCharts==='undefined')throw new Error('Librería no disponible');
@@ -190,10 +190,11 @@ function loadTV(){
   candleSeries=priceChart.addCandlestickSeries({upColor:'#20d690',downColor:'#ff5570',borderUpColor:'#20d690',borderDownColor:'#ff5570',wickUpColor:'#20d690',wickDownColor:'#ff5570'});
   new ResizeObserver(()=>priceChart.applyOptions({width:container.clientWidth})).observe(container);
   const status=$('chartStatus');status.textContent='1H · Sin indicadores';status.className='tag ok';
+  if(pendingChartData)renderPriceChart(pendingChartData.candles,pendingChartData.support,pendingChartData.resistance);
  }catch(e){tvError();}
 }
 function renderPriceChart(candles,support,resistance){
- if(!candleSeries)return;
+ pendingChartData={candles,support,resistance};if(!candleSeries)return;
  candleSeries.setData(candles.map(c=>({time:Math.floor(c.time/1000),open:c.open,high:c.high,low:c.low,close:c.close})));
  if(supportLine)candleSeries.removePriceLine(supportLine);if(resistanceLine)candleSeries.removePriceLine(resistanceLine);
  supportLine=candleSeries.createPriceLine({price:support,color:'#20d690',lineWidth:2,lineStyle:LightweightCharts.LineStyle.Solid,axisLabelVisible:true,title:'Soporte 100H'});
