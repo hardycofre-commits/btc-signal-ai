@@ -87,7 +87,7 @@
   </section>
 
   <section class="grid" style="margin-top:18px">
-    <div class="card"><b>Precio</b><div id="lastPrice" class="big" style="margin-top:18px">--</div><div class="small">Bybit Spot</div></div>
+    <div class="card"><b>Precio</b><div id="lastPrice" class="big" style="margin-top:18px">--</div><div class="small">Bybit BTCUSDT Perpetuo</div></div>
     <div class="card"><b>Variación 24h</b><div id="changeCard" class="big" style="margin-top:18px">--</div><div class="small">Movimiento diario</div></div>
     <div class="card"><b>Máximo 24h</b><div id="high24" class="big" style="margin-top:18px">--</div><div class="small">Resistencia diaria</div></div>
     <div class="card"><b>Mínimo 24h</b><div id="low24" class="big" style="margin-top:18px">--</div><div class="small">Soporte diario</div></div>
@@ -145,8 +145,8 @@
 <script>
 const $ = id => document.getElementById(id);
 let isLoading=false;
-const TICKER='https://api.bybit.com/v5/market/tickers?category=spot&symbol=BTCUSDT';
-const KLINE=(interval,limit=240)=>`https://api.bybit.com/v5/market/kline?category=spot&symbol=BTCUSDT&interval=${interval}&limit=${limit}`;
+const TICKER='https://api.bybit.com/v5/market/tickers?category=linear&symbol=BTCUSDT';
+const KLINE=(interval,limit=240)=>`https://api.bybit.com/v5/market/kline?category=linear&symbol=BTCUSDT&interval=${interval}&limit=${limit}`;
 const TF_CONFIG={
   '15':{id:'tf15',label:'15 min',weight:.15,maxAgeMin:35},
   '60':{id:'tf60',label:'1 hora',weight:.35,maxAgeMin:130},

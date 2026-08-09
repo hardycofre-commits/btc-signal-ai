@@ -1,4 +1,4 @@
-const BYBIT_URL = 'https://api.bybit.com/v5/market/tickers?category=spot&symbol=BTCUSDT';
+const BYBIT_URL = 'https://api.bybit.com/v5/market/tickers?category=linear&symbol=BTCUSDT';
 
 const state = {
   price: null,
