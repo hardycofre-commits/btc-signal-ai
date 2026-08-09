@@ -104,7 +104,7 @@ function renderSummary(){
   const spreadPct = spreadAbs && state.price ? (spreadAbs / state.price) * 100 : null;
   const range = state.high24 && state.low24 ? state.high24 - state.low24 : null;
   const rows = [
-    ['Fuente principal', state.sources.bybit ? 'Bybit Spot BTCUSDT conectado' : 'Bybit sin conexión', state.sources.bybit ? 'OK' : 'ERROR'],
+    ['Fuente principal', state.sources.bybit ? 'Bybit BTCUSDT Perpetuo conectado' : 'Bybit sin conexión', state.sources.bybit ? 'OK' : 'ERROR'],
     ['Rango 24h', range ? `${money(range)} entre máximo y mínimo` : 'Sin datos', range ? 'OK' : 'PENDIENTE'],
     ['Spread', spreadPct !== null ? `${money(spreadAbs)} (${spreadPct.toFixed(4)}%)` : 'Sin datos', spreadPct !== null ? 'OK' : 'PENDIENTE'],
     ['Volumen', state.volume24 ? `${number(state.volume24)} BTC negociados` : 'Sin datos', state.volume24 ? 'OK' : 'PENDIENTE'],
