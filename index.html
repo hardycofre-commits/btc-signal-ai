@@ -201,7 +201,7 @@ let rulerActive=false,rulerDragStart=null;
 function loadTV(){
  try{
   const container=$('tradingview_widget');if(!container||typeof LightweightCharts==='undefined')throw new Error('Librería no disponible');
-  priceChart=LightweightCharts.createChart(container,{width:container.clientWidth,height:500,layout:{background:{color:'#091729'},textColor:'#d7e8fa'},grid:{vertLines:{color:'rgba(38,65,95,.35)'},horzLines:{color:'rgba(38,65,95,.35)'}},rightPriceScale:{borderColor:'#26415f'},timeScale:{borderColor:'#26415f',timeVisible:true,secondsVisible:false},localization:{locale:'es-CL',priceFormatter:price=>money(price)}});
+  priceChart=LightweightCharts.createChart(container,{width:container.clientWidth,height:500,layout:{background:{color:'#091729'},textColor:'#d7e8fa'},grid:{vertLines:{visible:false},horzLines:{visible:false}},rightPriceScale:{borderColor:'#26415f'},timeScale:{borderColor:'#26415f',timeVisible:true,secondsVisible:false},localization:{locale:'es-CL',priceFormatter:price=>money(price)}});
   candleSeries=priceChart.addCandlestickSeries({upColor:'#20d690',downColor:'#ff5570',borderUpColor:'#20d690',borderDownColor:'#ff5570',wickUpColor:'#20d690',wickDownColor:'#ff5570'});
   new ResizeObserver(()=>priceChart.applyOptions({width:container.clientWidth})).observe(container);
   const status=$('chartStatus');status.textContent='1H · Sin indicadores';status.className='tag ok';
@@ -217,7 +217,7 @@ function renderPriceChart(candles,support,resistance){
  for(const line of percentGuideLines)candleSeries.removePriceLine(line);percentGuideLines=[];
  supportLine=candleSeries.createPriceLine({price:support,color:'#20d690',lineWidth:2,lineStyle:LightweightCharts.LineStyle.Solid,axisLabelVisible:true,title:'Soporte 100H'});
  resistanceLine=candleSeries.createPriceLine({price:resistance,color:'#ff5570',lineWidth:2,lineStyle:LightweightCharts.LineStyle.Solid,axisLabelVisible:true,title:'Resistencia 100H'});
- if(Number.isFinite(support)&&Number.isFinite(resistance)&&support>0&&resistance>support){for(let level=support*1.01;level<resistance;level+=support*.01){percentGuideLines.push(candleSeries.createPriceLine({price:level,color:'rgba(159,196,238,.16)',lineWidth:1,lineStyle:LightweightCharts.LineStyle.Dotted,axisLabelVisible:false,title:''}));}}
+ if(Number.isFinite(support)&&Number.isFinite(resistance)&&support>0&&resistance>support){for(let level=support*1.01;level<resistance;level+=support*.01){percentGuideLines.push(candleSeries.createPriceLine({price:level,color:'rgba(159,196,238,.48)',lineWidth:1,lineStyle:LightweightCharts.LineStyle.Dashed,axisLabelVisible:false,title:''}));}}
  if(visibleRange)priceChart.timeScale().setVisibleRange(visibleRange);else{priceChart.timeScale().fitContent();chartHasInitialFit=true;}
 }
 function tvError(){const status=$('chartStatus');if(status){status.textContent='No se pudo cargar';status.className='tag bad';}}
