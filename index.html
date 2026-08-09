@@ -196,7 +196,7 @@ async function update(){
  }catch(e){setGlobal(false,'Error de datos');const chartStatus=$('chartStatus');if(chartStatus){chartStatus.textContent='Sin datos';chartStatus.className='tag bad';}}
  finally{isLoading=false;}
 }
-let priceChart=null,candleSeries=null,supportLine=null,resistanceLine=null,pendingChartData=null;
+let priceChart=null,candleSeries=null,supportLine=null,resistanceLine=null,percentGuideLines=[],pendingChartData=null,chartHasInitialFit=false;
 let rulerActive=false,rulerDragStart=null;
 function loadTV(){
  try{
@@ -211,11 +211,14 @@ function loadTV(){
 }
 function renderPriceChart(candles,support,resistance){
  pendingChartData={candles,support,resistance};if(!candleSeries)return;
+ const visibleRange=chartHasInitialFit?priceChart.timeScale().getVisibleRange():null;
  candleSeries.setData(candles.map(c=>({time:Math.floor(c.time/1000),open:c.open,high:c.high,low:c.low,close:c.close})));
  if(supportLine)candleSeries.removePriceLine(supportLine);if(resistanceLine)candleSeries.removePriceLine(resistanceLine);
+ for(const line of percentGuideLines)candleSeries.removePriceLine(line);percentGuideLines=[];
  supportLine=candleSeries.createPriceLine({price:support,color:'#20d690',lineWidth:2,lineStyle:LightweightCharts.LineStyle.Solid,axisLabelVisible:true,title:'Soporte 100H'});
  resistanceLine=candleSeries.createPriceLine({price:resistance,color:'#ff5570',lineWidth:2,lineStyle:LightweightCharts.LineStyle.Solid,axisLabelVisible:true,title:'Resistencia 100H'});
- priceChart.timeScale().fitContent();
+ if(Number.isFinite(support)&&Number.isFinite(resistance)&&support>0&&resistance>support){for(let level=support*1.01;level<resistance;level+=support*.01){percentGuideLines.push(candleSeries.createPriceLine({price:level,color:'rgba(159,196,238,.16)',lineWidth:1,lineStyle:LightweightCharts.LineStyle.Dotted,axisLabelVisible:false,title:''}));}}
+ if(visibleRange)priceChart.timeScale().setVisibleRange(visibleRange);else{priceChart.timeScale().fitContent();chartHasInitialFit=true;}
 }
 function tvError(){const status=$('chartStatus');if(status){status.textContent='No se pudo cargar';status.className='tag bad';}}
 function clearRulerMeasurement(){rulerDragStart=null;$('rulerRect').setAttribute('visibility','hidden');$('rulerLine').setAttribute('visibility','hidden');$('rulerStart').setAttribute('visibility','hidden');$('rulerEnd').setAttribute('visibility','hidden');$('rulerLabel').style.display='none';$('rulerHint').className='small rulerHint';$('rulerHint').textContent=rulerActive?'Mantén presionado y arrastra sobre el gráfico.':'Activa la regla para medir un tramo del gráfico.';}
