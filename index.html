@@ -39,18 +39,6 @@
     </div>
   </section>
 
-  <section class="card alertCard">
-    <div class="newsTop"><div><h2 style="margin:0">Alertas de precio por Telegram</h2><div class="small">Recibe un mensaje cuando BTC alcance el nivel indicado.</div></div><span id="alertConfigStatus" class="tag warn">Verificando</span></div>
-    <div class="alertForm">
-      <div><label for="alertTarget">Precio objetivo (USD)</label><input id="alertTarget" type="number" min="1000" step="10" placeholder="Ej. 70000"></div>
-      <div><label for="alertDirection">Condición</label><select id="alertDirection"><option value="above">BTC sube hasta</option><option value="below">BTC baja hasta</option></select></div>
-      <div><label for="alertPin">PIN privado</label><input id="alertPin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN configurado en Render"></div>
-      <button id="alertCreateBtn" type="button">Crear alerta</button>
-    </div>
-    <div id="alertMessage" class="small alertMessage">Configura Telegram y el PIN en Render para comenzar.</div>
-    <div id="alertList" class="alertList"><div class="alertEmpty">Ingresa tu PIN para consultar las alertas.</div></div>
-  </section>
-
   <section class="card decisionCard">
     <div class="decisionGrid">
       <div>
@@ -93,6 +81,18 @@
     <div class="newsTop"><div><h2 style="margin:0">BTCUSDT Perpetuo · Gráfico 1 hora</h2><div class="small">Velas del perpetuo de Bybit con soporte y resistencia de las últimas 100 horas.</div></div><div class="chartTools"><button id="rulerBtn" class="chartTool" type="button">📏 Regla</button><button id="rulerClearBtn" class="chartTool" type="button">Limpiar</button><span id="chartStatus" class="tag warn">Cargando</span></div></div>
     <div id="chartWrap" class="chartWrap"><div id="tradingview_widget" style="height:100%;width:100%"></div><svg id="chartRuler" class="chartRuler" aria-hidden="true"><rect id="rulerRect" x="0" y="0" width="0" height="0" visibility="hidden"></rect><line id="rulerLine" x1="0" y1="0" x2="0" y2="0" visibility="hidden"></line><circle id="rulerStart" cx="0" cy="0" r="4" visibility="hidden"></circle><circle id="rulerEnd" cx="0" cy="0" r="4" visibility="hidden"></circle></svg><div id="rulerLabel" class="rulerLabel"></div></div>
     <div id="rulerHint" class="small rulerHint">Activa la regla y selecciona dos puntos para medir precio, porcentaje y tiempo.</div>
+  </section>
+
+  <section class="card alertCard">
+    <div class="newsTop"><div><h2 style="margin:0">Alertas de precio por Telegram</h2><div class="small">Recibe un mensaje cuando BTC alcance el nivel indicado.</div></div><span id="alertConfigStatus" class="tag warn">Verificando</span></div>
+    <div class="alertForm">
+      <div><label for="alertTarget">Precio objetivo (USD)</label><input id="alertTarget" type="number" min="1000" step="10" placeholder="Ej. 70000"></div>
+      <div><label for="alertDirection">Condición</label><select id="alertDirection"><option value="above">BTC sube hasta</option><option value="below">BTC baja hasta</option></select></div>
+      <div><label for="alertPin">PIN privado</label><input id="alertPin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN configurado en Render"></div>
+      <button id="alertCreateBtn" type="button">Crear alerta</button>
+    </div>
+    <div id="alertMessage" class="small alertMessage">Configura Telegram y el PIN en Render para comenzar.</div>
+    <div id="alertList" class="alertList"><div class="alertEmpty">Ingresa tu PIN para consultar las alertas.</div></div>
   </section>
 
   <section class="grid" style="margin-top:18px">
