@@ -79,6 +79,16 @@
     </div>
   </section>
 
+  <section class="card" style="margin-top:18px">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><h2 style="margin:0">Temporalidades</h2><span id="dominantTf" class="tag warn">Dominante: --</span></div>
+    <div class="mtf" style="margin-top:14px">
+      <div class="source" id="card15"><b>15 min</b><div id="tf15" class="yellow" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tf15Score">--</b></div><div class="row"><span class="label">RSI</span><b id="tf15Rsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tf15Macd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tf15Fresh">--</b></div></div>
+      <div class="source" id="card60"><b>1 hora</b><div id="tf60" class="yellow" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tf60Score">--</b></div><div class="row"><span class="label">RSI</span><b id="tf60Rsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tf60Macd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tf60Fresh">--</b></div></div>
+      <div class="source" id="card240"><b>4 horas</b><div id="tf240" class="yellow" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tf240Score">--</b></div><div class="row"><span class="label">RSI</span><b id="tf240Rsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tf240Macd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tf240Fresh">--</b></div></div>
+      <div class="source" id="cardD"><b>1 día</b><div id="tfD" class="yellow" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tfDScore">--</b></div><div class="row"><span class="label">RSI</span><b id="tfDRsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tfDMacd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tfDFresh">--</b></div></div>
+    </div>
+  </section>
+
   <section class="card tv" style="margin-top:18px">
     <div class="newsTop"><div><h2 style="margin:0">BTCUSDT Perpetuo · Gráfico 1 hora</h2><div class="small">Velas del perpetuo de Bybit con soporte y resistencia de las últimas 100 horas.</div></div><div class="chartTools"><button id="rulerBtn" class="chartTool" type="button">📏 Regla</button><button id="rulerClearBtn" class="chartTool" type="button">Limpiar</button><span id="chartStatus" class="tag warn">Cargando</span></div></div>
     <div id="chartWrap" class="chartWrap"><div id="tradingview_widget" style="height:100%;width:100%"></div><svg id="chartRuler" class="chartRuler" aria-hidden="true"><rect id="rulerRect" x="0" y="0" width="0" height="0" visibility="hidden"></rect><line id="rulerLine" x1="0" y1="0" x2="0" y2="0" visibility="hidden"></line><circle id="rulerStart" cx="0" cy="0" r="4" visibility="hidden"></circle><circle id="rulerEnd" cx="0" cy="0" r="4" visibility="hidden"></circle></svg><div id="rulerLabel" class="rulerLabel"></div></div>
@@ -102,16 +112,6 @@
     <div class="card"><h3>Soporte / Resistencia</h3><div class="row"><span class="label">Soporte 100 velas</span><b id="support">--</b></div><div class="row"><span class="label">Resistencia 100 velas</span><b id="resistance">--</b></div><div class="row"><span class="label">Posición actual</span><b id="positionRange">--</b></div><p class="small">Calculado con mínimos y máximos recientes de velas 1H.</p></div>
     <div class="card"><h3>Puntaje técnico</h3><div id="techScore" class="big">--/100</div><div id="techLabel" class="tag warn">Esperando</div><div class="meter"><div id="scoreBar" class="bar"></div></div><p id="techSummary" class="small">Esperando datos...</p></div>
     <div class="card"><h3>Lectura operativa</h3><div id="tradeBias" class="big">--</div><p id="tradeText" class="small">Esta versión no ejecuta operaciones ni recomienda inversión directa. Solo entrega lectura técnica.</p></div>
-  </section>
-
-  <section class="card" style="margin-top:18px">
-    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><h2 style="margin:0">Temporalidades</h2><span id="dominantTf" class="tag warn">Dominante: --</span></div>
-    <div class="mtf" style="margin-top:14px">
-      <div class="source" id="card15"><b>15 min</b><div id="tf15" class="yellow" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tf15Score">--</b></div><div class="row"><span class="label">RSI</span><b id="tf15Rsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tf15Macd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tf15Fresh">--</b></div></div>
-      <div class="source" id="card60"><b>1 hora</b><div id="tf60" class="yellow" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tf60Score">--</b></div><div class="row"><span class="label">RSI</span><b id="tf60Rsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tf60Macd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tf60Fresh">--</b></div></div>
-      <div class="source" id="card240"><b>4 horas</b><div id="tf240" class="yellow" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tf240Score">--</b></div><div class="row"><span class="label">RSI</span><b id="tf240Rsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tf240Macd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tf240Fresh">--</b></div></div>
-      <div class="source" id="cardD"><b>1 día</b><div id="tfD" class="yellow" style="margin-top:8px;font-weight:800">--</div><div class="row"><span class="label">Puntaje</span><b id="tfDScore">--</b></div><div class="row"><span class="label">RSI</span><b id="tfDRsi">--</b></div><div class="row"><span class="label">MACD</span><b id="tfDMacd">--</b></div><div class="row"><span class="label">Última vela</span><b id="tfDFresh">--</b></div></div>
-    </div>
   </section>
 
   <section class="grid3" style="margin-top:18px">
