@@ -236,6 +236,7 @@ function renderPriceChart(candles,support,resistance){
  supportLine=support?candleSeries.createPriceLine({price:support.center,color:'#20d690',lineWidth:2,lineStyle:LightweightCharts.LineStyle.Solid,axisLabelVisible:true,title:`Soporte (${support.touches})`}):null;
  resistanceLine=resistance?candleSeries.createPriceLine({price:resistance.center,color:'#ff5570',lineWidth:2,lineStyle:LightweightCharts.LineStyle.Solid,axisLabelVisible:true,title:`Resistencia (${resistance.touches})`}):null;
  for(const [z,color] of [[support,'rgba(32,214,144,.55)'],[resistance,'rgba(255,85,112,.55)']]){if(z)for(const price of [z.low,z.high])percentGuideLines.push(candleSeries.createPriceLine({price,color,lineWidth:1,lineStyle:LightweightCharts.LineStyle.Dashed,axisLabelVisible:false,title:''}));}
+ if(support&&resistance&&resistance.center>support.center){for(let step=1;;step++){const price=support.center*(1+step/100);if(price>=resistance.center)break;percentGuideLines.push(candleSeries.createPriceLine({price,color:'rgba(159,196,238,.42)',lineWidth:1,lineStyle:LightweightCharts.LineStyle.Dotted,axisLabelVisible:true,title:`+${step}%`}));}}
  if(visibleRange)priceChart.timeScale().setVisibleLogicalRange(visibleRange);else{priceChart.timeScale().fitContent();chartHasInitialFit=true;}
 }
 function tvError(){const status=$('chartStatus');if(status){status.textContent='No se pudo cargar';status.className='tag bad';}}
