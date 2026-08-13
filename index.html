@@ -109,7 +109,7 @@
   </section>
 
   <section class="grid3" style="margin-top:18px">
-    <div class="card"><h3>Soporte / Resistencia</h3><div class="row"><span class="label">Soporte confirmado</span><b id="support">--</b></div><div class="row"><span class="label">Resistencia confirmada</span><b id="resistance">--</b></div><div class="row"><span class="label">Contexto actual</span><b id="positionRange">--</b></div><p class="small">Zonas 1H detectadas con pivotes, reacciones repetidas, ATR, volumen, recencia y fuerza del rechazo.</p></div>
+    <div class="card"><h3>Soporte / Resistencia</h3><div class="row"><span class="label">Soporte confirmado</span><b id="support">--</b></div><div class="row"><span class="label">Resistencia confirmada</span><b id="resistance">--</b></div><div class="row"><span class="label">Contexto actual</span><b id="positionRange">--</b></div><p class="small">Zonas estructurales 1H detectadas en 1.000 velas con pivotes multiescala, permanencia, ATR, volumen, recencia y fuerza del rechazo.</p></div>
     <div class="card"><h3>Puntaje técnico</h3><div id="techScore" class="big">--/100</div><div id="techLabel" class="tag warn">Esperando</div><div class="meter"><div id="scoreBar" class="bar"></div></div><p id="techSummary" class="small">Esperando datos...</p></div>
     <div class="card"><h3>Lectura operativa</h3><div id="tradeBias" class="big">--</div><p id="tradeText" class="small">Esta versión no ejecuta operaciones ni recomienda inversión directa. Solo entrega lectura técnica.</p></div>
   </section>
@@ -165,18 +165,19 @@ function macd(values){const e12=ema(values,12),e26=ema(values,26),line=e12.map((
 function atr(candles,period=14){if(!Array.isArray(candles)||candles.length<period+1)return NaN;const trs=[];for(let i=1;i<candles.length;i++){const c=candles[i],prev=candles[i-1].close;trs.push(Math.max(c.high-c.low,Math.abs(c.high-prev),Math.abs(c.low-prev)));}return trs.slice(-period).reduce((a,b)=>a+b,0)/period;}
 function supportResistance(candles,last){
  const data=candles.slice(-1000),a=atr(data,14);if(data.length<100||!Number.isFinite(a))return {support:null,resistance:null,atr:a,zones:[]};
- const wing=3,tolerance=Math.max(a*.35,last*.0015),avgVolume=data.reduce((s,c)=>s+c.volume,0)/data.length,pivots=[];
- for(let i=wing;i<data.length-wing;i++){
-  const c=data[i],around=data.slice(i-wing,i+wing+1),swingLow=around.every((x,j)=>j===wing||c.low<x.low),swingHigh=around.every((x,j)=>j===wing||c.high>x.high);
-  if(!swingLow&&!swingHigh)continue;
-  const price=swingLow?c.low:c.high,future=data.slice(i+1,Math.min(data.length,i+7)),move=future.length?(swingLow?Math.max(...future.map(x=>x.high))-price:price-Math.min(...future.map(x=>x.low))):0;
+ const wings=[3,8,13],tolerance=Math.max(a*.55,last*.0025),avgVolume=data.reduce((s,c)=>s+c.volume,0)/data.length,pivots=[];
+ for(let i=wings[0];i<data.length-wings[0];i++){
+  const c=data[i];let best=null;
+  for(const wing of wings){if(i<wing||i>=data.length-wing)continue;const around=data.slice(i-wing,i+wing+1),swingLow=around.every((x,j)=>j===wing||c.low<x.low),swingHigh=around.every((x,j)=>j===wing||c.high>x.high);if(swingLow||swingHigh)best={wing,swingLow,swingHigh};}
+  if(!best)continue;
+  const type=best.swingLow?'support':'resistance',price=best.swingLow?c.low:c.high,future=data.slice(i+1,Math.min(data.length,i+Math.max(7,best.wing+1))),move=future.length?(best.swingLow?Math.max(...future.map(x=>x.high))-price:price-Math.min(...future.map(x=>x.low))):0;
   if(move<a*.45)continue;
-  pivots.push({price,type:swingLow?'support':'resistance',index:i,volume:c.volume,rejection:move});
+  pivots.push({price,type,index:i,volume:c.volume,rejection:move,scale:best.wing});
  }
  const clusters=[];
  for(const p of pivots){let z=clusters.slice().sort((x,y)=>Math.abs(x.center-p.price)-Math.abs(y.center-p.price))[0];if(!z||Math.abs(z.center-p.price)>tolerance){z={points:[],center:p.price};clusters.push(z)}z.points.push(p);z.center=z.points.reduce((s,x)=>s+x.price,0)/z.points.length;}
- const zones=clusters.filter(z=>z.points.length>=3).map(z=>{const prices=z.points.map(p=>p.price),lastIndex=Math.max(...z.points.map(p=>p.index)),volume=z.points.reduce((s,p)=>s+p.volume/Math.max(avgVolume,1),0)/z.points.length,rejection=z.points.reduce((s,p)=>s+p.rejection/Math.max(a,1),0)/z.points.length,recency=.35+.65*lastIndex/data.length,rawLow=Math.min(...prices)-tolerance*.35,rawHigh=Math.max(...prices)+tolerance*.35,zoneWidth=Math.max(rawHigh-rawLow,a*.6,z.center*.0035),low=z.center-zoneWidth/2,high=z.center+zoneWidth/2;let crossings=0,side=0;for(const c of data.slice(Math.max(0,z.points[0].index))){const next=c.close>high?1:c.close<low?-1:0;if(next&&side&&next!==side)crossings++;if(next)side=next}return {...z,low,high,touches:z.points.length,crossings,score:z.points.length*3+Math.min(volume,2)*1.5+Math.min(rejection,4)*1.5+recency*3-crossings*2,lastIndex};}).filter(z=>z.crossings<=2).sort((x,y)=>y.score-x.score);
- const rank=(z,d)=>z.score+8/(1+d/Math.max(a,1)),supports=zones.filter(z=>z.high<last).sort((x,y)=>rank(y,last-y.center)-rank(x,last-x.center)),resistances=zones.filter(z=>z.low>last).sort((x,y)=>rank(y,y.center-last)-rank(x,x.center-last));
+ const zones=clusters.filter(z=>z.points.length>=3).map(z=>{const prices=z.points.map(p=>p.price),lastIndex=Math.max(...z.points.map(p=>p.index)),volume=z.points.reduce((s,p)=>s+p.volume/Math.max(avgVolume,1),0)/z.points.length,rejection=z.points.reduce((s,p)=>s+p.rejection/Math.max(a,1),0)/z.points.length,structure=z.points.reduce((s,p)=>s+p.scale/13,0),recency=.35+.65*lastIndex/data.length,rawLow=Math.min(...prices)-tolerance*.45,rawHigh=Math.max(...prices)+tolerance*.45,zoneWidth=Math.max(rawHigh-rawLow,a*1.1,z.center*.008),low=z.center-zoneWidth/2,high=z.center+zoneWidth/2;let crossings=0,side=0,occupancy=0,reactions=0,lastReaction=-10;for(let i=Math.max(0,z.points[0].index);i<data.length;i++){const c=data[i],inside=c.low<=high&&c.high>=low;if(inside)occupancy++;const future=data.slice(i+1,Math.min(data.length,i+7)),up=future.length?Math.max(...future.map(x=>x.high))-Math.max(c.low,low):0,down=future.length?Math.min(c.high,high)-Math.min(...future.map(x=>x.low)):0;if(inside&&i-lastReaction>=3&&Math.max(up,down)>=a*.55){reactions++;lastReaction=i}const next=c.close>high?1:c.close<low?-1:0;if(next&&side&&next!==side)crossings++;if(next)side=next}const persistence=Math.min(occupancy/20,3),confirmed=Math.max(z.points.length,reactions);return {...z,low,high,touches:confirmed,crossings,occupancy,score:z.points.length*2.5+Math.min(structure,6)*1.8+Math.min(volume,2)*1.2+Math.min(rejection,4)*1.3+persistence+recency*3-crossings*1.5,lastIndex};}).filter(z=>z.crossings<=Math.max(3,Math.floor(z.points.length*.75))).sort((x,y)=>y.score-x.score);
+ const rank=(z,d)=>z.score+4/(1+d/Math.max(a,1)),supports=zones.filter(z=>z.high<last).sort((x,y)=>rank(y,last-y.center)-rank(x,last-x.center)),resistances=zones.filter(z=>z.low>last).sort((x,y)=>rank(y,y.center-last)-rank(x,x.center-last));
  return {support:supports[0]||null,resistance:resistances[0]||null,atr:a,zones};
 }
 function zoneText(z){return z?`${money(z.low)} – ${money(z.high)} (${z.touches} reacciones)`:'Sin zona confirmada';}
